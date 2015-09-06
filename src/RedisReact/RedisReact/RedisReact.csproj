@@ -107,7 +107,7 @@
     <Content Include="img\redis-logo.png" />
     <Content Include="js\api-redis.js" />
     <Content Include="js\jsonviewer.js" />
-    <Content Include="js\stores.js" />
+    <Content Include="js\components\stores.js" />
     <Content Include="js\web.js" />
     <Content Include="js\app.jsx" />
     <Content Include="Scripts\_references.js" />
