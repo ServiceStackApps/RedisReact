@@ -1,0 +1,180 @@
+﻿body {
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+   font-weight: 300;
+}   
+h1 {
+    margin: 20px 0 0 70px;
+    font-size: 32px;
+}
+
+table td {
+    text-align: left;
+}
+
+body.search-active, body.search-active .navbar {
+    background: #eee;
+}
+.navbar {
+    border: 0;
+    background: none;
+    height: 60px;
+    background: #fff;
+}
+
+h1, .sidebar, .navbar, #poweredby {
+    position: fixed;
+}
+
+#poweredby {
+    color: #aaa;
+    bottom: 5px;
+    right: 5px;
+    font-size: 12px;
+}
+#redislogo {
+    height: 50px;
+    width: 50px;
+}
+#logo {
+    margin: 10px;
+}
+
+.nav > li.nativeApp   {
+    display: none;
+}
+
+.list-group-item {
+    background: none;
+}
+
+.container-fluid > .sidebar {
+    position: relative;
+    top: 0;
+    left:auto;
+    width: 40px; /* width of sidebar */
+}
+
+.left {
+    float:left;
+}
+
+#menu {
+    margin: 15px 0 0 0;
+    padding: 0 0 0 5px;
+}
+#menu li {
+    border: none;
+}
+#menu a {
+    color: rgba(0,0,0,0.54);
+}
+#menu a.active {
+    color: #4285f4;
+}
+
+#body, #menu {
+    /*border: 1px solid red;*/
+}
+#body {
+    margin: 0 0 0 80px;
+}
+#body .content {
+    text-align: center;
+    margin: 70px 0 0 0;
+}
+#formSearch {
+    background: #f5f5f5;
+    border-radius: 2px;
+
+    position: absolute;
+    width: 50%;
+    left: 25%;
+    margin-left: 40px;
+}
+#formSearch .octicon-search {
+    color: #888;
+    position: absolute;
+    margin: 15px 0 0 0;
+}
+.search-active #formSearch {
+    background: #fff;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),
+                0 3px 1px -2px rgba(0,0,0,0.2),
+                0 1px 5px 0 rgba(0,0,0,0.12);
+}
+#txtSearch {
+    border: 1px solid green;
+    width: 100%;
+    background: none;
+    border: none;
+    outline: 0;
+    margin: 0 0 0 20px;
+}
+
+#search-page {
+    text-align: center;
+}
+.wrap {
+    background: #fff;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),
+                0 3px 1px -2px rgba(0,0,0,0.2),
+                0 1px 5px 0 rgba(0,0,0,0.12);
+}
+.search-results {
+    cursor: pointer;
+}
+.search-results > tbody > tr:hover {
+    background: #ffe;
+}
+.table-wrap {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    background: #fff;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),
+                0 3px 1px -2px rgba(0,0,0,0.2),
+                0 1px 5px 0 rgba(0,0,0,0.12);
+}
+
+#keyviewer-page .content {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
+#keyviewer-page {
+}
+#keyviewer-page h3 span, #keyviewer-page h3 i {
+    color: #999;
+}
+#keyviewer-page h3 i {
+    padding: 0 10px 0 5px;
+    font-style: normal;
+}
+.key-preview textarea {
+    width: 100%;
+    min-height: 150px;
+}
+
+.jsonviewer .ib { display: inline-block; }
+.jsonviewer TABLE { border-collapse:collapse; border: solid 1px #ccc; clear: left; }
+.jsonviewer TH { text-align: left; padding: 4px 8px; text-shadow: #fff 1px 1px -1px; background: #f1f1f1; white-space:nowrap; cursor:pointer; font-weight: bold; }
+.jsonviewer TD { padding: 8px 8px 0 8px; vertical-align: top; }
+.jsonviewer DL { margin: 0; clear: left; }
+.jsonviewer DT { font-weight: bold; width: 160px; clear: left; float: left; display:block; white-space:nowrap; line-height: 26px; }
+.jsonviewer DD { display: block; float: left; line-height: 26px; }
+.jsonviewer DL DL DT { font-weight: bold; }
+.jsonviewer HR { display:none; }
+.jsonviewer TD DL HR { display:block; padding: 0; clear: left; border: none; }
+.jsonviewer TD DL { padding: 4px; margin: 0; height:100%; max-width: 700px; }
+.jsonviewer DL TD DL DT { padding: 2px; margin: 0 10px 0 0; font-weight: bold; width: 120px; overflow: hidden; clear: left; float: left; display:block; }
+.jsonviewer DL TD DL DD { margin: 0; padding: 2px; display: block; float: left; }
+.jsonviewer TBODY>TR:last-child>TD { padding: 8px; }
+.jsonviewer THEAD { -webkit-user-select:none; -moz-user-select:none; }
+.jsonviewer .desc, .jsonviewer .asc { background-color: #FAFAD2; }
+.jsonviewer .desc { background-color: #D4EDC9; }
+.jsonviewer TH B { display:block; float:right; margin: 0 0 0 5px; width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 5px solid #ccc; border-bottom: none; }
+.jsonviewer .asc B { border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 5px solid #333; border-bottom: none; }
+.jsonviewer .desc B { border-left: 5px solid transparent; border-right: 5px solid transparent; border-bottom: 5px solid #333; border-top: none; }
+.jsonviewer H3 { margin: 0 0 10px 0; }
+

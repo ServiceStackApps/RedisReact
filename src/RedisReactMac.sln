@@ -1,0 +1,29 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedisReact.AppMac", "RedisReact\RedisReact.AppMac\RedisReact.AppMac.csproj", "{318B96DE-9A31-42A9-8241-84D14472F078}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedisReact.ServiceModel", "RedisReact\RedisReact.ServiceModel\RedisReact.ServiceModel.csproj", "{08BEF328-AB7D-48D3-800D-48ACC75C7914}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedisReact.ServiceInterface", "RedisReact\RedisReact.ServiceInterface\RedisReact.ServiceInterface.csproj", "{582DFB0F-F84D-4E43-9BCA-2A5A86600B7A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{08BEF328-AB7D-48D3-800D-48ACC75C7914}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08BEF328-AB7D-48D3-800D-48ACC75C7914}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08BEF328-AB7D-48D3-800D-48ACC75C7914}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08BEF328-AB7D-48D3-800D-48ACC75C7914}.Release|Any CPU.Build.0 = Release|Any CPU
+		{318B96DE-9A31-42A9-8241-84D14472F078}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{318B96DE-9A31-42A9-8241-84D14472F078}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{318B96DE-9A31-42A9-8241-84D14472F078}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{318B96DE-9A31-42A9-8241-84D14472F078}.Release|Any CPU.Build.0 = Release|Any CPU
+		{582DFB0F-F84D-4E43-9BCA-2A5A86600B7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{582DFB0F-F84D-4E43-9BCA-2A5A86600B7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{582DFB0F-F84D-4E43-9BCA-2A5A86600B7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{582DFB0F-F84D-4E43-9BCA-2A5A86600B7A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

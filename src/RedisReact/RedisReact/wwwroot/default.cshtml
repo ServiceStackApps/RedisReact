@@ -1,0 +1,52 @@
+@inherits ServiceStack.Razor.ViewPage
+@{
+    var platformsClassName = AppSettings.Exists("PlatformClassName") ? AppSettings.GetString("PlatformClassName") : "web";         
+}
+<!DOCTYPE html>
+<html @platformsClassName>
+<head lang="en">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="lib/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.min.css">
+    @if (AppSettings.Exists("PlatformCss"))
+    {
+        <link rel="stylesheet" href="@(AppSettings.GetString("PlatformCss") + "?disableCache=" + DateTime.Now.Ticks)" />
+    }
+    <script src="lib/js/jquery.min.js"></script>
+    <script src="lib/js/bootstrap.min.js"></script>
+    <script src="lib/js/modernizr.min.js"></script>
+    <script src="lib/js/react.min.js"></script>
+    
+    @if (AppSettings.Exists("PlatformJs"))
+    {
+        <script src="@(AppSettings.GetString("PlatformJs") + "?disableCache=" + DateTime.UtcNow.Ticks)"></script>
+    }
+    <title>RedisReact</title>
+</head>
+<body>
+    <div class="navbar navbar-inverse" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">RedisReact</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav pull-right">
+                    <li><a href="#" onclick=" nativeHost.showAbout() ">About</a></li>
+                    <li class="nativeApp winforms"><a href="#" onclick="nativeHost.toggleFormBorder()">Toggle Window</a></li>
+                    <li class="nativeApp winforms console"><a href="#" onclick="nativeHost.quit()">Close</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div id="demo"></div>
+    </div>
+    <script src="js/app.jsx.js"></script>
+</body>
+</html>

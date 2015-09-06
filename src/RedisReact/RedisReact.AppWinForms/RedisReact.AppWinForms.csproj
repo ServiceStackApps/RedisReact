@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\packages\CefSharp.WinForms.41.0.0\build\CefSharp.WinForms.props" Condition="Exists('..\..\packages\CefSharp.WinForms.41.0.0\build\CefSharp.WinForms.props')" />
+  <Import Project="..\..\packages\CefSharp.Common.41.0.0\build\CefSharp.Common.props" Condition="Exists('..\..\packages\CefSharp.Common.41.0.0\build\CefSharp.Common.props')" />
+  <Import Project="$(SolutionDir)\packages\CefSharp.WinForms.41.0.0\build\CefSharp.WinForms.props" Condition="Exists('$(SolutionDir)\packages\CefSharp.WinForms.41.0.0\build\CefSharp.WinForms.props')" />
+  <Import Project="$(SolutionDir)\packages\CefSharp.Common.41.0.0\build\CefSharp.Common.props" Condition="Exists('$(SolutionDir)\packages\CefSharp.Common.41.0.0\build\CefSharp.Common.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{2377C261-2089-490D-86F3-7030929A55BD}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RedisReact.AppWinForms</RootNamespace>
+    <AssemblyName>RedisReact.AppWinForms</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CefSharp, Version=41.0.0.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SolutionDir)\packages\CefSharp.Common.41.0.0\CefSharp\x86\CefSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="CefSharp.BrowserSubprocess.Core">
+      <HintPath>$(SolutionDir)\packages\CefSharp.Common.41.0.0\CefSharp\x86\CefSharp.BrowserSubprocess.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="CefSharp.Core, Version=41.0.0.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SolutionDir)\packages\CefSharp.Common.41.0.0\CefSharp\x86\CefSharp.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="CefSharp.WinForms, Version=41.0.0.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SolutionDir)\packages\CefSharp.WinForms.41.0.0\CefSharp\x86\CefSharp.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack, Version=4.0.45.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ServiceStack.4.0.45\lib\net40\ServiceStack.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack.Client, Version=4.0.45.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ServiceStack.Client.4.0.45\lib\net40\ServiceStack.Client.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack.Common, Version=4.0.45.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ServiceStack.Common.4.0.45\lib\net40\ServiceStack.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack.Interfaces, Version=4.0.0.0, Culture=neutral, PublicKeyToken=e06fbc6124f57c43, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ServiceStack.Interfaces.4.0.45\lib\portable-wp80+sl5+net40+win8+monotouch+monoandroid+xamarin.ios10\ServiceStack.Interfaces.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack.OrmLite, Version=4.0.45.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ServiceStack.OrmLite.4.0.45\lib\net45\ServiceStack.OrmLite.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack.Razor, Version=4.0.45.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ServiceStack.Razor.4.0.45\lib\net45\ServiceStack.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack.Text, Version=4.0.45.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ServiceStack.Text.4.0.45\lib\net40\ServiceStack.Text.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=e06fbc6124f57c43, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ServiceStack.Razor.4.0.45\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AppHost.cs" />
+    <Compile Include="FormMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMain.Designer.cs">
+      <DependentUpon>FormMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NativeHost.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FormMain.resx">
+      <DependentUpon>FormMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RedisReact.Resources\RedisReact.Resources.csproj">
+      <Project>{3414e9ec-19b8-410c-ac33-f2e6d081b930}</Project>
+      <Name>RedisReact.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RedisReact.ServiceInterface\RedisReact.ServiceInterface.csproj">
+      <Project>{582dfb0f-f84d-4e43-9bca-2a5a86600b7a}</Project>
+      <Name>RedisReact.ServiceInterface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RedisReact.ServiceModel\RedisReact.ServiceModel.csproj">
+      <Project>{08bef328-ab7d-48d3-800d-48acc75c7914}</Project>
+      <Name>RedisReact.ServiceModel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="winforms.css" />
+    <EmbeddedResource Include="winforms.js" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\packages\cef.redist.x64.3.2272.32\build\cef.redist.x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\cef.redist.x64.3.2272.32\build\cef.redist.x64.targets'))" />
+    <Error Condition="!Exists('..\..\packages\cef.redist.x86.3.2272.32\build\cef.redist.x86.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\cef.redist.x86.3.2272.32\build\cef.redist.x86.targets'))" />
+    <Error Condition="!Exists('..\..\packages\CefSharp.Common.41.0.0\build\CefSharp.Common.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\CefSharp.Common.41.0.0\build\CefSharp.Common.props'))" />
+    <Error Condition="!Exists('..\..\packages\CefSharp.Common.41.0.0\build\CefSharp.Common.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\CefSharp.Common.41.0.0\build\CefSharp.Common.targets'))" />
+    <Error Condition="!Exists('..\..\packages\CefSharp.WinForms.41.0.0\build\CefSharp.WinForms.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\CefSharp.WinForms.41.0.0\build\CefSharp.WinForms.props'))" />
+  </Target>
+  <Import Project="..\..\packages\cef.redist.x64.3.2272.32\build\cef.redist.x64.targets" Condition="Exists('..\..\packages\cef.redist.x64.3.2272.32\build\cef.redist.x64.targets')" />
+  <Import Project="..\..\packages\cef.redist.x86.3.2272.32\build\cef.redist.x86.targets" Condition="Exists('..\..\packages\cef.redist.x86.3.2272.32\build\cef.redist.x86.targets')" />
+  <Import Project="..\..\packages\CefSharp.Common.41.0.0\build\CefSharp.Common.targets" Condition="Exists('..\..\packages\CefSharp.Common.41.0.0\build\CefSharp.Common.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

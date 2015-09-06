@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E78E217F-6804-460E-BFD1-BB3C588FD03B}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RedisReact</RootNamespace>
+    <AssemblyName>RedisReact</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <RestorePackages>true</RestorePackages>
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="ServiceStack, Version=4.0.45.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ServiceStack.4.0.45\lib\net40\ServiceStack.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack.Client, Version=4.0.45.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ServiceStack.Client.4.0.45\lib\net40\ServiceStack.Client.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack.Common, Version=4.0.45.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\ServiceStack\lib\ServiceStack.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Interfaces, Version=4.0.0.0, Culture=neutral, PublicKeyToken=e06fbc6124f57c43, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\ServiceStack\lib\ServiceStack.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.OrmLite, Version=4.0.45.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ServiceStack.OrmLite.4.0.45\lib\net45\ServiceStack.OrmLite.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack.Razor, Version=4.0.45.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ServiceStack.Razor.4.0.45\lib\net45\ServiceStack.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack.Redis, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\ServiceStack.Redis\src\ServiceStack.Redis\bin\Debug\ServiceStack.Redis.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Server, Version=4.0.45.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ServiceStack.Server.4.0.45\lib\net45\ServiceStack.Server.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack.Text, Version=4.0.45.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\ServiceStack\lib\ServiceStack.Text.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=e06fbc6124f57c43, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ServiceStack.Razor.4.0.45\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="css\app.css" />
+    <Content Include="gruntfile.js" />
+    <Content Include="default.cshtml" />
+    <Content Include="img\logo-32.png" />
+    <Content Include="img\redis-logo.png" />
+    <Content Include="js\api-redis.js" />
+    <Content Include="js\jsonviewer.js" />
+    <Content Include="js\stores.js" />
+    <Content Include="js\web.js" />
+    <Content Include="js\app.jsx" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="tests\unit\hello-test.js" />
+    <Content Include="tests\preprocessor.js" />
+    <Content Include="tests\README.txt" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="package.json" />
+    <Content Include="bower.json" />
+    <Content Include="wwwroot_build\00-install-dependencies.bat" />
+    <Content Include="wwwroot_build\package-deploy-console.bat" />
+    <Content Include="wwwroot_build\config-winforms.txt" />
+    <Content Include="wwwroot_build\package-deploy-winforms.bat" />
+    <Content Include="wwwroot_build\deploy\appsettings.txt" />
+    <Content Include="wwwroot_build\publish\config.json" />
+    <Content Include="wwwroot_build\tools\7zsd_All.sfx" />
+    <Content Include="wwwroot_build\tools\7za.exe" />
+    <Content Include="wwwroot_build\tools\ILMerge.exe" />
+    <Content Include="wwwroot_build\tools\Licenses.txt" />
+    <Content Include="js\components\KeyViewer.jsx" />
+    <Content Include="js\components\Dashboard.jsx" />
+    <Content Include="js\components\Search.jsx" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Global.asax" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AppHost.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RedisReact.ServiceInterface\RedisReact.ServiceInterface.csproj">
+      <Project>{582dfb0f-f84d-4e43-9bca-2a5a86600b7a}</Project>
+      <Name>RedisReact.ServiceInterface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RedisReact.ServiceModel\RedisReact.ServiceModel.csproj">
+      <Project>{08bef328-ab7d-48d3-800d-48acc75c7914}</Project>
+      <Name>RedisReact.ServiceModel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>60192</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:60192/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

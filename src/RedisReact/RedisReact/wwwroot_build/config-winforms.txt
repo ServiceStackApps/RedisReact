@@ -1,0 +1,4 @@
+﻿;!@Install@!UTF-8!
+ExecuteFile="RedisReact.AppWinForms.exe"
+GUIMode="2"
+;!@InstallEnd@!

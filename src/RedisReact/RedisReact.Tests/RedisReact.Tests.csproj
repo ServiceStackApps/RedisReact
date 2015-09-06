@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B1665387-EF91-4CA0-82BB-66E5781ED800}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RedisReact.Tests</RootNamespace>
+    <AssemblyName>RedisReact.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
+    <IsCodedUITest>False</IsCodedUITest>
+    <TestProjectType>UnitTest</TestProjectType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="nunit.framework, Version=2.6.3.13283, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SolutionDir)\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack, Version=4.0.45.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ServiceStack.4.0.45\lib\net40\ServiceStack.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack.Client, Version=4.0.45.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ServiceStack.Client.4.0.45\lib\net40\ServiceStack.Client.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack.Common, Version=4.0.45.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ServiceStack.Common.4.0.45\lib\net40\ServiceStack.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack.Interfaces, Version=4.0.0.0, Culture=neutral, PublicKeyToken=e06fbc6124f57c43, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ServiceStack.Interfaces.4.0.45\lib\portable-wp80+sl5+net40+win8+monotouch+monoandroid+xamarin.ios10\ServiceStack.Interfaces.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack.Text, Version=4.0.45.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ServiceStack.Text.4.0.45\lib\net40\ServiceStack.Text.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Net" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="UnitTests.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RedisReact.ServiceInterface\RedisReact.ServiceInterface.csproj">
+      <Project>{582dfb0f-f84d-4e43-9bca-2a5a86600b7a}</Project>
+      <Name>RedisReact.ServiceInterface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RedisReact.ServiceModel\RedisReact.ServiceModel.csproj">
+      <Project>{08bef328-ab7d-48d3-800d-48acc75c7914}</Project>
+      <Name>RedisReact.ServiceModel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,62 @@
+﻿@inherits ServiceStack.Razor.ViewPage
+@{
+    var platformsClassName = AppSettings.Exists("PlatformClassName") ? AppSettings.GetString("PlatformClassName") : "web";
+}
+
+<!DOCTYPE html>
+<html @platformsClassName>
+<head lang="en">
+    <meta charset="UTF-8">
+    <!--build:css lib/css/bootstrap.min.css-->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/octicons/octicons/octicons.css">
+    <!-- endbuild -->
+    <!--build:css css/app.min.css-->
+    <link rel="stylesheet" href="css/app.css" />
+    <!-- endbuild -->
+    @if (AppSettings.Exists("PlatformCss"))
+    {
+        <link rel="stylesheet" href="@(AppSettings.GetString("PlatformCss") + "?disableCache=" + DateTime.Now.Ticks)" />
+    }
+    <!-- build:js lib/js/jquery.min.js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <!-- endbuild -->
+    <!-- build:js lib/js/bootstrap.min.js -->
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <!-- endbuild -->
+    <!-- build:js lib/js/modernizr.min.js -->
+    <script src="bower_components/modernizr/modernizr.js"></script>
+    <!-- endbuild -->
+    <!-- build:js lib/js/react.min.js -->
+    <script src="bower_components/react/react.js"></script>
+    <script src="bower_components/react-router/build/umd/ReactRouter.js"></script>
+    <script src="bower_components/reflux/dist/reflux.js"></script>
+    <!-- endbuild -->
+    <!-- build:remove -->
+    <script src="bower_components/react/JSXTransformer.js"></script>
+    <!-- endbuild -->
+
+    <script src="/js/ss-utils.js"></script>
+    <!-- build:js lib/js/app.min.js -->
+    <script src="/js/api-redis.js"></script>
+    <script src="/js/jsonviewer.js"></script>
+    <!-- endbuild -->
+
+    @if (AppSettings.Exists("PlatformJs"))
+    {
+        <script src="@(AppSettings.GetString("PlatformJs") + "?disableCache=" + DateTime.UtcNow.Ticks)"></script>
+    }
+    <title>Redis React</title>
+</head>
+<body>
+
+<!-- build:js js/app.jsx.js -->
+<script type="text/jsx" src="js/components/Stores.js"></script>
+<script type="text/jsx" src="js/components/Dashboard.jsx"></script>
+<script type="text/jsx" src="js/components/KeyViewer.jsx"></script>
+<script type="text/jsx" src="js/components/Search.jsx"></script>
+<script type="text/jsx" src="js/app.jsx"></script>
+<!-- endbuild -->
+
+</body>
+</html>
