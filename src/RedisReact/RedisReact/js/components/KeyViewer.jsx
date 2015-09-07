@@ -62,9 +62,33 @@
         if (this.state.rawMode)
             return <div className="rawview">{s}</div>;
 
+        var $this = this;
+        var refKeys = [];
+
+        function valueFmt(k, v, vFmt) {
+            if (k.length > 2 && k.endsWith('Id') && k.indexOf("'") == -1) {
+                var ref = "urn:" + k.substring(0, k.length - 2).toLowerCase() + ":" + v;
+                var existsAttr = Redis.existsCache[ref]
+                    ? " data-exists='1'"
+                    : "";
+                refKeys.push(ref);
+                return "<span data-ref='" + ref + "'" + existsAttr + ">" + vFmt + "</span>";
+            }
+
+            return vFmt;
+        };
+
         try {
             var o = JSON.parse(s);
             return <div className="jsonviewer" dangerouslySetInnerHTML={{__html: jsonviewer(o)}} />;
+            var el = <div onClick={this.onValueClick} className="jsonviewer" 
+                          dangerouslySetInnerHTML={{__html: jsonviewer(o, valueFmt)}} />;
+
+            if (refKeys.length > 0) {
+                Redis.cachedExists(refKeys);
+            }
+
+            return el;
         } catch (e) {
             return <div>{s}</div>;
         }
