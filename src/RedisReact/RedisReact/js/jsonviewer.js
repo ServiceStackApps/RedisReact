@@ -11,7 +11,13 @@
         keys = function(o){ var a=[]; for (var k in o) if (show(k)) a.push(k); return a; }
     var tbls = [];
 
-    function val(m) {
+    var valueFmt = function(k, v, vFmt) {
+        return vFmt;
+    };
+
+    function val(m, valueFn) {
+        if (valueFn)
+            valueFmt = valueFn;
         if (m == null) return '';
         if (typeof m == 'number') return num(m);
         if (typeof m == 'string') return str(m);
@@ -38,7 +44,7 @@
     function show(k) { return typeof k != 'string' || k.substr(0,2) != '__'; }
     function obj(m) {
         var sb = '<dl>';
-        for (var k in m) if (show(k)) sb += '<dt class="ib">' + splitCase(k) + '</dt><dd>' + val(m[k]) + '</dd>';
+        for (var k in m) if (show(k)) sb += '<dt class="ib">' + splitCase(k) + '</dt><dd>' + valueFmt(k, m[k], val(m[k])) + '</dd>';
         sb += '</dl>';
         return sb;
     }
@@ -52,13 +58,15 @@
         sb += '</tr></thead><tbody>' + makeRows(h,m) + '</tbody></table>';
         return sb;
     }
-
     function makeRows(h,m) {
         var sb = '';
         for (var r=0,len=m.length; r<len; r++) {
             sb += '<tr>';
             var row = m[r];
-            for (var k in h) if (show(k)) sb += '<td>' + val(row[k]) + '</td>';
+            for (var k in h) {
+                if (show(k))
+                    sb += '<td>' + valueFmt(k, row[k], val(row[k])) + '</td>';
+            }
             sb += '</tr>';
         }  
         return sb;
