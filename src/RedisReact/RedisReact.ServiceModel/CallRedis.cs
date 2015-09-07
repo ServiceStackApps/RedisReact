@@ -7,6 +7,26 @@ using ServiceStack.Redis;
 
 namespace RedisReact.ServiceModel
 {
+    [Route("/connection", "GET")]
+    public class GetConnection : IReturn<GetConnectionResponse> { }
+
+    public class GetConnectionResponse
+    {
+        public string Host { get; set; }
+        public int Port { get; set; }
+        public int Db { get; set; }
+
+        public ResponseStatus ResponseStatus { get; set; }
+    }
+
+    [Route("/connection", "POST")]
+    public class ChangeConnection : IReturn<GetConnectionResponse>
+    {
+        public string Host { get; set; }
+        public int? Port { get; set; }
+        public int? Db { get; set; }
+    }
+
     [Route("/call-redis")]
     public class CallRedis : IReturn<CallRedisResponse>
     {

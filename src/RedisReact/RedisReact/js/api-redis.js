@@ -11,6 +11,12 @@
             data: JSON.stringify(request)
         });
     },
+    getConnection: function () {
+        return $.ajax({
+            url: "/connection",
+            dataType: "json"
+        });
+    },
     search: function (query) {
         return $.ajax({
             url: "/search-redis",

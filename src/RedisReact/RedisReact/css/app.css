@@ -1,10 +1,72 @@
-﻿body {
+﻿::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0,0,0,.5);
+    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+}
+html {
+    overflow-y:scroll;
+}
+body {
    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
    font-weight: 300;
 }   
 h1 {
     margin: 20px 0 0 70px;
-    font-size: 32px;
+    font-size: 28px;
+}
+#connection {
+    display: block;
+    margin: 4px 0 0 70px;
+    color: #aaa;
+}
+#connection:hover, #connection:focus, #connection:visited {
+    text-decoration: none;
+}
+#connection:hover, .connections-active #connection {
+    color: #4285f4;
+}
+#connection b {
+    padding: 0 0 0 5px;
+}
+.error-summary {
+    color: #c00;
+}
+#formConnection {
+    padding: 40px 0 0 0;
+}
+#formConnection h2 {
+    margin: 0 0 40px 0;
+}
+#formConnection  input {
+    margin: 0 10px;
+}
+#formConnection #txtHost {
+    width: 200px;
+}
+#formConnection #txtPort {
+    width: 70px;
+}
+#formConnection #txtDb {
+    width: 40px;
+}
+#formConnection .actions {
+    margin: 20px 0;
+}
+.loader {
+    visibility: hidden;
+    margin: 0 5px 0 -40px;
+}
+.loading .loader {
+    visibility: visible;
+}
+.bg-success, .bg-danger {
+    line-height: 34px;
+    width: 50%;
+    margin: 0 auto;
 }
 
 table td {
@@ -21,7 +83,7 @@ body.search-active, body.search-active .navbar {
     background: #fff;
 }
 
-h1, .sidebar, .navbar, #poweredby {
+.sidebar, .navbar, #poweredby {
     position: fixed;
 }
 
