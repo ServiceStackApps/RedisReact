@@ -41,41 +41,41 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="ServiceStack, Version=4.0.45.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\ServiceStack\src\ServiceStack.Server\bin\Release\ServiceStack.dll</HintPath>
+      <HintPath>..\..\..\lib\ServiceStack.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Client, Version=4.0.45.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.Client, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\ServiceStack\src\ServiceStack.Server\bin\Release\ServiceStack.Client.dll</HintPath>
+      <HintPath>..\..\..\lib\ServiceStack.Client.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Common, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\ServiceStack\src\ServiceStack.Server\bin\Release\ServiceStack.Common.dll</HintPath>
+      <HintPath>..\..\..\lib\ServiceStack.Common.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Interfaces, Version=4.0.0.0, Culture=neutral, PublicKeyToken=e06fbc6124f57c43, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\ServiceStack\src\ServiceStack.Server\bin\Release\ServiceStack.Interfaces.dll</HintPath>
+      <HintPath>..\..\..\lib\ServiceStack.Interfaces.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.OrmLite, Version=4.0.45.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.OrmLite, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\ServiceStack\src\ServiceStack.Server\bin\Release\ServiceStack.OrmLite.dll</HintPath>
+      <HintPath>..\..\..\lib\ServiceStack.OrmLite.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Razor, Version=4.0.45.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\ServiceStack.Razor.4.0.45\lib\net45\ServiceStack.Razor.dll</HintPath>
-      <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\ServiceStack.Razor.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Redis, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\ServiceStack\src\ServiceStack.Server\bin\Release\ServiceStack.Redis.dll</HintPath>
+      <HintPath>..\..\..\lib\ServiceStack.Redis.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Server, Version=4.0.45.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.Server, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\ServiceStack\src\ServiceStack.Server\bin\Release\ServiceStack.Server.dll</HintPath>
+      <HintPath>..\..\..\lib\ServiceStack.Server.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Text, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\ServiceStack\src\ServiceStack.Server\bin\Release\ServiceStack.Text.dll</HintPath>
+      <HintPath>..\..\..\lib\ServiceStack.Text.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -88,8 +88,8 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=e06fbc6124f57c43, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\ServiceStack.Razor.4.0.45\lib\net45\System.Web.Razor.dll</HintPath>
-      <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\System.Web.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
@@ -104,7 +104,6 @@
     <Content Include="gruntfile.js" />
     <Content Include="default.cshtml" />
     <Content Include="img\ajax-loader.gif" />
-    <Content Include="img\loader.gif" />
     <Content Include="img\logo-32.png" />
     <Content Include="img\redis-logo.png" />
     <Content Include="js\api-redis.js" />
