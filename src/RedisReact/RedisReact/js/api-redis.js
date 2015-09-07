@@ -18,10 +18,14 @@
         });
     },
     search: function (query) {
+        var $this = this;
         return $.ajax({
             url: "/search-redis",
             dataType: "json",
             data: { query: query }
+        })
+        .then(function (r) {
+            return $this.searchCache[query] = r;
         });
     },
     searchCache: {},
@@ -37,42 +41,24 @@
                 return $this.searchCache[query] = r;
             });
     },
-    exists: function (keys) {
+    getStringValues: function(keys) {
         var args = keys.slice(0);
         args.unshift('MGET');
         return this.call(args)
-            .then(function(r) {
+            .then(function (r) {
                 var to = {};
                 for (var i = 0; i < keys.length; i++) {
-                    to[keys[i]] = !!r.redisText.children[i].text;
+                    to[keys[i]] = r.redisText.children[i].text;
                 }
                 return to;
             });
     },
-    existsCache: {},
-    cachedExists: function (keys) {
-        var to = {};
-        var missingKeys = [];
-        var cache = this.existsCache;
-        for (var i = 0; i < keys.length; i++) {
-            var key = keys[i];
-            if (key in cache) {
-                to[key] = cache[key];
-            } else {
-                missingKeys.push(key);
-            }
-        }
-
-        if (missingKeys.length == 0) {
-            var deferred = $.Deferred();
-            deferred.resolve(to);
-            return deferred.promise();
-        }
-
-        return this.exists(missingKeys)
-            .then(function (r) {
+    exists: function (keys) {
+        return this.getStringValues(keys)
+            .then(function(r) {
+                var to = {};
                 for (var k in r) {
-                    cache[k] = to[k] = r[k];
+                    to[k] = !!r[k];
                 }
                 return to;
             });
