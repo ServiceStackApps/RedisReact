@@ -80,6 +80,7 @@
             else if (result.type == 'hash')
                 View = this.renderMap(result.value);
         }
+        var title = this.state.rawMode ? 'click for preview' : 'click for raw view';
 
         return (
           <div id="keyviewer-page">
@@ -89,7 +90,7 @@
                   <i>{this.state.type}</i>
                   <b>{this.state.id}</b>
                 </h3>
-                  <div onClick={this.toggleRawMode}>
+                  <div onClick={this.toggleRawMode} title={title}>
                       {View}
                   </div>
               </div>
