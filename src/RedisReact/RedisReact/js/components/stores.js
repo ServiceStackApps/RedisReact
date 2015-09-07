@@ -10,33 +10,52 @@ var Actions = Reflux.createActions([
     'loadConnection',
     'search',
     'loadKey',
-    'loadSimilarKeys'
+    'loadRelatedKeyInfo'
 ]);
+
+function findPotentialKeys(o) {
+    var keys = [];
+    if (typeof o == 'object') {
+        for (var k in o) {
+            if (k.length > 2 && k.endsWith('Id') && k.indexOf("'") == -1) {
+                var v = o[k];
+                var ref = "urn:" + k.substring(0, k.length - 2).toLowerCase() + ":" + v;
+                keys.push(ref);
+            }
+        }
+    }
+    return keys;
+}
+
+function isJsonObject(s) {
+    var isComplexJson = s.indexOf('{') >= 0 || s.indexOf('[') >= 0;
+    return isComplexJson;
+}
 
 var SearchStore = Reflux.createStore({
     init: function () {
         this.listenTo(Actions.search, this.search);
+        this.searchText = null;
         this.searchResults = [];
     },
     search: function (searchText) {
-        if (!searchText)
-            searchText = "*";
+        var $this = this;
+        this.searchText = searchText || "*";
 
         var patternChars = ['*', '?', '[', ']'];
         var hasPattern = patternChars.some(function (c) {
-            return searchText.indexOf(c) >= 0;
+            return $this.searchText.indexOf(c) >= 0;
         });
 
-        if (searchText.endsWith('$')) {
-            searchText = searchText.substring(0, searchText.length - 1);
+        if (this.searchText.endsWith('$')) {
+            this.searchText = this.searchText.substring(0, this.searchText.length - 1);
             hasPattern = true;
         }
 
         if (!hasPattern)
-            searchText += "*";
+            this.searchText += "*";
 
-        var $this = this;
-        Redis.search(searchText)
+        Redis.search(this.searchText)
             .done(function (r) {
                 $this.trigger($this.searchResults = r.results || []);
             });
@@ -74,7 +93,7 @@ var ConnectionStore = Reflux.createStore({
 var KeyStore = Reflux.createStore({
     init: function() {
         this.listenTo(Actions.loadKey, this.loadKey);
-        this.listenTo(Actions.loadSimilarKeys, this.loadSimilarKeys);
+        this.listenTo(Actions.loadRelatedKeyInfo, this.loadRelatedKeyInfo);
         this.cache = {};
     },
     loadKey: function(id, type) {
@@ -110,7 +129,34 @@ var KeyStore = Reflux.createStore({
                 });
         }
     },
-    loadSimilarKeys: function(result) {
+    loadRelatedKeyInfo: function(result) {
+        var $this = this;
+
+        if (isJsonObject(result.value)) {
+            try {
+                var o = JSON.parse(result.value);
+                var refKeys = findPotentialKeys(o);
+                if (refKeys.length > 0) {
+                    Redis.getStringValues(refKeys)
+                        .then(function(r) {
+                            result.relatedKeys = r;
+                            $this.trigger(result);
+                        });
+                }
+            } catch (e){}
+        }
+
+        var q = SearchStore.searchText;
+        if (q && q != "*") {
+            result.parent = q;
+            Redis.cachedSearch(result.parent)
+                .done(function(r) {
+                    result.similarKeys = r.results;
+                    $this.trigger(result);
+                });
+            return;
+        }
+
         var separators = [':', '.', '/'];
 
         var id = result.id;
@@ -118,9 +164,8 @@ var KeyStore = Reflux.createStore({
             return id.lastIndexOf(x);
         }));
         if (lastSep >= 0) {
-            var $this = this;
-            result.parent = id.substring(0, lastSep + 1);
-            Redis.cachedSearch(result.parent + '*')
+            result.parent = id.substring(0, lastSep + 1) + '*';
+            Redis.cachedSearch(result.parent)
                 .done(function(r) {
                     result.similarKeys = r.results;
                     $this.trigger(result);
