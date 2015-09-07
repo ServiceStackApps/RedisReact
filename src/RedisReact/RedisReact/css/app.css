@@ -217,6 +217,38 @@ body.search-active, body.search-active .navbar {
     width: 100%;
     min-height: 150px;
 }
+#keyviewer-page #lnkToggleRaw {
+    cursor: pointer;
+    float: right;
+    display: block;
+    margin: -10px 0 0 0;
+}
+
+#keyview {
+}
+#keyview [data-exists] {
+    color: #337ab7;
+    text-decoration: underline;
+    cursor: pointer;
+}
+#similarkeys {
+    position: absolute;
+    display: inline-block;
+    right: 0;
+    z-index: 1;
+    background: #fff;
+    min-width: 160px;
+}
+#similarkeys td {
+    padding: 0 20px;
+    cursor: pointer;
+}
+#similarkeys .active td {
+    padding: 0 20px 0 7px  ;
+}
+#similarkeys .active td b {
+    padding: 0 5px 0 0;
+}
 
 .jsonviewer .ib { display: inline-block; }
 .jsonviewer TABLE { border-collapse:collapse; border: solid 1px #ccc; clear: left; }

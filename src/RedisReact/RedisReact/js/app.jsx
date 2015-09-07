@@ -139,7 +139,7 @@ var App = React.createClass({
                             </div>
                         </form>
                         <div className="nav navbar-nav navbar-right">
-                            <a href="https://servicestack.net" title="servicestack.net">
+                            <a href="https://servicestack.net" title="servicestack.net" target="_blank">
                                 <img id="logo" alt="Brand" src="/img/logo-32.png" />
                             </a>
                         </div>
@@ -165,7 +165,7 @@ var App = React.createClass({
                         <RouteHandler />
                     </div>
                 </div>
-                <div id="poweredby">powered by <a href="https://servicestack.net">servicestack.net</a></div>
+                <div id="poweredby">powered by <a href="https://servicestack.net" target="_blank">servicestack.net</a></div>
             </div>
       );
     }

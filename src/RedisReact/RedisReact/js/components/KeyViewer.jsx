@@ -4,18 +4,36 @@
         Router.State,
         Reflux.listenTo(KeyStore, "onKeyLoaded")
     ],
-    init: function () {
-    },
-    getInitialState: function () {
+    componentWillMount: function () {
         var q = this.getQuery();
+        this.setState({ id: q.id, type: q.type, rawMode: false });
         Actions.loadKey(q.id, q.type);
-        return { id: q.id, type: q.type, rawMode: false };
+        document.addEventListener('keyup', this.globalKeyUp);
+    },
+    componentWillUnmount: function () {
+        document.removeEventListener('keyup', this.globalKeyUp);
+    },
+    componentWillReceiveProps: function () {
+        var q = this.getQuery();
+        this.setState({ id: q.id, type: q.type });
+        Actions.loadKey(q.id, q.type);
     },
     onKeyLoaded: function (result) {
         this.setState({ result: result });
+
+        if (!result.similarKeys)
+            Actions.loadSimilarKeys(result);
     },
     toggleRawMode: function () {
         this.setState({ rawMode: !this.state.rawMode });
+    },
+    navToKey: function(e){
+        var tr = $(e.target).parents("tr");
+        this.viewKey(tr.data("id"), tr.data("type"));
+    },
+    viewKey: function(id, type){
+        var args = { id: id, type: type };
+        this.transitionTo("keys", null, args);
     },
     globalKeyUp: function (e) {
         var LEFT = 37, RIGHT = 39, T = 84;
@@ -55,6 +73,8 @@
         }
     },
     renderValue: function (s) {
+        if (typeof s == 'undefined')
+            s = '';
         var isComplexJson = s.indexOf('{') >= 0 || s.indexOf('[') >= 0;
         if (!isComplexJson)
             return <div>{s}</div>;
@@ -80,7 +100,6 @@
 
         try {
             var o = JSON.parse(s);
-            return <div className="jsonviewer" dangerouslySetInnerHTML={{__html: jsonviewer(o)}} />;
             var el = <div onClick={this.onValueClick} className="jsonviewer" 
                           dangerouslySetInnerHTML={{__html: jsonviewer(o, valueFmt)}} />;
 
@@ -127,7 +146,10 @@
         );
     },
     render: function () {
+        var $this = this;
         var View = <div>Key does not exist</div>;
+        var SimilarKeys = <div/>;
+
         var result = this.state.result;
         if (result) {
             if (result.type == 'string')
@@ -140,8 +162,32 @@
                 View = this.renderMap(result.value);
             else if (result.type == 'hash')
                 View = this.renderMap(result.value);
+
+            if (result.similarKeys) {
+                SimilarKeys = (
+                    <table className="table">
+                        <tr>
+                            <th>{result.parent}</th>
+                        </tr>
+                        {result.similarKeys.map(function(r){
+                            var activeClass = r.id == result.id ? 'active ' : '';                        
+                            var activeIcon = activeClass 
+                                ? <b className="octicon octicon-chevron-right"></b>
+                                : <b></b>;
+
+                            return (
+                                <tr key={r.id} className={activeClass} onClick={$this.navToKey} data-id={r.id} data-type={r.type}>
+                                    <td>
+                                        {activeIcon}
+                                        {r.id}
+                                    </td>
+                                </tr>
+                            );
+                        })}
+                    </table>
+                );
+            }
         }
-        var title = this.state.rawMode ? 'click for preview' : 'click for raw view';
 
         return (
           <div id="keyviewer-page">
@@ -151,9 +197,13 @@
                   <i>{this.state.type}</i>
                   <b>{this.state.id}</b>
                 </h3>
-                  <div onClick={this.toggleRawMode} title={title}>
-                      {View}
-                  </div>
+                <div id="similarkeys" title="use left/right arrow keys">
+                    {SimilarKeys}
+                </div>
+                <div id="keyview">
+                    {View}
+                    <a id="lnkToggleRaw" onClick={this.toggleRawMode} title="use 't' shortcut key">{this.state.rawMode ? 'hide raw' : 'view raw'}</a>
+                </div>
               </div>
           </div>
         );

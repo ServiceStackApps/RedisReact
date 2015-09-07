@@ -9,7 +9,8 @@ var Actions = Reflux.createActions([
     'viewInfo',
     'loadConnection',
     'search',
-    'loadKey'
+    'loadKey',
+    'loadSimilarKeys'
 ]);
 
 var SearchStore = Reflux.createStore({
@@ -71,11 +72,12 @@ var ConnectionStore = Reflux.createStore({
 });
 
 var KeyStore = Reflux.createStore({
-    init: function () {
+    init: function() {
         this.listenTo(Actions.loadKey, this.loadKey);
+        this.listenTo(Actions.loadSimilarKeys, this.loadSimilarKeys);
         this.cache = {};
     },
-    loadKey: function (id, type) {
+    loadKey: function(id, type) {
         if (this.cache[id]) {
             this.trigger(this.cache[id]);
         }
@@ -83,28 +85,45 @@ var KeyStore = Reflux.createStore({
         var $this = this;
         if (type == 'string') {
             Redis.getString(id)
-                .done(function (r) {
+                .done(function(r) {
                     $this.trigger($this.cache[id] = { id: id, type: type, value: r });
                 });
         } else if (type == 'list') {
             Redis.getAllItemsFromList(id)
-                .done(function (r) {
+                .done(function(r) {
                     $this.trigger($this.cache[id] = { id: id, type: type, value: r });
                 });
         } else if (type == 'set') {
             Redis.getAllItemsFromSet(id)
-                .done(function (r) {
+                .done(function(r) {
                     $this.trigger($this.cache[id] = { id: id, type: type, value: r });
                 });
         } else if (type == 'zset') {
             Redis.getAllItemsFromSortedSet(id)
-                .done(function (r) {
+                .done(function(r) {
                     $this.trigger($this.cache[id] = { id: id, type: type, value: r });
                 });
         } else if (type == 'hash') {
             Redis.getAllItemsFromHash(id)
-                .done(function (r) {
+                .done(function(r) {
                     $this.trigger($this.cache[id] = { id: id, type: type, value: r });
+                });
+        }
+    },
+    loadSimilarKeys: function(result) {
+        var separators = [':', '.', '/'];
+
+        var id = result.id;
+        var lastSep = Math.max.apply(null, separators.map(function(x) {
+            return id.lastIndexOf(x);
+        }));
+        if (lastSep >= 0) {
+            var $this = this;
+            result.parent = id.substring(0, lastSep + 1);
+            Redis.cachedSearch(result.parent + '*')
+                .done(function(r) {
+                    result.similarKeys = r.results;
+                    $this.trigger(result);
                 });
         }
     }
