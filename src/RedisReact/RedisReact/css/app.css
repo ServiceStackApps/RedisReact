@@ -217,19 +217,9 @@ body.search-active, body.search-active .navbar {
     width: 100%;
     min-height: 150px;
 }
-#keyviewer-page #lnkToggleRaw {
-    cursor: pointer;
-    float: right;
-    display: block;
-    margin: -10px 0 0 0;
-}
 
-#keyview {
-}
-#keyview [data-exists] {
-    color: #337ab7;
-    text-decoration: underline;
-    cursor: pointer;
+.keyview a:hover {
+    text-decoration: none;
 }
 #similarkeys {
     position: absolute;
