@@ -17,6 +17,43 @@
     toggleRawMode: function () {
         this.setState({ rawMode: !this.state.rawMode });
     },
+    globalKeyUp: function (e) {
+        var LEFT = 37, RIGHT = 39, T = 84;
+        var shortcutKeys = [LEFT, RIGHT, T];
+        if (e.altKey || e.ctrlKey || shortcutKeys.indexOf(e.which) == -1)
+            return;
+
+        if (e.which == T) {
+            this.toggleRawMode();
+            return;
+        }
+
+        var nextKeyPos = e.which == LEFT
+            ? -1
+            : 1;
+
+        var id = this.state.id;
+        var similarKeys = this.state.result.similarKeys || [];
+        for (var i = 0; i < similarKeys.length; i++) {
+            var key = similarKeys[i];
+            if (key.id == id) {
+                var nextKey = similarKeys[i + nextKeyPos];
+                if (nextKey) {
+                    this.viewKey(nextKey.id, nextKey.type);
+                }
+                return;
+            }
+        }
+    },
+    onValueClick: function (e) {
+        if ($(e.target).data('exists')) {
+            //Causes Invariant Violation, eventually ends in inconsistent state breaking App
+            //this.viewKey($(e.target).data('ref'), 'string');
+            //var q = { id: $(e.target).data('ref'), type: 'string' };
+            //this.setState(q);
+            //Actions.loadKey(q.id, q.type);
+        }
+    },
     renderValue: function (s) {
         var isComplexJson = s.indexOf('{') >= 0 || s.indexOf('[') >= 0;
         if (!isComplexJson)
