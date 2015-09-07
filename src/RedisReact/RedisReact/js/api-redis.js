@@ -24,6 +24,59 @@
             data: { query: query }
         });
     },
+    searchCache: {},
+    cachedSearch: function (query) {
+        if (this.searchCache[query]) {
+            var deferred = $.Deferred();
+            deferred.resolve(this.searchCache[query]);
+            return deferred.promise();
+        }
+        var $this = this;
+        return this.search(query)
+            .then(function(r) {
+                return $this.searchCache[query] = r;
+            });
+    },
+    exists: function (keys) {
+        var args = keys.slice(0);
+        args.unshift('MGET');
+        return this.call(args)
+            .then(function(r) {
+                var to = {};
+                for (var i = 0; i < keys.length; i++) {
+                    to[keys[i]] = !!r.redisText.children[i].text;
+                }
+                return to;
+            });
+    },
+    existsCache: {},
+    cachedExists: function (keys) {
+        var to = {};
+        var missingKeys = [];
+        var cache = this.existsCache;
+        for (var i = 0; i < keys.length; i++) {
+            var key = keys[i];
+            if (key in cache) {
+                to[key] = cache[key];
+            } else {
+                missingKeys.push(key);
+            }
+        }
+
+        if (missingKeys.length == 0) {
+            var deferred = $.Deferred();
+            deferred.resolve(to);
+            return deferred.promise();
+        }
+
+        return this.exists(missingKeys)
+            .then(function (r) {
+                for (var k in r) {
+                    cache[k] = to[k] = r[k];
+                }
+                return to;
+            });
+    },
     info: function () {
         return this.call(['INFO'])
             .then(function(r) {
