@@ -1,13 +1,22 @@
 ﻿var Search = React.createClass({
     mixins: [
         Router.Navigation,
+        Router.State,
         Reflux.listenTo(SearchStore, "onSearchResults")
     ],
     getInitialState: function () {
-        return { results: SearchStore.searchResults, viewGrid: false, gridResults:[] };
+        return { query:SearchStore.query, results: SearchStore.results, viewGrid: false, gridResults:[] };
     },
-    onSearchResults: function (searchResults) {
-        this.setState({ results: searchResults, viewGrid: false, gridResults: [] });
+    componentWillMount: function () {
+        var q = this.getQuery().q;
+        Actions.search(q);
+    },
+    componentWillReceiveProps: function () {
+        var q = this.getQuery().q;
+        Actions.search(q);
+    },
+    onSearchResults: function (search) {
+        this.setState({ query: search.query, results: search.results, viewGrid: false, gridResults: [] });
     },
     onKeyClick: function (e) {
         var tr = $(e.target).parent("tr");
@@ -41,7 +50,10 @@
         if (this.state.results.length > 0) {
             var ViewGrid = null;
 
-            if (SearchStore.searchText.length > 3) {
+            var onlyStrings = this.state.results.every(function (r) {
+                return r.type == 'string';
+            });
+            if (SearchStore.query.length > 3 && onlyStrings) {
                 var ViewGrid = (
                     <caption className="actions">
                         <div className="viewgrid" onClick={this.toggleGridView}>
@@ -56,14 +68,15 @@
                 var headers = Object.keys(gridResults[0]).filter(function (k) {
                     return !k.startsWith("__");
                 });
-
+                
+                var vIndex = 0;
                 SearchResults = (
                     <table className="table table-striped table-wrap search-results">
                       {ViewGrid}
                       <thead>
                           <tr>
                               {headers.map(function(k){
-                                return <th>{k}</th>;
+                                return <th key={k}>{k}</th>;
                               })}
                           </tr>
                       </thead>
@@ -73,7 +86,7 @@
                                 <tr key={o.__id} onClick={$this.onKeyClick} data-id={o.__id} data-type="string">
                                   {headers.map(function(k){
                                     var v = o[k];
-                                    return <td>{valueFmt(v)}</td>;
+                                    return <td key={vIndex++}>{valueFmt(v)}</td>;
                                   })}
                                 </tr>
                             );

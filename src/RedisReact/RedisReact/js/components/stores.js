@@ -13,6 +13,8 @@ var Actions = Reflux.createActions([
     'loadRelatedKeyInfo'
 ]);
 
+var SEPARATORS = [':', '.', '/'];
+
 function findPotentialKeys(o) {
     var keys = [];
     if (typeof o == 'object') {
@@ -28,6 +30,9 @@ function findPotentialKeys(o) {
 }
 
 function isJsonObject(s) {
+    if (typeof s != 'string')
+        return false;
+
     var isComplexJson = s.indexOf('{') >= 0 || s.indexOf('[') >= 0;
     return isComplexJson;
 }
@@ -47,29 +52,35 @@ function valueFmt(v) {
 var SearchStore = Reflux.createStore({
     init: function () {
         this.listenTo(Actions.search, this.search);
-        this.searchText = null;
-        this.searchResults = [];
+        this.text = null;
+        this.query = null;
+        this.results = [];
     },
     search: function (searchText) {
         var $this = this;
-        this.searchText = searchText || "*";
+        this.text = searchText;
+        this.query = this.text || "*";
 
         var patternChars = ['*', '?', '[', ']'];
         var hasPattern = patternChars.some(function (c) {
-            return $this.searchText.indexOf(c) >= 0;
+            return $this.query.indexOf(c) >= 0;
         });
 
-        if (this.searchText.endsWith('$')) {
-            this.searchText = this.searchText.substring(0, this.searchText.length - 1);
+        if (this.query.endsWith('$')) {
+            this.query = this.query.substring(0, this.query.length - 1);
             hasPattern = true;
         }
 
         if (!hasPattern)
-            this.searchText += "*";
+            this.query += "*";
 
-        Redis.search(this.searchText)
+        Redis.search(this.query)
             .done(function (r) {
-                $this.trigger($this.searchResults = r.results || []);
+                if ($this.text != searchText) 
+                    return;
+                
+                $this.results = r.results || [];
+                $this.trigger({text: $this.text, query: $this.query, results: $this.results});
             });
     }
 });
@@ -158,7 +169,7 @@ var KeyStore = Reflux.createStore({
             } catch (e){}
         }
 
-        var q = SearchStore.searchText;
+        var q = SearchStore.query;
         if (q && q != "*") {
             result.parent = q;
             Redis.cachedSearch(result.parent)
@@ -169,10 +180,8 @@ var KeyStore = Reflux.createStore({
             return;
         }
 
-        var separators = [':', '.', '/'];
-
         var id = result.id;
-        var lastSep = Math.max.apply(null, separators.map(function(x) {
+        var lastSep = Math.max.apply(null, SEPARATORS.map(function(x) {
             return id.lastIndexOf(x);
         }));
         if (lastSep >= 0) {

@@ -35,8 +35,13 @@ h1 {
 .error-summary {
     color: #c00;
 }
+
+#connections-page {
+    text-align: center;
+}
 #formConnection {
     padding: 40px 0 0 0;
+    margin: 0 auto;
 }
 #formConnection h2 {
     margin: 0 0 40px 0;
@@ -65,8 +70,9 @@ h1 {
 }
 .bg-success, .bg-danger {
     line-height: 34px;
-    width: 50%;
+    width: 100%;
     margin: 0 auto;
+    padding: 0 10px;
 }
 
 table td {
@@ -83,7 +89,7 @@ body.search-active, body.search-active .navbar {
     background: #fff;
 }
 
-.sidebar, .navbar, #poweredby {
+#sidebar, .navbar, #poweredby {
     position: fixed;
 }
 
@@ -109,11 +115,9 @@ body.search-active, body.search-active .navbar {
     background: none;
 }
 
-.container-fluid > .sidebar {
-    position: relative;
-    top: 0;
-    left:auto;
-    width: 40px; /* width of sidebar */
+#sidebar {
+    top: 60px;
+    left:0;
 }
 
 .left {
@@ -185,10 +189,10 @@ body.search-active, body.search-active .navbar {
 .search-results > tbody > tr:hover {
     background: #ffe;
 }
-#search-page, #dashboard-page {
+#search-page, #dashboard-page, #keyviewer-page {
     text-align: center;
 }
-#dashboard-page .content, #search-page .content {
+.content {
     display: inline-block;
 }
 .table-wrap {
@@ -205,14 +209,13 @@ body.search-active, body.search-active .navbar {
 .search-results .viewgrid b {
     padding: 0 5px;
 }
-
+    
 #keyviewer-page .content {
-    width: 50%;
-    margin-left: auto;
-    margin-right: auto;
+    max-width: 75%;
     text-align: left;
 }
-#keyviewer-page {
+#keyviewer-page .rawview {
+    max-width: 800px;
 }
 #keyviewer-page h3 span, #keyviewer-page h3 i {
     color: #999;
@@ -221,14 +224,19 @@ body.search-active, body.search-active .navbar {
     padding: 0 10px 0 5px;
     font-style: normal;
 }
+.keyview a:hover {
+    text-decoration: none;
+}
+.keycrumbs em {
+    font-style: normal;
+    color: #aaa;
+    padding: 0 2px;
+}
 .key-preview textarea {
     width: 100%;
     min-height: 150px;
 }
 
-.keyview a:hover {
-    text-decoration: none;
-}
 #similarkeys {
     position: absolute;
     display: inline-block;
@@ -254,7 +262,7 @@ body.search-active, body.search-active .navbar {
 .jsonviewer TD { padding: 8px 8px 0 8px; vertical-align: top; }
 .jsonviewer DL { margin: 0; clear: left; }
 .jsonviewer DT { font-weight: bold; width: 160px; clear: left; float: left; display:block; white-space:nowrap; line-height: 26px; }
-.jsonviewer DD { display: block; float: left; line-height: 26px; }
+.jsonviewer DD { display: block; float: left; line-height: 26px; max-width: 600px; }
 .jsonviewer DL DL DT { font-weight: bold; }
 .jsonviewer HR { display:none; }
 .jsonviewer TD DL HR { display:block; padding: 0; clear: left; border: none; }
