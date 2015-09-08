@@ -134,6 +134,8 @@
     <Content Include="js\components\Dashboard.jsx" />
     <Content Include="js\components\Search.jsx" />
     <Content Include="js\components\KeyView.jsx" />
+    <Content Include="js\components\Connections.jsx" />
+    <Content Include="js\components\Console.jsx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
