@@ -28,12 +28,13 @@
     },
     renderList: function (items) {
         var $this = this;
+        var i = 0;
         return (
             <table className="table table-striped wrap">
             <tbody>
                 {items.map(function(x){
                     return (
-                        <tr><td>{$this.renderValue(x)}</td></tr>
+                        <tr key={i++}><td>{$this.renderValue(x)}</td></tr>
                     );
                 })}
             </tbody>
@@ -47,7 +48,7 @@
             <tbody>
                 {Object.keys(values).map(function(k){
                     return (
-                        <tr><td>{$this.renderValue(k)}</td><td>{$this.renderValue(values[k])}</td></tr>
+                        <tr key={k}><td>{$this.renderValue(k)}</td><td>{$this.renderValue(values[k])}</td></tr>
                     );
                 })}
             </tbody>
@@ -73,12 +74,33 @@
         else if (result.type == 'hash')
             View = this.renderMap(result.value);
 
+        var Title = <b><Link to="keys" query={{id:result.id, type:result.type}}>{result.id}</Link></b>;
+        if (this.props.isPrimary) {
+            var key = result.id;
+            var Links = [];
+
+            var lastPos = 0;
+            for (var i = 0; i < key.length; i++) {
+                var c = key[i];
+                if (SEPARATORS.indexOf(c) != -1) {
+                    var pattern = key.substring(0,i+1) + '*';
+                    Links.push(<Link key={pattern} to="search" query={{q: pattern}}>{key.substring(lastPos, i)}</Link>);
+                    Links.push(<em key={i}>{key.substring(i, i+1)}</em>);
+                    lastPos = i + 1;
+                }
+            }
+
+            Links.push(<b key={lastPos}>{key.substring(lastPos)}</b>);
+
+            Title = <b className="keycrumbs">{Links}</b>;
+        }
+
         return (
             <div className="keyview">
                 <h3>
                   <span className="octicon octicon-key"></span>
                   <i>{result.type}</i>
-                  <b><Link to="keys" query={{id:result.id, type:result.type}}>{result.id}</Link></b>
+                  {Title}
                 </h3>
                 <div onClick={this.props.toggleRawMode} title="use 't' shortcut key">
                     {View}

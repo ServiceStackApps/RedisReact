@@ -117,7 +117,7 @@
                     {SimilarKeys}
                 </div>
                 <div id="keyview">
-                    <KeyView key={id} result={result} rawMode={rawModes[i]} toggleRawMode={this.toggleRawMode.bind(this, i)}/>
+                    <KeyView key={id} result={result} rawMode={rawModes[i]} toggleRawMode={this.toggleRawMode.bind(this, i)} isPrimary={true} />
                     {Object.keys(relatedKeys).map(function(id){
                         if (!relatedKeys[id]) return;
                         i++;
