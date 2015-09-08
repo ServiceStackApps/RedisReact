@@ -32,6 +32,18 @@ function isJsonObject(s) {
     return isComplexJson;
 }
 
+//from jsonviewer
+function date(s) { return new Date(parseFloat(/Date\(([^)]+)\)/.exec(s)[1])); }
+function pad(d) { return d < 10 ? '0'+d : d; }
+function dmft(d) { return d.getFullYear() + '/' + pad(d.getMonth() + 1) + '/' + pad(d.getDate()); }
+function valueFmt(v) {
+    if (typeof v != "string")
+        return v;
+
+    var s = v.startsWith('/Date(') ? dmft(date(v)) : v;
+    return s;
+}
+
 var SearchStore = Reflux.createStore({
     init: function () {
         this.listenTo(Actions.search, this.search);

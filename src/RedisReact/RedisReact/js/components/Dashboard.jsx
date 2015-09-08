@@ -30,7 +30,7 @@
         }
 
         return (
-          <div>
+          <div id="dashboard-page">
               <div className="content">
                   {Info}
               </div>

@@ -173,9 +173,6 @@ body.search-active, body.search-active .navbar {
     margin: 0 0 0 20px;
 }
 
-#search-page {
-    text-align: center;
-}
 .wrap {
     background: #fff;
     box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),
@@ -188,14 +185,25 @@ body.search-active, body.search-active .navbar {
 .search-results > tbody > tr:hover {
     background: #ffe;
 }
+#search-page, #dashboard-page {
+    text-align: center;
+}
+#dashboard-page .content, #search-page .content {
+    display: inline-block;
+}
 .table-wrap {
-    width: 50%;
     margin-left: auto;
     margin-right: auto;
     background: #fff;
     box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),
                 0 3px 1px -2px rgba(0,0,0,0.2),
                 0 1px 5px 0 rgba(0,0,0,0.12);
+}
+.search-results .actions {
+    text-align: center;
+}
+.search-results .viewgrid b {
+    padding: 0 5px;
 }
 
 #keyviewer-page .content {

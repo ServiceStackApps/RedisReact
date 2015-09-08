@@ -94,20 +94,27 @@ var Monitor = React.createClass({
 var App = React.createClass({
     mixins: [
         Router.Navigation,
+        Router.State,
         Reflux.listenTo(ConnectionStore, "onConnection")
     ],
     getInitialState: function() {
         return { connection: null };
     },
+    componentWillMount: function () {
+        var q = this.getQuery().searchText;
+        if (q)
+            Actions.search(q);
+    },
     onConnection: function (connection) {
         this.setState({ connection: connection });
     },
     onSearchFocus: function (e) {
-        this.transitionTo('search');
         Actions.search(e.target.value);
+        this.transitionTo('search', null, { searchText: e.target.value });
     },
     onSearchKeyUp: function(e){
         Actions.search(e.target.value);
+        this.replaceWith("search", null, { searchText: e.target.value });
     },
     render: function () {
         var Connection = <b>not connected</b>;
@@ -135,7 +142,8 @@ var App = React.createClass({
                                 <span className="octicon octicon-search"></span>
                                 <input id="txtSearch" type="text" className="input-lg" placeholder="Search Keys" spellCheck="false"
                                        onFocus={this.onSearchFocus} 
-                                       onKeyUp={this.onSearchKeyUp} />
+                                       onKeyUp={this.onSearchKeyUp}
+                                       defaultValue={this.getQuery().searchText} />
                             </div>
                         </form>
                         <div className="nav navbar-nav navbar-right">

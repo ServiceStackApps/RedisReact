@@ -37,7 +37,7 @@
             rawModes[pos] = !rawModes[pos];
         } else {
             var rawMode = !rawModes[0];
-            var len = Math.max(Object.keys(this.state.result.relatedKeys || {}).length, rawModes.length);
+            var len = Math.max(Object.keys(this.state.result.relatedKeys || {}).length + 1, rawModes.length);
             for (var i = 0; i < len; i++) {
                 rawModes[i] = rawMode;
             }
