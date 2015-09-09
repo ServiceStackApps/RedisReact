@@ -169,7 +169,6 @@ body.search-active, body.search-active .navbar {
                 0 1px 5px 0 rgba(0,0,0,0.12);
 }
 #txtSearch {
-    border: 1px solid green;
     width: 100%;
     background: none;
     border: none;
@@ -214,8 +213,9 @@ body.search-active, body.search-active .navbar {
     max-width: 75%;
     text-align: left;
 }
-#keyviewer-page .rawview {
+.rawview {
     max-width: 800px;
+    overflow: hidden;
 }
 #keyviewer-page h3 span, #keyviewer-page h3 i {
     color: #999;
@@ -235,6 +235,24 @@ body.search-active, body.search-active .navbar {
 .key-preview textarea {
     width: 100%;
     min-height: 150px;
+}
+#keyviewer-page .actions {
+    position: absolute;
+    text-align: right;
+    top: 60px;
+    right: 23%;
+}
+#keyviewer-page .actions .action {
+    cursor: pointer;
+    display: inline-block;
+    color: #999;
+}
+#keyviewer-page .actions .action:hover {
+    color: #337ab7;
+}
+#keyviewer-page .actions b {
+    margin: 0 10px 0 4px;
+    line-height: 30px;
 }
 
 #similarkeys {
@@ -277,4 +295,92 @@ body.search-active, body.search-active .navbar {
 .jsonviewer .asc B { border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 5px solid #333; border-bottom: none; }
 .jsonviewer .desc B { border-left: 5px solid transparent; border-right: 5px solid transparent; border-bottom: 5px solid #333; border-top: none; }
 .jsonviewer H3 { margin: 0 0 10px 0; }
-
+
+body.console-active, body.console-active .navbar {
+    background: #eee;
+}
+#formConsole .octicon-search {
+    color: #888;
+    position: absolute;
+    margin: 15px 0 0 0;
+}
+.console-active #formConsole {
+    background: #fff;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),
+                0 3px 1px -2px rgba(0,0,0,0.2),
+                0 1px 5px 0 rgba(0,0,0,0.12);
+}
+#console {
+    position: absolute;
+    bottom: 10px;
+    left: 25%;
+    padding-left: 40px;
+    width: 50%;
+}
+#formConsole {
+    background: #f5f5f5;
+    border-radius: 2px;
+}
+ #txtPrompt {
+    width: 95%;
+    background: none;
+    border: none;
+    outline: 0;
+    margin: 0 0 0 30px;
+}
+#prompt #label {
+    position: absolute;
+    color: #999;
+    padding: 8px 16px;
+}
+#prompt #label .octicon {
+    font-size: 32px;
+}
+#log {
+    text-align: left;
+    margin: 0 0 10px 0;
+}
+#log .entry {
+    min-width: 50%;
+    background: #f9f9f9;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),
+                0 3px 1px -2px rgba(0,0,0,0.2),
+                0 1px 5px 0 rgba(0,0,0,0.12);
+}
+
+#log .cmd {
+    background: #eee;
+    font-size: 12px;
+    padding: 1px 10px;
+    color: #999;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+}
+#log .result {
+    padding: 5px 10px;
+}
+#log .ok {
+    color: green;
+    background: #dff0d8;
+}
+#log .err {
+    color: red;
+    background: #f2dede;
+}
+#log .empty .result {
+    color: #aaa;
+    text-shadow: 1px -1px 1px #fff;
+}
+#console .actions #btnClearHistory {
+    display: inline-block;
+    color: #999;
+    line-height: 30px;
+    cursor: pointer;
+}
+#console .actions b {
+    padding: 0 0 0 5px;
+}
+.clear {
+    clear: both;
+}

@@ -1,5 +1,5 @@
 ﻿var Redis = bindAll({
-    call: function(args) {
+    call: function (args) {
         var request = {
             args: args
         };
@@ -10,6 +10,43 @@
             dataType: "json",
             data: JSON.stringify(request)
         });
+    },
+    execCommandString: function (cmd) {
+        var $this = this;
+        var args = this.parseCommandString(cmd);
+        return Redis.call(args)
+            .then(function (r) {
+                return $this.toObject(r.result);
+            });
+    },
+    toObject: function(r) {
+        if (r.children && r.children.length > 0) {
+            var to = [];
+            for (var i = 0, len = r.children.length; i < len; i++) {
+                var child = r.children[i];
+                var value = child.text || this.toObject(child.children);
+                to.push(value);
+            }
+            return to;
+        }
+        return r.text;
+    },
+    parseCommandString: function(cmd) {
+        var args = [];
+        var lastPos = 0;
+        for (var i = 0; i < cmd.length; i++) {
+            var c = cmd[i];
+            if (c == "{" || c == "[") { 
+                break; //stop splitting args if value is complex type
+            }
+            if (c == " ") {
+                var arg = cmd.substring(lastPos, i);
+                args.push(arg);
+                lastPos = i + 1;
+            }
+        }
+        args.push(cmd.substring(lastPos));
+        return args;
     },
     getConnection: function () {
         return $.ajax({
@@ -37,25 +74,25 @@
         }
         var $this = this;
         return this.search(query)
-            .then(function(r) {
+            .then(function (r) {
                 return $this.searchCache[query] = r;
             });
     },
-    getStringValues: function(keys) {
+    getStringValues: function (keys) {
         var args = keys.slice(0);
         args.unshift('MGET');
         return this.call(args)
             .then(function (r) {
                 var to = {};
                 for (var i = 0; i < keys.length; i++) {
-                    to[keys[i]] = r.redisText.children[i].text;
+                    to[keys[i]] = r.result.children[i].text;
                 }
                 return to;
             });
     },
     exists: function (keys) {
         return this.getStringValues(keys)
-            .then(function(r) {
+            .then(function (r) {
                 var to = {};
                 for (var k in r) {
                     to[k] = !!r[k];
@@ -65,18 +102,18 @@
     },
     info: function () {
         return this.call(['INFO'])
-            .then(function(r) {
-                var s = r.redisText.text;
+            .then(function (r) {
+                var s = r.result.text;
 
                 var to = {}, o = {}, lines = s.split('\n');
-                lines.forEach(function(line) {
+                lines.forEach(function (line) {
                     if (!line.trim())
                         return;
                     if (line.startsWith("# ")) {
                         var group = line.substring(2);
                         to[group] = o = {};
                     } else {
-                        var parts = $.ss.splitOnFirst(line,':');
+                        var parts = $.ss.splitOnFirst(line, ':');
                         o[parts[0]] = parts[1];
                     }
                 });
@@ -84,10 +121,10 @@
                 return to;
             });
     },
-    getString: function(key) {
+    getString: function (key) {
         return this.call(['GET', key])
-            .then(function(r) {
-                var s = r.redisText.text;
+            .then(function (r) {
+                var s = r.result.text;
                 return s;
             });
     },
@@ -120,13 +157,13 @@
             });
     },
     asList: function (r) {
-        var children = r.redisText && r.redisText.children || [];
+        var children = r.result && r.result.children || [];
         var to = children.map(function (x) {
             return x.text;
         });
         return to;
     },
-    asKeyValues: function(r) {
+    asKeyValues: function (r) {
         var list = this.asList(r);
         var to = {};
         for (var i = 0; i < list.length; i += 2) {
@@ -139,7 +176,7 @@
 });
 
 function bindAll(o) {
-    Object.keys(o).forEach(function(k) {
+    Object.keys(o).forEach(function (k) {
         if (typeof o[k] == 'function')
             o[k] = o[k].bind(o);
     });

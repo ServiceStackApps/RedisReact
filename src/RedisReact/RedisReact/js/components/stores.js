@@ -10,10 +10,22 @@ var Actions = Reflux.createActions([
     'loadConnection',
     'search',
     'loadKey',
-    'loadRelatedKeyInfo'
+    'loadRelatedKeyInfo',
+    'setConsole',
+    'logEntry',
+    'clearLogs',
+    'addToHistory',
+    'nextHistory'
 ]);
 
 var SEPARATORS = [':', '.', '/'];
+var Keys = {
+    LEFT: 37,
+    UP: 38,
+    RIGHT: 39,
+    DOWN: 40,
+    T: 84
+};
 
 function findPotentialKeys(o) {
     var keys = [];
@@ -35,6 +47,17 @@ function isJsonObject(s) {
 
     var isComplexJson = s.indexOf('{') >= 0 || s.indexOf('[') >= 0;
     return isComplexJson;
+}
+
+function hasTextSelected() {
+    return !!window.getSelection && window.getSelection().toString();
+}
+
+function selectText(el) {
+    if (!window.getSelection) return;
+    var range = document.createRange();
+    range.selectNode(el);
+    window.getSelection().addRange(range);
 }
 
 //from jsonviewer
@@ -192,5 +215,51 @@ var KeyStore = Reflux.createStore({
                     $this.trigger(result);
                 });
         }
+    }
+});
+
+var ConsoleStore = Reflux.createStore({
+    init: function () {
+        this.listenToMany(Actions);
+        this.id = 0;
+        this.command = null;
+        this.logs = [];
+        this.history = [];
+        this.historyIndex = -1;
+    },
+    notify: function() {
+        this.trigger({
+            command: this.command,
+            logs: this.logs,
+            history: this.history,
+            historyIndex: this.historyIndex
+        });
+    },
+    addToHistory: function(cmd) {
+        if (cmd != this.history[this.history.length - 1]) {
+            this.history.push(cmd);
+            this.historyIndex = this.history.length;
+            this.notify();
+        }
+    },
+    nextHistory: function(i) {
+        var next = this.historyIndex + i;
+        this.historyIndex = Math.max(Math.min(next, this.history.length), 0);
+        this.command = this.history[this.historyIndex];
+        this.notify();
+    },
+    clearLogs: function() {
+        this.logs = [];
+        this.notify();
+    },
+    logEntry: function(entry) {
+        entry.id = ++this.id;
+        this.logs.push(entry);
+        this.command = null;
+        this.notify();
+    },
+    setConsole: function(cmd) {
+        this.command = cmd;
+        this.notify();
     }
 });
