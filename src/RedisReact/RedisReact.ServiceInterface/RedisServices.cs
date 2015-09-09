@@ -76,10 +76,7 @@ namespace RedisReact.ServiceInterface
         public object Any(CallRedis request)
         {
             var args = request.Args.ToArray();
-            var response = request.AsBytes
-                ? new CallRedisResponse { RedisData = ((IRedisNativeClient)Redis).RawCommand(args) }
-                : new CallRedisResponse { RedisText = Redis.Custom(args) };
-
+            var response = new CallRedisResponse { Result = Redis.Custom(args) };
             return response;
         }
 

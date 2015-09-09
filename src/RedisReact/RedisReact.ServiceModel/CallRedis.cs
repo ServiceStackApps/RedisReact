@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using ServiceStack;
 using ServiceStack.Redis;
 
@@ -30,14 +27,12 @@ namespace RedisReact.ServiceModel
     [Route("/call-redis")]
     public class CallRedis : IReturn<CallRedisResponse>
     {
-        public bool AsBytes { get; set; }
         public List<string> Args { get; set; }
     }
 
     public class CallRedisResponse
     {
-        public RedisData RedisData { get; set; }
-        public RedisText RedisText { get; set; }
+        public RedisText Result { get; set; }
 
         public ResponseStatus ResponseStatus { get; set; }
     }
