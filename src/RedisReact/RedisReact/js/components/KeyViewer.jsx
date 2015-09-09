@@ -31,7 +31,23 @@
         var args = { id: id, type: type };
         this.transitionTo("keys", null, args);
     },
-    toggleRawMode: function (pos) {
+    console: function () {
+        this.transitionTo("console");
+        Actions.setConsole('GET ' + this.state.result.id);
+    },
+    edit: function () {
+        this.transitionTo("console");
+        Actions.setConsole('SET ' + this.state.result.id + ' ' + this.state.result.value);
+    },
+    toggleRawMode: function (pos, e) {
+        if (hasTextSelected())
+            return;
+
+        if (this.state.rawModes[pos] && (e.shiftKey || e.ctrlKey)) {
+            selectText(e.target);
+            return;
+        }
+
         var rawModes = this.state.rawModes;
         if (typeof pos == 'number') {
             rawModes[pos] = !rawModes[pos];
@@ -46,17 +62,16 @@
         this.setState({ rawModes: rawModes });
     },
     globalKeyUp: function (e) {
-        var LEFT = 37, RIGHT = 39, T = 84;
-        var shortcutKeys = [LEFT, RIGHT, T];
+        var shortcutKeys = [Keys.LEFT, Keys.RIGHT, Keys.T];
         if (e.altKey || e.ctrlKey || shortcutKeys.indexOf(e.which) == -1)
             return;
 
-        if (e.which == T) {
+        if (e.which == Keys.T) {
             this.toggleRawMode();
             return;
         }
 
-        var nextKeyPos = e.which == LEFT
+        var nextKeyPos = e.which == Keys.LEFT
             ? -1
             : 1;
 
@@ -110,8 +125,23 @@
         var id = this.getQuery().id;
         var rawModes = this.state.rawModes;
         var i = 0;
+
+        var Edit = null;
+        if (result && result.type == 'string') {
+            Edit = (<div className="action" onClick={this.edit}>
+                        <span className="octicon octicon-pencil"></span><b>edit</b>
+                    </div>);
+        }
+
         return (
           <div id="keyviewer-page">
+            <div className="actions">
+                <div className="action" onClick={this.console}>
+                    <span className="octicon octicon-terminal"></span>
+                    <b>console</b>
+                </div>
+                {Edit}
+            </div>
               <div className="content">
                 <div id="similarkeys" title="use left/right arrow keys">
                     {SimilarKeys}
