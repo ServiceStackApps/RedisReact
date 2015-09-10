@@ -19,7 +19,10 @@
                 return $this.toObject(r.result);
             });
     },
-    toObject: function(r) {
+    toObject: function (r) {
+        if (!r)
+            return null;
+
         if (r.children && r.children.length > 0) {
             var to = [];
             for (var i = 0, len = r.children.length; i < len; i++) {
