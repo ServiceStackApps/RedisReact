@@ -28,7 +28,6 @@ namespace RedisReact.AppWinForms
 
             Load += (sender, args) =>
             {
-                FormBorderStyle = FormBorderStyle.None;
                 Left = Top = 0;
                 Width = Screen.PrimaryScreen.WorkingArea.Width;
                 Height = Screen.PrimaryScreen.WorkingArea.Height;

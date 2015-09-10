@@ -35,9 +35,20 @@ namespace RedisReact.AppConsole
         /// <param name="container"></param>
         public override void Configure(Container container)
         {
-            //Config examples
-            //this.Plugins.Add(new PostmanFeature());
-            //Plugins.Add(new CorsFeature());
+            JsConfig.EmitCamelCaseNames = true;
+
+            container.Register<IRedisClientsManager>(c =>
+                new RedisManagerPool("127.0.0.1"));
+
+            SetConfig(new HostConfig
+            {
+                DebugMode = AppSettings.Get("DebugMode", false),
+                DefaultContentType = MimeTypes.Json,
+                AllowFileExtensions = { "jsx" },
+                AddRedirectParamsToQueryString = true
+            });
+
+            /* Default */
 
             Plugins.Add(new RazorFormat
             {
