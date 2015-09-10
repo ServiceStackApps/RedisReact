@@ -1,5 +1,18 @@
 /* global module, require */
 
+var IMAGES = [
+    './img/**/*'
+];
+
+var FONTS = [
+    './bower_components/bootstrap/dist/fonts/*.*'
+];
+
+var FONTS_CSS = [
+    './bower_components/octicons/octicons/*.*f'
+];
+
+
 module.exports = function (grunt) {
     "use strict";
 
@@ -183,12 +196,17 @@ module.exports = function (grunt) {
                 ], done);
             },
             'wwwroot-copy-fonts': function () {
-                return gulp.src('./bower_components/bootstrap/dist/fonts/*.*')
+                return gulp.src(FONTS)
                     .pipe(gulp.dest(resourcesRoot + 'lib/fonts/'))
                     .pipe(gulp.dest(webRoot + 'lib/fonts/'));
             },
+            'wwwroot-copy-fonts-to-css': function () {
+                return gulp.src(FONTS_CSS)
+                    .pipe(gulp.dest(resourcesRoot + 'lib/css/'))
+                    .pipe(gulp.dest(webRoot + 'lib/css/'));
+            },
             'wwwroot-copy-images': function () {
-                return gulp.src('./img/**/*')
+                return gulp.src(IMAGES)
                     .pipe(gulp.dest(resourcesRoot + 'img/'))
                     .pipe(gulp.dest(webRoot + 'img/'));
             },
@@ -241,6 +259,7 @@ module.exports = function (grunt) {
         'gulp:wwwroot-copy-asax',
         'gulp:wwwroot-copy-deploy-files',
         'gulp:wwwroot-copy-fonts',
+        'gulp:wwwroot-copy-fonts-to-css',
         'gulp:wwwroot-copy-images',
         'gulp:wwwroot-copy-webjs',
         'gulp:wwwroot-bundle',
