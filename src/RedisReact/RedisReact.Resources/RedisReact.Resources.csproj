@@ -96,12 +96,7 @@
   <ItemGroup>
     <EmbeddedResource Include="css\app.min.css" />
     <EmbeddedResource Include="js\app.jsx.js" />
-    <EmbeddedResource Include="lib\css\bootstrap.min.css" />
     <EmbeddedResource Include="lib\fonts\glyphicons-halflings-regular.svg" />
-    <EmbeddedResource Include="lib\js\bootstrap.min.js" />
-    <EmbeddedResource Include="lib\js\jquery.min.js" />
-    <EmbeddedResource Include="lib\js\modernizr.min.js" />
-    <EmbeddedResource Include="lib\js\react.min.js" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="default.cshtml" />
@@ -109,11 +104,20 @@
     <EmbeddedResource Include="lib\fonts\glyphicons-halflings-regular.ttf" />
     <EmbeddedResource Include="lib\fonts\glyphicons-halflings-regular.woff" />
     <EmbeddedResource Include="lib\fonts\glyphicons-halflings-regular.woff2" />
+    <EmbeddedResource Include="img\ajax-loader.gif" />
+    <EmbeddedResource Include="img\logo-32.png" />
+    <EmbeddedResource Include="img\redis-logo.png" />
+    <EmbeddedResource Include="lib\css\lib.min.css" />
+    <EmbeddedResource Include="lib\js\app.min.js" />
+    <EmbeddedResource Include="lib\js\lib.min.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="lib\css\octicons-local.ttf" />
+    <EmbeddedResource Include="lib\css\octicons.ttf" />
+    <EmbeddedResource Include="lib\css\octicons.woff" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
