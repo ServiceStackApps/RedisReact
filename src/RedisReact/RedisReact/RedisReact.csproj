@@ -106,9 +106,9 @@
     <Content Include="img\ajax-loader.gif" />
     <Content Include="img\logo-32.png" />
     <Content Include="img\redis-logo.png" />
-    <Content Include="js\api-redis.js" />
+    <Content Include="js\Redis.js" />
     <Content Include="js\jsonviewer.js" />
-    <Content Include="js\components\stores.js" />
+    <Content Include="js\Stores.js" />
     <Content Include="js\web.js" />
     <Content Include="js\app.jsx" />
     <Content Include="Scripts\_references.js" />
