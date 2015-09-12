@@ -37,10 +37,6 @@ namespace RedisReact
         /// <param name="container"></param>
         public override void Configure(Container container)
         {
-            //Config examples
-            //this.Plugins.Add(new PostmanFeature());
-            //this.Plugins.Add(new CorsFeature());
-
             JsConfig.EmitCamelCaseNames = true;
 
             container.Register<IRedisClientsManager>(c =>

@@ -7,10 +7,12 @@
 <html @platformsClassName>
 <head lang="en">
     <meta charset="UTF-8">
+
     <!--build:css lib/css/lib.min.css-->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="bower_components/octicons/octicons/octicons.css">
     <!-- endbuild -->
+
     <!--build:css css/app.min.css-->
     <link rel="stylesheet" href="css/app.css" />
     <!-- endbuild -->
@@ -30,12 +32,12 @@
     <script src="bower_components/reflux/dist/reflux.js"></script>
     <!-- endbuild -->
 
-    <script src="/js/ss-utils.js"></script>
+    <script src="/js/ss-utils.js"></script><!-- in ServiceStack.dll -->
 
     <!-- build:js lib/js/app.min.js -->
-    <script src="/js/api-redis.js"></script>
     <script src="/js/jsonviewer.js"></script>
-    <script src="/js/components/stores.js"></script>
+    <script src="/js/Redis.js"></script>
+    <script src="/js/Stores.js"></script>
     <!-- endbuild -->
 
     @if (AppSettings.Exists("PlatformJs"))
