@@ -110,7 +110,7 @@
     <Content Include="js\jsonviewer.js" />
     <Content Include="js\Stores.js" />
     <Content Include="js\web.js" />
-    <Content Include="js\app.jsx" />
+    <Content Include="js\App.jsx" />
     <Content Include="Scripts\_references.js" />
     <Content Include="tests\unit\hello-test.js" />
     <Content Include="tests\preprocessor.js" />
