@@ -2,8 +2,12 @@
     renderValue: function (s) {
         if (typeof s == 'undefined')
             s = '';
-        if (!isJsonObject(s))
+        if (!isJsonObject(s)) {
+            if (typeof s == 'string' && s.startsWith('"') && s.endsWith('"'))
+                s = s.substring(1, s.length -1);
+
             return <div>{s}</div>;
+        }
 
         if (this.props.rawMode)
             return <div className="rawview">{s}</div>;
