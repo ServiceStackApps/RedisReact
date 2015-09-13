@@ -97,7 +97,7 @@
                 <table className="table">
                 <tbody>
                 <tr>
-                    <th>{result.parent}</th>
+                    <th>{result.query}</th>
                 </tr>
                     {result.similarKeys.map(function(r){
                         var activeClass = r.id == result.id ? 'active ' : '';

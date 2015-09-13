@@ -109,6 +109,7 @@
     <Content Include="js\Redis.js" />
     <Content Include="js\jsonviewer.js" />
     <Content Include="js\Stores.js" />
+    <Content Include="js\utils.js" />
     <Content Include="js\web.js" />
     <Content Include="js\App.jsx" />
     <Content Include="Scripts\_references.js" />
