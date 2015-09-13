@@ -1,5 +1,6 @@
 ﻿var KeyViewer = React.createClass({
     mixins: [
+        DebugLogMixin,
         Router.Navigation,
         Router.State,
         Reflux.listenTo(KeyStore, "onKeyLoaded")
@@ -19,9 +20,6 @@
     },
     onKeyLoaded: function (result) {
         this.setState({ result: result });
-
-        if (!result.similarKeys)
-            Actions.loadRelatedKeyInfo(result);
     },
     navToKey: function (e) {
         var tr = $(e.target).parents("tr");
