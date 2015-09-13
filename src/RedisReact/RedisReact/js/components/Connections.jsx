@@ -5,6 +5,9 @@
     getInitialState: function () {
         return { connection: ConnectionStore.connection, successMessage: null };
     },
+    componentDidMount: function () {
+        this.refs.txtHost.getDOMNode().focus();
+    },
     onConnection: function (connection) {
         this.setState({ connection: connection });
     },
@@ -43,7 +46,7 @@
                     <h2>Redis Connection</h2>
                     <div className="form-group">
                         <label className="octicon octicon-radio-tower"></label>
-                        <input id="txtHost" name="host" type="text" className="form-control" placeholder="127.0.0.1" spellCheck="false"
+                        <input ref="txtHost" id="txtHost" name="host" type="text" className="form-control" placeholder="127.0.0.1" spellCheck="false"
                                onChange={this.onChange} onFocus={this.selectText}
                                value={conn ? conn.host : ""}
                                />
