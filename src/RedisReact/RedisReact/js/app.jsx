@@ -1,5 +1,6 @@
 ﻿var App = React.createClass({
     mixins: [
+        DebugLogMixin,
         Router.Navigation,
         Router.State,
         Reflux.listenTo(SearchStore, "onSearchUpdated"),

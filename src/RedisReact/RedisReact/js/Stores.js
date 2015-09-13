@@ -27,6 +27,12 @@ var Keys = {
     T: 84
 };
 
+var DebugLogMixin = {
+    componentWillUpdate: function(nextProps, nextState){
+        console.log("componentWillUpdate:", nextProps, nextState);
+    }    
+};
+
 function findPotentialKeys(o) {
     var keys = [];
     if (typeof o == 'object') {
