@@ -3,10 +3,11 @@
         DebugLogMixin,
         Router.Navigation,
         Router.State,
+        Reflux.listenTo(SettingsStore, "onSettingsUpdated"),
         Reflux.listenTo(KeyStore, "onKeyLoaded")
     ],
     componentWillMount: function () {
-        this.setState({ rawModes: [], relatedKeys:[] });
+        this.setState({ appRawMode: SettingsStore.appRawMode, rawModes: {}, relatedKeys: [] });
         var q = this.getQuery();
         Actions.loadKey(q.id, q.type);
         document.addEventListener('keyup', this.globalKeyUp);
@@ -17,6 +18,9 @@
     componentWillReceiveProps: function () {
         var q = this.getQuery();
         Actions.loadKey(q.id, q.type);
+    },
+    onSettingsUpdated: function (settings) {
+        this.setState({ appRawMode: settings.appRawMode, rawModes: {} });
     },
     onKeyLoaded: function (result) {
         this.setState({ result: result });
@@ -46,28 +50,13 @@
             return;
         }
 
-        var rawModes = this.state.rawModes;
-        if (typeof pos == 'number') {
-            rawModes[pos] = !rawModes[pos];
-        } else {
-            var rawMode = !rawModes[0];
-            var len = Math.max(Object.keys(this.state.result.relatedKeys || {}).length + 1, rawModes.length);
-            for (var i = 0; i < len; i++) {
-                rawModes[i] = rawMode;
-            }
-        }
-
-        this.setState({ rawModes: rawModes });
+        this.state.rawModes[pos] = !this.state.rawModes[pos];
+        this.setState({ rawModes: this.state.rawModes });
     },
     globalKeyUp: function (e) {
-        var shortcutKeys = [Keys.LEFT, Keys.RIGHT, Keys.T];
+        var shortcutKeys = [Keys.LEFT, Keys.RIGHT];
         if (e.altKey || e.ctrlKey || shortcutKeys.indexOf(e.which) == -1)
             return;
-
-        if (e.which == Keys.T) {
-            this.toggleRawMode();
-            return;
-        }
 
         var nextKeyPos = e.which == Keys.LEFT
             ? -1
@@ -145,13 +134,13 @@
                     {SimilarKeys}
                 </div>
                 <div id="keyview">
-                    <KeyView key={id} result={result} rawMode={rawModes[i]} toggleRawMode={this.toggleRawMode.bind(this, i)} isPrimary={true} />
+                    <KeyView key={id} result={result} rawMode={this.state.appRawMode ? !rawModes[i] : rawModes[i]} toggleRawMode={this.toggleRawMode.bind(this, i)} isPrimary={true} />
                     {Object.keys(relatedKeys).map(function(id){
                         if (!relatedKeys[id]) return;
                         i++;
                         var result = {id: id, value:relatedKeys[id], type:'string'};
                         return (
-                            <KeyView key={id} result={result} rawMode={rawModes[i]} toggleRawMode={$this.toggleRawMode.bind($this, i)} />
+                            <KeyView key={id} result={result} rawMode={$this.state.appRawMode ? !rawModes[i] : rawModes[i]} toggleRawMode={$this.toggleRawMode.bind($this, i)} />
                         );
                     })}
                 </div>

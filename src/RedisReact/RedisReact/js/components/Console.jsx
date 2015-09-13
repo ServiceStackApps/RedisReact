@@ -1,5 +1,6 @@
 ﻿var Console = React.createClass({
     mixins: [
+        Reflux.listenTo(SettingsStore, "onSettingsUpdated"),
         Reflux.listenTo(ConsoleStore, "onConsoleChanged")
     ],
     getInitialState: function(){
@@ -8,11 +9,15 @@
             history: ConsoleStore.history,
             historyIndex: ConsoleStore.historyIndex,
             logs: ConsoleStore.logs,
+            appRawMode: SettingsStore.appRawMode,
             rawModes: {}
         };
     },
     componentDidMount: function () {
         this.refs.txtPrompt.getDOMNode().focus();
+    },
+    onSettingsUpdated: function (settings) {
+        this.setState({ appRawMode: settings.appRawMode, rawModes: {} });
     },
     onConsoleChanged: function (store) {
         var txtPrompt = this.refs.txtPrompt.getDOMNode();
@@ -144,13 +149,14 @@
                         if (log.type)
                             cls += " " + log.type;
 
+                        var rawMode = $this.state.appRawMode ? !$this.state.rawModes[log.id] : $this.state.rawModes[log.id];
                         return (
                             <div key={log.id} className={cls}>
                                 <div className="cmd" onClick={$this.setCommand.bind($this, log.cmd)}>
                                     {log.cmd}
                                 </div>
                                 <div className="result" onClick={$this.toggleRawMode.bind($this,log.id)}>
-                                    {$this.renderResponse(log.result, $this.state.rawModes[log.id])}
+                                    {$this.renderResponse(log.result, rawMode)}
                                     <div className="clear"></div>
                                 </div>
                             </div>

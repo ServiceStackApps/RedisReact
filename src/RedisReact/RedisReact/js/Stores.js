@@ -33,6 +33,29 @@ var DebugLogMixin = {
     }    
 };
 
+var SettingsStore = Reflux.createStore({
+    init: function () {
+        this.appRawMode = false;
+        document.addEventListener('keyup', this.globalKeyUp);
+    },
+    notify: function() {
+        this.trigger({ appRawMode: this.appRawMode });
+    },
+    globalKeyUp: function (e) {
+        if (e.target && e.target.type == "text")
+            return;
+
+        var shortcutKeys = [Keys.T];
+        if (e.altKey || e.ctrlKey || shortcutKeys.indexOf(e.which) == -1)
+            return;
+
+        if (e.which == Keys.T) {
+            this.appRawMode = !this.appRawMode;
+            this.notify();
+        }
+    }
+});
+
 var SearchStore = Reflux.createStore({
     init: function () {
         this.listenTo(Actions.search, this.search);
