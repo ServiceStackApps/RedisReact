@@ -104,6 +104,7 @@
     <Content Include="gruntfile.js" />
     <Content Include="default.cshtml" />
     <Content Include="img\ajax-loader.gif" />
+    <Content Include="img\favicon.ico" />
     <Content Include="img\logo-32.png" />
     <Content Include="img\redis-logo.png" />
     <Content Include="js\Redis.js" />

@@ -110,6 +110,7 @@
     <EmbeddedResource Include="lib\css\lib.min.css" />
     <EmbeddedResource Include="lib\js\app.min.js" />
     <EmbeddedResource Include="lib\js\lib.min.js" />
+    <EmbeddedResource Include="img\favicon.ico" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
