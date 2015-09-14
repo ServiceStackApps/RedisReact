@@ -80,7 +80,7 @@
                         <RouteHandler />
                     </div>
                 </div>
-                <div id="poweredby">powered by <a href="https://servicestack.net" target="_blank">servicestack.net</a></div>
+                <div id="poweredby"><a href="https://servicestack.net" target="_blank">servicestack.net</a></div>
             </div>
       );
     }
@@ -100,7 +100,7 @@ Router.run(routes, function (Handler, state) {
     React.render(<Handler />, document.body);
 
     var name = state.pathname.substring(1);
-    document.body.className = name + '-active';
+    document.body.className = (name || 'home') + '-active';
 });
 
 

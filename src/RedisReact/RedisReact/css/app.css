@@ -11,17 +11,20 @@ html {
     overflow-y:scroll;
 }
 body {
-   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
-   font-weight: 300;
-}   
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-weight: 300;
+}    
 h1 {
-    margin: 20px 0 0 70px;
-    font-size: 28px;
+    margin: 14px 0 0 0;
+    font-size: 20px;
+    white-space: nowrap;
 }
 #connection {
     display: block;
-    margin: 4px 0 0 70px;
+    margin: 3px 0 0 50px;
     color: #aaa;
+    font-size: 11px;
+    white-space: nowrap;
 }
 #connection:hover, #connection:focus, #connection:visited {
     text-decoration: none;
@@ -98,6 +101,10 @@ body.search-active, body.search-active .navbar {
     bottom: 5px;
     right: 5px;
     font-size: 12px;
+    display: none;
+}
+.home-active #poweredby {
+    display: block;
 }
 #redislogo {
     height: 50px;
@@ -211,7 +218,7 @@ body.search-active, body.search-active .navbar {
 }
     
 #keyviewer-page .content {
-    max-width: 75%;
+    max-width: 55%;
     text-align: left;
 }
 .rawview {
