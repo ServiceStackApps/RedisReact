@@ -39,7 +39,7 @@ namespace RedisReact
                 AddRedirectParamsToQueryString = true
             });
 
-            this.Plugins.Add(new RazorFormat());
+			this.Plugins.Add(new RazorFormat { EnableLiveReload = false });
         }
     }
 }

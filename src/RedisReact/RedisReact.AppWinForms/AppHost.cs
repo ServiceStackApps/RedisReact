@@ -25,6 +25,7 @@ namespace RedisReact.AppWinForms
             SharedUtils.Configure(this);
 
             Plugins.Add(new RazorFormat {
+				EnableLiveReload = false,
                 LoadFromAssemblies = { typeof(CefResources).Assembly },
             });
 
