@@ -76,9 +76,6 @@
     <Compile Include="SharedUtils.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\RedisReact.ServiceModel\RedisReact.ServiceModel.csproj">
       <Project>{08bef328-ab7d-48d3-800d-48acc75c7914}</Project>
       <Name>RedisReact.ServiceModel</Name>

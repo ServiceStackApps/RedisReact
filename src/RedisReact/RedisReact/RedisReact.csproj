@@ -115,9 +115,6 @@
     <Content Include="tests\unit\hello-test.js" />
     <Content Include="tests\preprocessor.js" />
     <Content Include="tests\README.txt" />
-    <Content Include="packages.config">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="package.json" />
     <Content Include="bower.json" />
     <Content Include="wwwroot_build\00-install-dependencies.bat" />

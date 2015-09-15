@@ -83,7 +83,6 @@
     <EmbeddedResource Include="lib\fonts\glyphicons-halflings-regular.ttf" />
     <EmbeddedResource Include="lib\fonts\glyphicons-halflings-regular.woff" />
     <EmbeddedResource Include="lib\fonts\glyphicons-halflings-regular.woff2" />
-    <None Include="packages.config" />
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
