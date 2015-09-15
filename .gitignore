@@ -3,6 +3,7 @@
 
 staging-console/
 staging-winforms/
+apps/
 
 # User-specific files
 *.suo

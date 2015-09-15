@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using CefSharp;
 using ServiceStack;
@@ -11,7 +8,7 @@ namespace RedisReact.AppWinForms
 {
     static class Program
     {
-        public static string HostUrl = "http://localhost:1337/";
+        public static string HostUrl = "http://127.0.0.1:1337/";
         public static AppHost AppHost;
         public static FormMain Form;
 
