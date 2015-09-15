@@ -21,10 +21,7 @@ namespace RedisReact.AppMac
 		/// Base constructor requires a name and assembly to locate web service classes. 
 		/// </summary>
 		public AppHost()
-			: base("RedisReact.AppMac", typeof(MyServices).Assembly)
-		{
-
-		}
+			: base("RedisReact.AppMac", typeof(RedisServices).Assembly) {}
 
 		/// <summary>
 		/// Application specific configuration
@@ -33,20 +30,16 @@ namespace RedisReact.AppMac
 		/// <param name="container"></param>
 		public override void Configure(Container container)
 		{
-			//Config examples
-			//this.Plugins.Add(new PostmanFeature());
-			//Plugins.Add(new CorsFeature());
+			SharedUtils.Configure(this);
 
-			Plugins.Add(new RazorFormat
-				{
-					LoadFromAssemblies = { typeof(CefResources).Assembly },
-				});
+			Plugins.Add(new RazorFormat {
+				LoadFromAssemblies = { typeof(CefResources).Assembly },
+			});
 
-			SetConfig(new HostConfig
-				{
-					DebugMode = true,
-					EmbeddedResourceBaseTypes = { typeof(AppHost), typeof(CefResources) }
-				});
+			SetConfig(new HostConfig {
+				DebugMode = true,
+				EmbeddedResourceBaseTypes = { typeof(AppHost), typeof(CefResources) }
+			});
 
 			Routes.Add<NativeHostAction>("/nativehost/{Action}");
 			ServiceController.RegisterService(typeof(NativeHostService));
@@ -65,17 +58,15 @@ namespace RedisReact.AppMac
 	{
 		public object Get(NativeHostAction request)
 		{
-			if (string.IsNullOrEmpty(request.Action)) {
-				throw HttpError.NotFound ("Function Not Found");
-			}
-			Type nativeHostType = typeof(NativeHost);
-			object nativeHost = nativeHostType.CreateInstance<NativeHost>();
-			string methodName = request.Action.First ().ToString ().ToUpper () + String.Join ("", request.Action.Skip (1));
-			MethodInfo methodInfo = nativeHostType.GetMethod(methodName);
+			if (string.IsNullOrEmpty(request.Action))
+				throw HttpError.NotFound("Function Not Found");
+
+			var nativeHost = typeof(NativeHost).CreateInstance<NativeHost>();
+			var methodName = request.Action.First ().ToString ().ToUpper () + string.Join ("", request.Action.Skip (1));
+			var methodInfo = typeof(NativeHost).GetMethod(methodName);
 			if (methodInfo == null)
-			{
-				throw new HttpError(HttpStatusCode.NotFound,"Function Not Found");
-			}
+				throw new HttpError(HttpStatusCode.NotFound, "Function Not Found");
+
 			methodInfo.Invoke(nativeHost, null);
 			return null;
 		}
