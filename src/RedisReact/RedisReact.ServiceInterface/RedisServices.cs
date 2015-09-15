@@ -2,15 +2,18 @@
 using System.Linq;
 using ServiceStack;
 using RedisReact.ServiceModel;
+using ServiceStack.Configuration;
 using ServiceStack.Redis;
 
 namespace RedisReact.ServiceInterface
 {
     public class RedisServices : Service
     {
+        public IAppSettings AppSettings { get; set; }
+
         public object Any(SearchRedis request)
         {
-            var limit = request.Take.GetValueOrDefault(100);
+            var limit = request.Take.GetValueOrDefault(AppSettings.Get("query-limit", 100));
 
             var keys = Redis.ScanAllKeys(pattern: request.Query, pageSize: limit)
                 .Take(limit).ToList();

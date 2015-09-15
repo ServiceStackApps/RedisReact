@@ -16,7 +16,10 @@ namespace RedisReact.AppConsole
         /// Base constructor requires a name and assembly to locate web service classes. 
         /// </summary>
         public AppHost()
-            : base("RedisReact.AppConsole", typeof(RedisServices).Assembly) {}
+            : base("RedisReact.AppConsole", typeof(RedisServices).Assembly)
+        {
+            AppSettings = SharedUtils.GetAppSettings();
+        }
 
         /// <summary>
         /// Application specific configuration
@@ -32,7 +35,7 @@ namespace RedisReact.AppConsole
             });
 
             SetConfig(new HostConfig {
-                DebugMode = true,
+                DebugMode = AppSettings.Get("DebugMode", false),
                 EmbeddedResourceBaseTypes = { typeof(AppHost), typeof(CefResources) },
             });
 

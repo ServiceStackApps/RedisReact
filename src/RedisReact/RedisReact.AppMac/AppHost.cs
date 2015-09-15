@@ -21,7 +21,10 @@ namespace RedisReact.AppMac
 		/// Base constructor requires a name and assembly to locate web service classes. 
 		/// </summary>
 		public AppHost()
-			: base("RedisReact.AppMac", typeof(RedisServices).Assembly) {}
+			: base("RedisReact.AppMac", typeof(RedisServices).Assembly) 
+		{
+			AppSettings = SharedUtils.GetAppSettings();
+		}
 
 		/// <summary>
 		/// Application specific configuration
@@ -38,8 +41,8 @@ namespace RedisReact.AppMac
 			});
 
 			SetConfig(new HostConfig {
-				DebugMode = true,
-				EmbeddedResourceBaseTypes = { typeof(AppHost), typeof(CefResources) }
+                DebugMode = AppSettings.Get("DebugMode", false),
+                EmbeddedResourceBaseTypes = { typeof(AppHost), typeof(CefResources) }
 			});
 
 			Routes.Add<NativeHostAction>("/nativehost/{Action}");

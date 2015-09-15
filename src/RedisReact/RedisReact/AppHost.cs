@@ -16,10 +16,7 @@ namespace RedisReact
         public AppHost()
             : base("RedisReact", typeof(RedisServices).Assembly)
         {
-            var customSettings = new FileInfo(@"~/appsettings.txt".MapHostAbsolutePath());
-            AppSettings = customSettings.Exists
-                ? (IAppSettings)new TextFileSettings(customSettings.FullName)
-                : new AppSettings();
+            AppSettings = SharedUtils.GetAppSettings();
         }
 
         /// <summary>
