@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{582DFB0F-F84D-4E43-9BCA-2A5A86600B7A}</ProjectGuid>
+    <ProjectGuid>{30A709D5-9F64-467E-9851-9AA94CBBD3D2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RedisReact.ServiceInterface</RootNamespace>
@@ -31,15 +31,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ServiceStack, Version=4.0.45.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack, Version=4.0.44.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\ServiceStack.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Client, Version=4.0.45.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.Client, Version=4.0.44.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\ServiceStack.Client.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Common, Version=4.0.45.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.Common, Version=4.0.44.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\ServiceStack.Common.dll</HintPath>
     </Reference>
@@ -47,34 +47,33 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\ServiceStack.Interfaces.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.OrmLite, Version=4.0.45.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.OrmLite, Version=4.0.44.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\ServiceStack.OrmLite.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Redis, Version=4.0.45.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.Redis, Version=4.0.44.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\ServiceStack.Redis.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Server, Version=4.0.45.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.Server, Version=4.0.44.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\ServiceStack.Server.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Text, Version=4.0.45.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.Text, Version=4.0.44.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\ServiceStack.Text.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Net" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="RedisServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RedisServices.cs" />
+    <Compile Include="SharedUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -4,7 +4,7 @@ using MonoMac.Foundation;
 using MonoMac.AppKit;
 using MonoMac.ObjCRuntime;
 
-namespace RedisReact
+namespace RedisReact.AppMac
 {
 	public static class MainClass
 	{

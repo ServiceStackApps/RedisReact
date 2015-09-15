@@ -7,7 +7,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{E78E217F-6804-460E-BFD1-BB3C588FD03B}</ProjectGuid>
+    <ProjectGuid>{27D04601-8961-4E78-9120-80BB03161D8F}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -41,15 +41,15 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="ServiceStack, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack, Version=4.0.44.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\ServiceStack.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Client, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.Client, Version=4.0.44.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\ServiceStack.Client.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Common, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.Common, Version=4.0.44.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\ServiceStack.Common.dll</HintPath>
     </Reference>
@@ -57,62 +57,60 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\ServiceStack.Interfaces.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.OrmLite, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.OrmLite, Version=4.0.44.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\ServiceStack.OrmLite.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Razor, Version=4.0.45.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.Razor, Version=4.0.44.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\ServiceStack.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Redis, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.Redis, Version=4.0.44.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\ServiceStack.Redis.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Server, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.Server, Version=4.0.44.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\ServiceStack.Server.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Text, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.Text, Version=4.0.44.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\ServiceStack.Text.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.DynamicData" />
-    <Reference Include="System.Web.Entity" />
-    <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System" />
     <Reference Include="System.Net" />
     <Reference Include="System.Data" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=e06fbc6124f57c43, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\System.Web.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
-    <Reference Include="System.Web.Services" />
-    <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="css\app.css" />
     <Content Include="gruntfile.js" />
     <Content Include="default.cshtml" />
     <Content Include="img\ajax-loader.gif" />
-    <Content Include="img\favicon.ico" />
     <Content Include="img\logo-32.png" />
+    <Content Include="img\logo.ico" />
+    <Content Include="img\react-logo.png" />
     <Content Include="img\redis-logo.png" />
-    <Content Include="js\Redis.js" />
+    <Content Include="js\app.jsx" />
+    <Content Include="js\components\connections.jsx" />
+    <Content Include="js\components\console.jsx" />
+    <Content Include="js\components\dashboard.jsx" />
+    <Content Include="js\components\keyview.jsx" />
+    <Content Include="js\components\keyviewer.jsx" />
+    <Content Include="js\components\search.jsx" />
     <Content Include="js\jsonviewer.js" />
-    <Content Include="js\Stores.js" />
+    <Content Include="js\redis.js" />
+    <Content Include="js\stores.js" />
     <Content Include="js\utils.js" />
     <Content Include="js\web.js" />
-    <Content Include="js\App.jsx" />
     <Content Include="Scripts\_references.js" />
     <Content Include="tests\unit\hello-test.js" />
     <Content Include="tests\preprocessor.js" />
@@ -132,12 +130,6 @@
     <Content Include="wwwroot_build\tools\7za.exe" />
     <Content Include="wwwroot_build\tools\ILMerge.exe" />
     <Content Include="wwwroot_build\tools\Licenses.txt" />
-    <Content Include="js\components\KeyViewer.jsx" />
-    <Content Include="js\components\Dashboard.jsx" />
-    <Content Include="js\components\Search.jsx" />
-    <Content Include="js\components\KeyView.jsx" />
-    <Content Include="js\components\Connections.jsx" />
-    <Content Include="js\components\Console.jsx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -147,9 +139,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="Web.config">
-      <SubType>Designer</SubType>
-    </Content>
+    <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppHost.cs" />
@@ -193,9 +183,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>60192</DevelopmentServerPort>
+          <DevelopmentServerPort>56723</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:60192/</IISUrl>
+          <IISUrl>http://localhost:56723/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

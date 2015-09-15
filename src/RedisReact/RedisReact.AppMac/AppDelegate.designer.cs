@@ -1,5 +1,5 @@
 
-namespace RedisReact
+namespace RedisReact.AppMac
 {
 	// Should subclass MonoMac.AppKit.NSResponder
 	[MonoMac.Foundation.Register ("AppDelegate")]

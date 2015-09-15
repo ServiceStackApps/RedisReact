@@ -1,8 +1,8 @@
+@* Auto generated file on 02:23:59 by RedisReactgruntfile.js *@
 @inherits ServiceStack.Razor.ViewPage
 @{
     var platformsClassName = AppSettings.Exists("PlatformClassName") ? AppSettings.GetString("PlatformClassName") : "web";
 }
-
 <!DOCTYPE html>
 <html @platformsClassName>
 <head lang="en">
@@ -20,8 +20,8 @@
     <script src="lib/js/lib.min.js"></script>
 
     <script src="/js/ss-utils.js"></script><!-- in ServiceStack.dll -->
-
-    <script src="lib/js/app.min.js"></script>
+       
+    <script src="js/app.min.js"></script>
 
     @if (AppSettings.Exists("PlatformJs"))
     {

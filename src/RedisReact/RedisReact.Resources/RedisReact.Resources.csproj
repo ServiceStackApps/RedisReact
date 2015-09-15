@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3414E9EC-19B8-410C-AC33-F2E6D081B930}</ProjectGuid>
+    <ProjectGuid>{34A40FF2-67DC-4BED-BC54-74CD303DFC6D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RedisReact.Resources</RootNamespace>
@@ -30,34 +30,16 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x86\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-    <OutputPath>bin\x86\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ServiceStack, Version=4.0.45.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack, Version=4.0.44.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\ServiceStack.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Client, Version=4.0.45.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.Client, Version=4.0.44.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\ServiceStack.Client.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Common, Version=4.0.45.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.Common, Version=4.0.44.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\ServiceStack.Common.dll</HintPath>
     </Reference>
@@ -65,28 +47,22 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\ServiceStack.Interfaces.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.OrmLite, Version=4.0.45.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\lib\ServiceStack.OrmLite.dll</HintPath>
-    </Reference>
-    <Reference Include="ServiceStack.Razor, Version=4.0.45.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.Razor, Version=4.0.44.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\ServiceStack.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Text, Version=4.0.45.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.Text, Version=4.0.44.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\ServiceStack.Text.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=e06fbc6124f57c43, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\System.Web.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -95,31 +71,28 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="css\app.min.css" />
-    <EmbeddedResource Include="js\app.jsx.js" />
-    <EmbeddedResource Include="lib\fonts\glyphicons-halflings-regular.svg" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="default.cshtml" />
+    <EmbeddedResource Include="js\app.jsx.js" />
+    <EmbeddedResource Include="js\app.min.js" />
+    <EmbeddedResource Include="lib\css\lib.min.css" />
+    <EmbeddedResource Include="lib\js\lib.min.js" />
+    <EmbeddedResource Include="lib\css\octicons-local.ttf" />
+    <EmbeddedResource Include="lib\css\octicons.ttf" />
+    <EmbeddedResource Include="lib\css\octicons.woff" />
     <EmbeddedResource Include="lib\fonts\glyphicons-halflings-regular.eot" />
     <EmbeddedResource Include="lib\fonts\glyphicons-halflings-regular.ttf" />
     <EmbeddedResource Include="lib\fonts\glyphicons-halflings-regular.woff" />
     <EmbeddedResource Include="lib\fonts\glyphicons-halflings-regular.woff2" />
-    <EmbeddedResource Include="img\ajax-loader.gif" />
-    <EmbeddedResource Include="img\logo-32.png" />
-    <EmbeddedResource Include="img\redis-logo.png" />
-    <EmbeddedResource Include="lib\css\lib.min.css" />
-    <EmbeddedResource Include="lib\js\app.min.js" />
-    <EmbeddedResource Include="lib\js\lib.min.js" />
-    <EmbeddedResource Include="img\favicon.ico" />
-    <Content Include="Web.config">
-      <SubType>Designer</SubType>
-    </Content>
+    <None Include="packages.config" />
+    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="lib\css\octicons-local.ttf" />
-    <EmbeddedResource Include="lib\css\octicons.ttf" />
-    <EmbeddedResource Include="lib\css\octicons.woff" />
-    <None Include="packages.config" />
+    <EmbeddedResource Include="img\ajax-loader.gif" />
+    <EmbeddedResource Include="img\logo-32.png" />
+    <EmbeddedResource Include="img\logo.ico" />
+    <EmbeddedResource Include="img\react-logo.png" />
+    <EmbeddedResource Include="img\redis-logo.png" />
+    <EmbeddedResource Include="lib\fonts\glyphicons-halflings-regular.svg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

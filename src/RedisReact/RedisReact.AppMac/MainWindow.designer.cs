@@ -7,7 +7,7 @@
 using MonoMac.Foundation;
 using System.CodeDom.Compiler;
 
-namespace RedisReact
+namespace RedisReact.AppMac
 {
 	[Register ("MainWindow")]
 	partial class MainWindow

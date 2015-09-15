@@ -1,17 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Reflection;
-using System.Web;
+﻿using System.IO;
 using Funq;
 using RedisReact.ServiceInterface;
 using ServiceStack;
 using ServiceStack.Configuration;
 using ServiceStack.Razor;
-using ServiceStack.Redis;
-using ServiceStack.Text;
 
 namespace RedisReact
 {
@@ -37,10 +29,7 @@ namespace RedisReact
         /// <param name="container"></param>
         public override void Configure(Container container)
         {
-            JsConfig.EmitCamelCaseNames = true;
-
-            container.Register<IRedisClientsManager>(c =>
-                new RedisManagerPool("127.0.0.1"));
+            SharedUtils.Configure(this);
 
             SetConfig(new HostConfig
             {

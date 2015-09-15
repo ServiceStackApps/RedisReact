@@ -2,7 +2,6 @@
 @{
     var platformsClassName = AppSettings.Exists("PlatformClassName") ? AppSettings.GetString("PlatformClassName") : "web";
 }
-
 <!DOCTYPE html>
 <html @platformsClassName>
 <head lang="en">
@@ -14,7 +13,7 @@
     <!-- endbuild -->
 
     <!--build:css css/app.min.css-->
-    <link rel="stylesheet" href="css/app.css" />
+    <link rel="stylesheet" href="/css/app.css" />
     <!-- endbuild -->
 
     @if (AppSettings.Exists("PlatformCss"))
@@ -33,12 +32,12 @@
     <!-- endbuild -->
 
     <script src="/js/ss-utils.js"></script><!-- in ServiceStack.dll -->
-
-    <!-- build:js lib/js/app.min.js -->
+       
+    <!-- build:js js/app.min.js -->
     <script src="/js/jsonviewer.js"></script>
     <script src="/js/utils.js"></script>
-    <script src="/js/Redis.js"></script>
-    <script src="/js/Stores.js"></script>
+    <script src="/js/redis.js"></script>
+    <script src="/js/stores.js"></script>
     <!-- endbuild -->
 
     @if (AppSettings.Exists("PlatformJs"))
@@ -51,13 +50,13 @@
 <body>
 
     <!-- build:js js/app.jsx.js -->
-    <script type="text/jsx" src="/js/components/Dashboard.jsx"></script>
-    <script type="text/jsx" src="/js/components/KeyView.jsx"></script>
-    <script type="text/jsx" src="/js/components/KeyViewer.jsx"></script>
-    <script type="text/jsx" src="/js/components/Search.jsx"></script>
-    <script type="text/jsx" src="/js/components/Connections.jsx"></script>
-    <script type="text/jsx" src="/js/components/Console.jsx"></script>
-    <script type="text/jsx" src="/js/App.jsx"></script>
+    <script type="text/jsx" src="/js/components/dashboard.jsx"></script>
+    <script type="text/jsx" src="/js/components/keyview.jsx"></script>
+    <script type="text/jsx" src="/js/components/keyviewer.jsx"></script>
+    <script type="text/jsx" src="/js/components/search.jsx"></script>
+    <script type="text/jsx" src="/js/components/connections.jsx"></script>
+    <script type="text/jsx" src="/js/components/console.jsx"></script>
+    <script type="text/jsx" src="/js/app.jsx"></script>
     <!-- endbuild -->
 
     <!-- build:remove -->

@@ -1,18 +1,22 @@
 @echo off
-IF EXIST staging-winforms\ (
-RMDIR /S /Q .\staging-winforms
+SET STAGING=staging-winforms
+
+IF EXIST %STAGING%\ (
+RMDIR /S /Q .\%STAGING%
+) ELSE IF EXIST %STAGING% (
+DEL /s %STAGING%
 )
 
-MD staging-winforms
+MD %STAGING%
 
 SET TOOLS=.\tools
 SET STAGINGZIP=RedisReact-winforms.7z
 SET OUTPUTNAME=RedisReact-winforms.exe
 SET RELEASE=..\..\RedisReact.AppWinForms\bin\x86\Release
-COPY %RELEASE%\RedisReact.AppWinForms.exe .\staging-winforms
-COPY %RELEASE%\RedisReact.AppWinForms.exe.config .\staging-winforms
-COPY %RELEASE%\CefSharp.BrowserSubprocess.exe .\staging-winforms
-ROBOCOPY "%RELEASE%" ".\staging-winforms" *.dll *.pak *.dat /E
+COPY %RELEASE%\RedisReact.AppWinForms.exe .\%STAGING%
+COPY %RELEASE%\RedisReact.AppWinForms.exe.config .\%STAGING%
+COPY %RELEASE%\CefSharp.BrowserSubprocess.exe .\%STAGING%
+ROBOCOPY "%RELEASE%" ".\%STAGING%" *.dll *.pak *.dat /E
 
 IF NOT EXIST apps (
 MD apps
@@ -26,7 +30,7 @@ IF EXIST %OUTPUTNAME% (
 DEL %OUTPUTNAME%
 )
 
-cd tools && 7za a ..\%STAGINGZIP% ..\staging-winforms\* && cd..
+cd tools && 7za a ..\%STAGINGZIP% ..\%STAGING%\* && cd..
 COPY /b .\tools\7zsd_All.sfx + config-winforms.txt + %STAGINGZIP% .\apps\%OUTPUTNAME%
 
 IF EXIST %STAGINGZIP% (

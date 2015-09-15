@@ -8,7 +8,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>RedisReact.AppMac</RootNamespace>
     <MonoMacResourcePrefix>Resources</MonoMacResourcePrefix>
-    <AssemblyName>RedisReact</AssemblyName>
+    <AssemblyName>RedisReact.AppMac</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -53,35 +53,35 @@
       <HintPath>..\..\lib\RedisReact.Resources.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Interfaces">
-      <HintPath>${SolutionDir}\packages\ServiceStack.Interfaces.4.0.42\lib\portable-wp80+sl5+net40+win8+monotouch+monoandroid+xamarin.ios10\ServiceStack.Interfaces.dll</HintPath>
+      <HintPath>..\..\packages\ServiceStack.Interfaces.4.0.44\lib\portable-wp80+sl5+net40+win8+monotouch+monoandroid+xamarin.ios10\ServiceStack.Interfaces.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Text">
-      <HintPath>${SolutionDir}\packages\ServiceStack.Text.4.0.42\lib\net40\ServiceStack.Text.dll</HintPath>
+      <HintPath>..\..\packages\ServiceStack.Text.4.0.44\lib\net40\ServiceStack.Text.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Common">
-      <HintPath>${SolutionDir}\packages\ServiceStack.Common.4.0.42\lib\net40\ServiceStack.Common.dll</HintPath>
+      <HintPath>..\..\packages\ServiceStack.Common.4.0.44\lib\net40\ServiceStack.Common.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Client">
-      <HintPath>${SolutionDir}\packages\ServiceStack.Client.4.0.42\lib\net40\ServiceStack.Client.dll</HintPath>
+      <HintPath>..\..\packages\ServiceStack.Client.4.0.44\lib\net40\ServiceStack.Client.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack">
-      <HintPath>${SolutionDir}\packages\ServiceStack.4.0.42\lib\net40\ServiceStack.dll</HintPath>
+      <HintPath>..\..\packages\ServiceStack.4.0.44\lib\net40\ServiceStack.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.OrmLite">
-      <HintPath>${SolutionDir}\packages\ServiceStack.OrmLite.4.0.42\lib\net45\ServiceStack.OrmLite.dll</HintPath>
+      <HintPath>..\..\packages\ServiceStack.OrmLite.4.0.44\lib\net45\ServiceStack.OrmLite.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Razor">
-      <HintPath>${SolutionDir}\packages\ServiceStack.Razor.4.0.42\lib\net45\ServiceStack.Razor.dll</HintPath>
+      <HintPath>..\..\packages\ServiceStack.Razor.4.0.44\lib\net45\ServiceStack.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Razor">
-      <HintPath>${SolutionDir}\packages\ServiceStack.Razor.4.0.42\lib\net45\System.Web.Razor.dll</HintPath>
+      <HintPath>..\..\packages\ServiceStack.Razor.4.0.44\lib\net45\System.Web.Razor.dll</HintPath>
     </Reference>
     <Reference Include="XamMac" />
     <Reference Include="ServiceStack.Redis">
-      <HintPath>${SolutionDir}\packages\ServiceStack.Redis.4.0.42\lib\net40\ServiceStack.Redis.dll</HintPath>
+      <HintPath>..\..\packages\ServiceStack.Redis.4.0.44\lib\net40\ServiceStack.Redis.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Server">
-      <HintPath>${SolutionDir}\packages\ServiceStack.Server.4.0.42\lib\net45\ServiceStack.Server.dll</HintPath>
+      <HintPath>..\..\packages\ServiceStack.Server.4.0.44\lib\net45\ServiceStack.Server.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -100,7 +100,6 @@
   <ItemGroup>
     <InterfaceDefinition Include="MainMenu.xib" />
     <InterfaceDefinition Include="MainWindow.xib" />
-    <InterfaceDefinition Include="About.xib" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -118,6 +117,6 @@
     <EmbeddedResource Include="mac.js" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\logo-64.icns" />
+    <BundleResource Include="Resources\logo.icns" />
   </ItemGroup>
 </Project>

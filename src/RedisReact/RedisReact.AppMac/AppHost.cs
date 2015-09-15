@@ -12,7 +12,7 @@ using System.Linq;
 using RedisReact.ServiceInterface;
 using RedisReact.Resources;
 
-namespace RedisReact
+namespace RedisReact.AppMac
 {
 	public class AppHost : AppSelfHostBase
 	{
@@ -53,7 +53,7 @@ namespace RedisReact
 
 			var allKeys = AppSettings.GetAllKeys();
 			if (!allKeys.Contains("platformsClassName"))
-				AppSettings.Set("platformsClassName", "console");
+				AppSettings.Set("platformsClassName", "mac");
 			if (!allKeys.Contains("PlatformCss"))
 				AppSettings.Set("PlatformCss", "mac.css");
 			if (!allKeys.Contains("PlatformJs"))
