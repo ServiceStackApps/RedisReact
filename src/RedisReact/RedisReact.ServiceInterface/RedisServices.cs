@@ -27,7 +27,7 @@ namespace RedisReact.ServiceInterface
                 using (var pipeline = Redis.CreatePipeline())
                 {
                     keys.Each(key =>
-                        pipeline.QueueCommand(r => ((RedisNativeClient)r).Type(key), x => keyTypes[key] = x));
+                        pipeline.QueueCommand(r => r.Type(key), x => keyTypes[key] = x));
 
                     keys.Each(key =>
                         pipeline.QueueCommand(r => ((RedisNativeClient)r).PTtl(key), x => keyTtls[key] = x));
@@ -43,7 +43,7 @@ namespace RedisReact.ServiceInterface
                         switch (entry.Value)
                         {
                             case "string":
-                                pipeline.QueueCommand(r => ((RedisNativeClient)r).StrLen(key), x => keySizes[key] = x);
+                                pipeline.QueueCommand(r => r.GetStringCount(key), x => keySizes[key] = x);
                                 break;
                             case "list":
                                 pipeline.QueueCommand(r => r.GetListCount(key), x => keySizes[key] = x);
@@ -96,8 +96,8 @@ namespace RedisReact.ServiceInterface
         public object Post(ChangeConnection request)
         {
             var connString = "{0}:{1}?db={2}".Fmt(
-                request.Host ?? "127.0.0.1", 
-                request.Port.GetValueOrDefault(6379), 
+                request.Host ?? "127.0.0.1",
+                request.Port.GetValueOrDefault(6379),
                 request.Db.GetValueOrDefault(0));
 
             var testConnection = new RedisClient(connString);
@@ -106,6 +106,13 @@ namespace RedisReact.ServiceInterface
             ((IRedisFailover)RedisManager).FailoverTo(connString);
 
             return Get(new GetConnection());
+        }
+
+        public object Any(GetRedisClientStats request)
+        {
+            var map = RedisStats.ToDictionary();
+            map["RequestsPerHour"] = RedisNativeClient.RequestsPerHour;
+            return new GetRedisClientStatsResponse { Result = map };
         }
 
         public object Any(FallbackForClientRoutes request)

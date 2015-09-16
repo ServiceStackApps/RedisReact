@@ -30,6 +30,8 @@ namespace RedisReact.ServiceInterface
         {
             JsConfig.EmitCamelCaseNames = true;
 
+            RedisConfig.AssumeServerVersion = 2821;
+
             var container = appHost.GetContainer();
             container.Register<IRedisClientsManager>(c =>
                 new RedisManagerPool(appHost.AppSettings.Get("redis-server", "127.0.0.1")));

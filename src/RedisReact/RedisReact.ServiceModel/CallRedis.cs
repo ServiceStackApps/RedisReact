@@ -58,4 +58,12 @@ namespace RedisReact.ServiceModel
 
         public ResponseStatus ResponseStatus { get; set; }
     }
+
+    [Route("/redisclient/stats")]
+    public class GetRedisClientStats : IReturn<GetRedisClientStatsResponse> { }
+
+    public class GetRedisClientStatsResponse
+    {
+        public Dictionary<string, long> Result { get; set; }
+    }
 }
