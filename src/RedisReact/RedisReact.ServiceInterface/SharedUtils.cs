@@ -14,7 +14,6 @@ namespace RedisReact.ServiceInterface
             {
                 "~/appsettings.txt".MapHostAbsolutePath(),
                 "~/appsettings.txt".MapAbsolutePath(),
-                "~/appsettings.txt".MapAbsolutePath("."),
             };
 
             foreach (var path in paths)
