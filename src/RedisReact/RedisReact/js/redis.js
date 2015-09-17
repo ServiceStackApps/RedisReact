@@ -1,4 +1,4 @@
-﻿var Redis = bindAll({
+﻿var Redis = $.ss.bindAll({
     call: function (args) {
         var request = {
             args: args
@@ -177,11 +177,3 @@
         return to;
     }
 });
-
-function bindAll(o) {
-    Object.keys(o).forEach(function (k) {
-        if (typeof o[k] == 'function')
-            o[k] = o[k].bind(o);
-    });
-    return o;
-}
