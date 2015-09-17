@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using ServiceStack;
 using ServiceStack.Configuration;
 using ServiceStack.Redis;
@@ -10,10 +11,14 @@ namespace RedisReact.ServiceInterface
     {
         public static IAppSettings GetAppSettings()
         {
+            CreateAppSettingsIfNotExists(
+                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".redisreact"));
+
             var paths = new[]
             {
                 "~/appsettings.txt".MapHostAbsolutePath(),
                 "~/appsettings.txt".MapAbsolutePath(),
+                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".redisreact", "appsettings.txt")
             };
 
             foreach (var path in paths)
@@ -35,6 +40,20 @@ namespace RedisReact.ServiceInterface
             var container = appHost.GetContainer();
             container.Register<IRedisClientsManager>(c =>
                 new RedisManagerPool(appHost.AppSettings.Get("redis-server", "127.0.0.1")));
+        }
+
+        public static void CreateAppSettingsIfNotExists(string redisreactDir)
+        {
+            if (!Directory.Exists(redisreactDir))
+            {
+                try
+                {
+                    Directory.CreateDirectory(redisreactDir);
+                    var appSettingsPath = Path.Combine(redisreactDir, "appsettings.txt");
+                    File.WriteAllText(appSettingsPath, "redis-server 127.0.0.1?db=0\r\nquery-limit 100");
+                }
+                catch { }
+            }
         }
     }
 }

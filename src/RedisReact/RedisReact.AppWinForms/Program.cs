@@ -1,6 +1,8 @@
 ﻿using System;
+using System.IO;
 using System.Windows.Forms;
 using CefSharp;
+using RedisReact.ServiceInterface;
 using ServiceStack;
 using ServiceStack.Text;
 
