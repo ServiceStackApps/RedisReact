@@ -34,7 +34,7 @@ Each application is available as a self-contained portable .exe that can be run 
 
 ### Windows
 
-[![](https://raw.githubusercontent.com/ServiceStack/Assets/master/img/livedemos/redis-react/windows10.png)](https://github.com/ServiceStackApps/RedisReact/raw/master/dist/RedisReact-winforms.exe)
+[![](https://raw.githubusercontent.com/ServiceStack/Assets/master/img/livedemos/redis-react/download-windows10.png)](https://github.com/ServiceStackApps/RedisReact/raw/master/dist/RedisReact-winforms.exe)
 
 To run on Windows, download the self-extracting Winforms App:
 
@@ -46,7 +46,7 @@ To run on Windows, download the self-extracting Winforms App:
 
 To run on OSX, download the Cocoa OSX App:
 
-[![](https://raw.githubusercontent.com/ServiceStack/Assets/master/img/livedemos/redis-react/osx.png)](https://github.com/ServiceStackApps/RedisReact/raw/master/dist/RedisReact.AppMac.app.zip)
+[![](https://raw.githubusercontent.com/ServiceStack/Assets/master/img/livedemos/redis-react/download-osx.png)](https://github.com/ServiceStackApps/RedisReact/raw/master/dist/RedisReact.AppMac.app.zip)
 
 #### [RedisReact.AppMac.app.zip](https://github.com/ServiceStackApps/RedisReact/raw/master/dist/RedisReact.AppMac.app.zip) (16.8MB)
 
@@ -57,7 +57,7 @@ and includes an embedded version of Mono which doesn't require an existing insta
 
 To run on Linux, download the cross-platform Console App:
 
-[![](https://raw.githubusercontent.com/ServiceStack/Assets/master/img/livedemos/redis-react/ubuntu.png)](https://github.com/ServiceStackApps/RedisReact/raw/master/dist/RedisReact-console.exe)
+[![](https://raw.githubusercontent.com/ServiceStack/Assets/master/img/livedemos/redis-react/download-linux.png)](https://github.com/ServiceStackApps/RedisReact/raw/master/dist/RedisReact-console.exe)
 
 #### [RedisReact-console.exe](https://github.com/ServiceStackApps/RedisReact/raw/master/dist/RedisReact-console.exe) (5.4MB) or [RedisReact-console.exe.zip](https://github.com/ServiceStackApps/RedisReact/raw/master/dist/RedisReact-console.exe.zip) (1.7MB)
 
@@ -226,7 +226,7 @@ Redis servers. Please leave any Feedback and
 
 Despite its rich functionality and support for multiple OS and Web platforms, Redis React is a very simple 
 React Web Application under the hood. It only uses the cross-platform
-[ServiceStack Libraries](https://servicestack.net/download) the entire Server implementation whilst 
+[ServiceStack Libraries](https://servicestack.net/download) for the entire Server implementation, whilst 
 [CefSharp](https://github.com/cefsharp/CefSharp) is used in 
 [Winforms project](https://github.com/ServiceStackApps/RedisReact/tree/master/src/RedisReact/RedisReact.AppWinForms)
 to give Windows access to a modern Web Broswer in Chromium.
