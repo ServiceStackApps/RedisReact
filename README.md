@@ -25,7 +25,7 @@ you can use to preview Redis React browsing a redis server populated with the
 [Complex Type Conventions](http://stackoverflow.com/a/8919931/85785) built into the 
 [C# ServiceStack.Redis Client](https://github.com/ServiceStack/ServiceStack.Redis).
 
-[![](https://raw.githubusercontent.com/ServiceStack/Assets/master/img/livedemos/redis-react/home.png)]](http://redisreact.servicestack.net/#/)
+[![](https://raw.githubusercontent.com/ServiceStack/Assets/master/img/livedemos/redis-react/home.png)](http://redisreact.servicestack.net/#/)
 
 ## Download
 
@@ -57,7 +57,7 @@ and includes an embedded version of Mono which doesn't require an existing insta
 
 To run on Linux, download the cross-platform Console App:
 
-[![](https://raw.githubusercontent.com/ServiceStack/Assets/master/img/livedemos/redis-react/ubuntu.png)]](https://github.com/ServiceStackApps/RedisReact/raw/master/dist/RedisReact-console.exe)
+[![](https://raw.githubusercontent.com/ServiceStack/Assets/master/img/livedemos/redis-react/ubuntu.png)](https://github.com/ServiceStackApps/RedisReact/raw/master/dist/RedisReact-console.exe)
 
 #### [RedisReact-console.exe](https://github.com/ServiceStackApps/RedisReact/raw/master/dist/RedisReact-console.exe) (5.4MB) or [RedisReact-console.exe.zip](https://github.com/ServiceStackApps/RedisReact/raw/master/dist/RedisReact-console.exe.zip) (1.7MB)
 
@@ -126,10 +126,10 @@ by clicking the key or using the `Left` and `Right` arrow keys to navigate up/do
 ### Key Hierarchy
 
 When there's no Search query, the Sidebar instead lists the Search results of the parent key in the 
-implicit hierarchy as separated by the chars `/`, `.`, `:`. The resulting key parts are also used in
+implicit hierarchy as separated by the chars `/ . :`. The resulting key parts are also used in
 the title link of the selected key as a breadcrumb to navigate up the Key's Hierarchy, e.g:
 
-#### [urn](http://redisreact.servicestack.net/#/search?q=urn%3A*) `:` [order](http://redisreact.servicestack.net/#/search?q=urn%3Aorder%3A*) `:` 10860
+**[urn](http://redisreact.servicestack.net/#/search?q=urn%3A*)** `:` **[order](http://redisreact.servicestack.net/#/search?q=urn%3Aorder%3A*)** `:` **10860**
 
 ## [Search Category](http://redisreact.servicestack.net/#/search?q=urn%3Acategory)
 
@@ -220,7 +220,7 @@ Whilst Sorted Sets and Hashes display its contents in 2 columns:
 
 We hope you enjoy using Redis React and it provides a great experience for browsing data in your 
 Redis servers. Please leave any Feedback and 
-[Feature Requests on our UserVoice](http://servicestack.uservoice.com/forums/176786-feature-requests)!
+[Feature Requests on UserVoice](http://servicestack.uservoice.com/forums/176786-feature-requests)!
 
 # Implementation Notes
 
@@ -233,15 +233,14 @@ to give Windows access to a modern Web Broswer in Chromium.
 
 The entire server implementation is contained in the single
 [RedisServices.cs](https://github.com/ServiceStackApps/RedisReact/blob/master/src/RedisReact/RedisReact.ServiceInterface/RedisServices.cs)
-ServiceStack Service.
+ServiceStack Service. 
 
 On the Client side all Ajax calls are made via the single
-[https://github.com/ServiceStackApps/RedisReact/blob/master/src/RedisReact/RedisReact/js/redis.js](redis.js).
-
+[redis.js](https://github.com/ServiceStackApps/RedisReact/blob/master/src/RedisReact/RedisReact/js/redis.js).
 What remains is a simple React App composed of a few straight-forward
 [JSX React Components](https://github.com/ServiceStackApps/RedisReact/tree/master/src/RedisReact/RedisReact/js/components)
 and 
-[Reflux Data Stores](https://github.com/ServiceStackApps/RedisReact/blob/master/src/RedisReact/RedisReact/js/stores.js)
+[Reflux Data Stores](https://github.com/ServiceStackApps/RedisReact/blob/master/src/RedisReact/RedisReact/js/stores.js).
 
 ### [React Desktop Apps](https://github.com/ServiceStackApps/ReactDesktopApps)
 
