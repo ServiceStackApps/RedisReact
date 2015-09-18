@@ -242,7 +242,7 @@ module.exports = function (grunt) {
                     .pipe(gulpif('*.css', minifyCss()))
                     .pipe(assets.restore())
                     .pipe(useref())
-                    .pipe(gulpif('*.html', header("<!-- Auto generated file on " + (new Date().toLocaleTimeString()) + " by RedisReact\gruntfile.js -->\r\n")))
+                    .pipe(gulpif('*.html', header("<!-- Auto generated file on " + (new Date().toLocaleTimeString()) + " by RedisReact\\gruntfile.js -->\r\n")))
                     .pipe(gulp.dest(resourcesRoot))
                     .pipe(gulp.dest(webRoot));
 

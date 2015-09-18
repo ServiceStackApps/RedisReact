@@ -1,21 +1,24 @@
+/* web */
+document.documentElement.className += ' web'​​​​;
+
 window.nativeHost = {
-    quit: function () {
+    quit: function() {
         window.close();
     },
-    showAbout: function () {
+    showAbout: function() {
         alert('RedisReact - ServiceStack + ReactJS');
     },
-    toggleFormBorder: function () {
+    toggleFormBorder: function() {
         //
     },
-    dockLeft: function () {
+    dockLeft: function() {
         //
     },
-    dockRight: function () {
+    dockRight: function() {
         //
     },
-    ready: function () {
+    ready: function() {
         //
     },
     platform: 'web'
-}
+};
