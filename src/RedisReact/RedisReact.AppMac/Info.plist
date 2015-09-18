@@ -5,7 +5,7 @@
 	<key>CFBundleDisplayName</key>
 	<string>RedisReact</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.your-company.RedisReact</string>
+	<string>net.servicestack.RedisReact</string>
 	<key>CFBundleName</key>
 	<string>RedisReact</string>
 	<key>CFBundleVersion</key>
@@ -18,5 +18,7 @@
 	<string>NSApplication</string>
 	<key>CFBundleIconFile</key>
 	<string>logo</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1</string>
 </dict>
 </plist>
