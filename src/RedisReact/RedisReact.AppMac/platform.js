@@ -1,5 +1,5 @@
 /* mac */
-document.documentElement.className += ' mac'​​​​;
+document.documentElement.className += ' mac';
 window.nativeHost = {
     quit: function () {
         $.get('/nativehost/quit');
