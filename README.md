@@ -244,6 +244,8 @@ and
 
 ### [React Desktop Apps](https://github.com/ServiceStackApps/ReactDesktopApps)
 
+[![React Desktop Apps](https://raw.githubusercontent.com/ServiceStack/Assets/master/img/gap/react-desktop-splash.png)](https://github.com/ServiceStackApps/ReactDesktopApps)
+
 The heavy lifting for packaging the React App is encapsulated in 
 [ServiceStackVS](https://github.com/ServiceStack/ServiceStackVS) new
 [React Desktop Apps](https://github.com/ServiceStackApps/ReactDesktopApps) VS.NET Template.
