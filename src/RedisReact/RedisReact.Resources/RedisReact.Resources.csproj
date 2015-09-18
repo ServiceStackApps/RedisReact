@@ -11,7 +11,8 @@
     <AssemblyName>RedisReact.Resources</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <NuGetPackageImportStamp>6ec54f66</NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,15 +32,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ServiceStack, Version=4.0.44.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\ServiceStack.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Client, Version=4.0.44.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.Client, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\ServiceStack.Client.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Common, Version=4.0.44.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.Common, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\ServiceStack.Common.dll</HintPath>
     </Reference>
@@ -47,11 +48,17 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\ServiceStack.Interfaces.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Razor, Version=4.0.44.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.OrmLite, Version=4.0.44.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\ServiceStack.OrmLite.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Razor">
       <HintPath>..\..\..\lib\ServiceStack.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Text, Version=4.0.44.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.Redis">
+      <HintPath>..\..\..\lib\ServiceStack.Redis.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Text, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\ServiceStack.Text.dll</HintPath>
     </Reference>
@@ -71,7 +78,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="css\app.min.css" />
-    <EmbeddedResource Include="default.cshtml" />
+    <Content Include="default.cshtml" />
     <EmbeddedResource Include="js\app.jsx.js" />
     <EmbeddedResource Include="js\app.min.js" />
     <EmbeddedResource Include="lib\css\lib.min.css" />
@@ -84,6 +91,7 @@
     <EmbeddedResource Include="lib\fonts\glyphicons-halflings-regular.woff" />
     <EmbeddedResource Include="lib\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="img\ajax-loader.gif" />
@@ -93,12 +101,20 @@
     <EmbeddedResource Include="img\redis-logo.png" />
     <EmbeddedResource Include="lib\fonts\glyphicons-halflings-regular.svg" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RedisReact.ServiceModel\RedisReact.ServiceModel.csproj">
+      <Project>{8acaec26-7705-4927-9e00-0217c7addc53}</Project>
+      <Name>RedisReact.ServiceModel</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
+    <Error Condition="!Exists('..\..\packages\ServiceStack.Razor.BuildTask.4.0.45\build\ServiceStack.Razor.BuildTask.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\ServiceStack.Razor.BuildTask.4.0.45\build\ServiceStack.Razor.BuildTask.targets'))" />
   </Target>
+  <Import Project="..\..\packages\ServiceStack.Razor.BuildTask.4.0.45\build\ServiceStack.Razor.BuildTask.targets" Condition="Exists('..\..\packages\ServiceStack.Razor.BuildTask.4.0.45\build\ServiceStack.Razor.BuildTask.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
