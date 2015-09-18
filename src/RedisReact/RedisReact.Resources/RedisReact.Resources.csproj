@@ -52,9 +52,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\ServiceStack.OrmLite.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Razor">
-      <HintPath>..\..\..\lib\ServiceStack.Razor.dll</HintPath>
-    </Reference>
     <Reference Include="ServiceStack.Redis">
       <HintPath>..\..\..\lib\ServiceStack.Redis.dll</HintPath>
     </Reference>
@@ -66,10 +63,6 @@
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=e06fbc6124f57c43, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\lib\System.Web.Razor.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -77,8 +70,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="default.html" />
     <EmbeddedResource Include="css\app.min.css" />
-    <Content Include="default.cshtml" />
     <EmbeddedResource Include="js\app.jsx.js" />
     <EmbeddedResource Include="js\app.min.js" />
     <EmbeddedResource Include="lib\css\lib.min.css" />
@@ -91,7 +84,6 @@
     <EmbeddedResource Include="lib\fonts\glyphicons-halflings-regular.woff" />
     <EmbeddedResource Include="lib\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="App.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="img\ajax-loader.gif" />
@@ -108,13 +100,6 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\ServiceStack.Razor.BuildTask.4.0.45\build\ServiceStack.Razor.BuildTask.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\ServiceStack.Razor.BuildTask.4.0.45\build\ServiceStack.Razor.BuildTask.targets'))" />
-  </Target>
-  <Import Project="..\..\packages\ServiceStack.Razor.BuildTask.4.0.45\build\ServiceStack.Razor.BuildTask.targets" Condition="Exists('..\..\packages\ServiceStack.Razor.BuildTask.4.0.45\build\ServiceStack.Razor.BuildTask.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

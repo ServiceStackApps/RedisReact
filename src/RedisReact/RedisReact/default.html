@@ -1,25 +1,18 @@
-﻿@inherits ServiceStack.Razor.ViewPage
-@{
-    var platformsClassName = AppSettings.Exists("PlatformClassName") ? AppSettings.GetString("PlatformClassName") : "web";
-}
-<!DOCTYPE html>
-<html @platformsClassName>
+﻿<!DOCTYPE html>
+<html>
 <head lang="en">
     <meta charset="UTF-8">
 
-    <!--build:css lib/css/lib.min.css-->
+    <!--build:css /lib/css/lib.min.css-->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="bower_components/octicons/octicons/octicons.css">
     <!-- endbuild -->
 
-    <!--build:css css/app.min.css-->
+    <!--build:css /css/app.min.css-->
     <link rel="stylesheet" href="/css/app.css" />
     <!-- endbuild -->
 
-    @if (AppSettings.Exists("PlatformCss"))
-    {
-        <link rel="stylesheet" href="@(AppSettings.GetString("PlatformCss") + "?disableCache=" + DateTime.Now.Ticks)" />
-    }
+    <link rel="stylesheet" href="/platform.css" />
 
     <!-- build:js lib/js/lib.min.js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -33,23 +26,20 @@
 
     <script src="/js/ss-utils.js"></script><!-- in ServiceStack.dll -->
        
-    <!-- build:js js/app.min.js -->
+    <!-- build:js /js/app.min.js -->
     <script src="/js/jsonviewer.js"></script>
     <script src="/js/utils.js"></script>
     <script src="/js/redis.js"></script>
     <script src="/js/stores.js"></script>
     <!-- endbuild -->
 
-    @if (AppSettings.Exists("PlatformJs"))
-    {
-        <script src="@(AppSettings.GetString("PlatformJs") + "?disableCache=" + DateTime.UtcNow.Ticks)"></script>
-    }
+    <script src="/js/stores.js"></script>
 
     <title>Redis React</title>
 </head>
 <body>
 
-    <!-- build:js js/app.jsx.js -->
+    <!-- build:js /js/app.jsx.js -->
     <script type="text/jsx" src="/js/components/dashboard.jsx"></script>
     <script type="text/jsx" src="/js/components/keyview.jsx"></script>
     <script type="text/jsx" src="/js/components/keyviewer.jsx"></script>

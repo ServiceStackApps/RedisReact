@@ -1,12 +1,11 @@
-﻿window.nativeHost = {
+/* mac */
+document.documentElement.className += ' mac'​​​​;
+window.nativeHost = {
     quit: function () {
         $.get('/nativehost/quit');
-        setTimeout(function() {
-            window.close();
-        });
     },
     showAbout: function () {
-        alert('ReactChat - ServiceStack + ReactJS');
+    	$.get('/nativehost/showAbout');
     },
     toggleFormBorder: function () {
         //
@@ -20,5 +19,5 @@
     ready: function () {
         //
     },
-    platform: 'console'
-}
+    platform: 'mac'
+};

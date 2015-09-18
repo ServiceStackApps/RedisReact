@@ -1,9 +1,6 @@
-﻿using System.IO;
-using Funq;
+﻿using Funq;
 using RedisReact.ServiceInterface;
 using ServiceStack;
-using ServiceStack.Configuration;
-using ServiceStack.Razor;
 
 namespace RedisReact
 {
@@ -35,8 +32,6 @@ namespace RedisReact
                 AllowFileExtensions = { "jsx" },
                 AddRedirectParamsToQueryString = true
             });
-
-			this.Plugins.Add(new RazorFormat { EnableLiveReload = false });
         }
     }
 }

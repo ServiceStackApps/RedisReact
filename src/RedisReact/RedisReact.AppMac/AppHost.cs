@@ -1,7 +1,6 @@
 using System;
 using ServiceStack;
 using Funq;
-using ServiceStack.Razor;
 using System.Reflection;
 using ServiceStack.Text;
 using System.Net;
@@ -34,11 +33,6 @@ namespace RedisReact.AppMac
 		public override void Configure(Container container)
 		{
 			SharedUtils.Configure(this);
-
-			Plugins.Add(new RazorFormat {
-				EnableLiveReload = false,
-				LoadFromAssemblies = { typeof(CefResources).Assembly },
-			});
 
 			SetConfig(new HostConfig {
                 DebugMode = AppSettings.Get("DebugMode", false),

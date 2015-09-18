@@ -115,13 +115,12 @@ namespace RedisReact.ServiceInterface
             return new GetRedisClientStatsResponse { Result = map };
         }
 
+        private static string defaultHtml = null;
+
         public object Any(FallbackForClientRoutes request)
         {
-            //Return default.cshtml for unmatched requests so routing is handled on the client
-            return new HttpResult
-            {
-                View = "/default.cshtml"
-            };
+            return defaultHtml ?? 
+                (defaultHtml = HostContext.ResolveVirtualFile("/default.html", Request).ReadAllText());
         }
     }
 

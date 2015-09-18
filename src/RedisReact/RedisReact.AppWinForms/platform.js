@@ -1,4 +1,7 @@
-﻿$(document).ready(function () {
+﻿/* winforms */
+document.documentElement.className += ' winforms'​​​​;
+
+$(document).ready(function () {
     window.nativeHost.ready();
 
     $(document).on('keydown', function(e) {

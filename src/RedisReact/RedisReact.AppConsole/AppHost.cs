@@ -3,7 +3,6 @@ using System.Linq;
 using System.Net;
 using Funq;
 using ServiceStack;
-using ServiceStack.Razor;
 using RedisReact.Resources;
 using RedisReact.ServiceInterface;
 
@@ -29,10 +28,6 @@ namespace RedisReact.AppConsole
         public override void Configure(Container container)
         {
             SharedUtils.Configure(this);
-
-            Plugins.Add(new RazorFormat {
-                LoadFromAssemblies = { typeof(CefResources).Assembly },
-            });
 
             SetConfig(new HostConfig {
                 DebugMode = AppSettings.Get("DebugMode", false),

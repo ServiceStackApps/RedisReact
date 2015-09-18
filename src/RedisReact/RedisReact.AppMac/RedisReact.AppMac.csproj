@@ -69,9 +69,6 @@
     <Reference Include="ServiceStack.OrmLite">
       <HintPath>..\..\..\lib\ServiceStack.OrmLite.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Razor">
-      <HintPath>..\..\..\lib\ServiceStack.Razor.dll</HintPath>
-    </Reference>
     <Reference Include="ServiceStack.Redis">
       <HintPath>..\..\..\lib\ServiceStack.Redis.dll</HintPath>
     </Reference>
@@ -80,9 +77,6 @@
     </Reference>
     <Reference Include="ServiceStack.Text">
       <HintPath>..\..\..\lib\ServiceStack.Text.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Razor">
-      <HintPath>..\..\..\lib\System.Web.Razor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -113,8 +107,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="mac.css" />
-    <EmbeddedResource Include="mac.js" />
+    <EmbeddedResource Include="platform.css" />
+    <EmbeddedResource Include="platform.js" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\logo.icns" />
