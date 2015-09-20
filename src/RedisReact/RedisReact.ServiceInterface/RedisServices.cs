@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using ServiceStack;
 using RedisReact.ServiceModel;
 using ServiceStack.Configuration;
@@ -15,64 +14,59 @@ namespace RedisReact.ServiceInterface
         {
             var limit = request.Take.GetValueOrDefault(AppSettings.Get("query-limit", 100));
 
-            var keys = Redis.ScanAllKeys(pattern: request.Query, pageSize: limit)
-                .Take(limit).ToList();
+            const string LuaScript = @"
+local limit = tonumber(ARGV[2])
+local pattern = ARGV[1]
+local cursor = 0
+local len = 0
+local keys = {}
 
-            var keyTypes = new Dictionary<string, string>();
-            var keyTtls = new Dictionary<string, long>();
-            var keySizes = new Dictionary<string, long>();
+repeat
+    local r = redis.call('scan', cursor, 'MATCH', pattern, 'COUNT', limit)
+    cursor = tonumber(r[1])
+    for k,v in ipairs(r[2]) do
+        table.insert(keys, v)
+        len = len + 1
+        if len == limit then break end
+    end
+until cursor == 0 or len == limit
 
-            if (keys.Count > 0)
-            {
-                using (var pipeline = Redis.CreatePipeline())
-                {
-                    keys.Each(key =>
-                        pipeline.QueueCommand(r => r.Type(key), x => keyTypes[key] = x));
+if len == 0 then
+    return '[]'
+end
 
-                    keys.Each(key =>
-                        pipeline.QueueCommand(r => ((RedisNativeClient)r).PTtl(key), x => keyTtls[key] = x));
+local keyAttrs = {}
+for i,key in ipairs(keys) do
+    local type = redis.call('type', key)['ok']
+    local pttl = redis.call('pttl', key)
+    local size = 0
+    if type == 'string' then
+        size = redis.call('strlen', key)
+    elseif type == 'list' then
+        size = redis.call('llen', key)
+    elseif type == 'set' then
+        size = redis.call('scard', key)
+    elseif type == 'zset' then
+        size = redis.call('zcard', key)
+    elseif type == 'hash' then
+        size = redis.call('hlen', key)
+    end
 
-                    pipeline.Flush();
-                }
+    local attrs = {['id'] = key, ['type'] = type, ['ttl'] = pttl, ['size'] = size}
 
-                using (var pipeline = Redis.CreatePipeline())
-                {
-                    foreach (var entry in keyTypes)
-                    {
-                        var key = entry.Key;
-                        switch (entry.Value)
-                        {
-                            case "string":
-                                pipeline.QueueCommand(r => r.GetStringCount(key), x => keySizes[key] = x);
-                                break;
-                            case "list":
-                                pipeline.QueueCommand(r => r.GetListCount(key), x => keySizes[key] = x);
-                                break;
-                            case "set":
-                                pipeline.QueueCommand(r => r.GetSetCount(key), x => keySizes[key] = x);
-                                break;
-                            case "zset":
-                                pipeline.QueueCommand(r => r.GetSortedSetCount(key), x => keySizes[key] = x);
-                                break;
-                            case "hash":
-                                pipeline.QueueCommand(r => r.GetHashCount(key), x => keySizes[key] = x);
-                                break;
-                        }
-                    }
+    table.insert(keyAttrs, attrs)    
+end
 
-                    pipeline.Flush();
-                }
-            }
+return cjson.encode(keyAttrs)";
+
+            var json = Redis.ExecCachedLua(LuaScript, sha1 =>
+                Redis.ExecLuaShaAsString(sha1, request.Query, limit.ToString()));
+
+            var searchResults = json.FromJson<List<SearchResult>>();
 
             return new SearchRedisResponse
             {
-                Results = keys.Map(x => new SearchResult
-                {
-                    Id = x,
-                    Type = keyTypes.GetValueOrDefault(x),
-                    Ttl = keyTtls.GetValueOrDefault(x),
-                    Size = keySizes.GetValueOrDefault(x),
-                })
+                Results = searchResults
             };
         }
 
@@ -110,9 +104,7 @@ namespace RedisReact.ServiceInterface
 
         public object Any(GetRedisClientStats request)
         {
-            var map = RedisStats.ToDictionary();
-            map["RequestsPerHour"] = RedisNativeClient.RequestsPerHour;
-            return new GetRedisClientStatsResponse { Result = map };
+            return new GetRedisClientStatsResponse { Result = RedisStats.ToDictionary() };
         }
 
         private static string defaultHtml = null;
