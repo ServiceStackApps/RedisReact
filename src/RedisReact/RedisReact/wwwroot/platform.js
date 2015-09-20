@@ -1,4 +1,4 @@
-﻿/* web */
+/* web */
 document.documentElement.className += ' web'​​​​;
 window.nativeHost = {
     quit: function() {
