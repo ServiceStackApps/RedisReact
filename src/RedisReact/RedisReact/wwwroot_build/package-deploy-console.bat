@@ -25,8 +25,6 @@ SET INPUT=%INPUT% %RELEASE%\ServiceStack.Interfaces.dll
 SET INPUT=%INPUT% %RELEASE%\ServiceStack.Server.dll
 SET INPUT=%INPUT% %RELEASE%\ServiceStack.OrmLite.dll
 SET INPUT=%INPUT% %RELEASE%\ServiceStack.Redis.dll
-SET INPUT=%INPUT% %RELEASE%\ServiceStack.Razor.dll
-SET INPUT=%INPUT% %RELEASE%\System.Web.Razor.dll
 
 %ILMERGE% /target:exe /targetplatform:v4,"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5" /out:%STAGING%\%OUTPUTNAME% /ndebug %INPUT% 
 

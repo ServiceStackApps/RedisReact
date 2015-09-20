@@ -34,15 +34,6 @@ namespace RedisReact.AppConsole
                 EmbeddedResourceBaseTypes = { typeof(AppHost), typeof(CefResources) },
             });
 
-            var allKeys = AppSettings.GetAllKeys();
-
-            if (!allKeys.Contains("platformsClassName"))
-                AppSettings.Set("platformsClassName", "console");
-            if (!allKeys.Contains("PlatformCss"))
-                AppSettings.Set("PlatformCss", "console.css");
-            if (!allKeys.Contains("PlatformJs"))
-                AppSettings.Set("PlatformJs", "console.js");
-
             // This route is added using Routes.Add and ServiceController.RegisterService due to
             // using ILMerge limiting our AppHost : base() call to one assembly.
             // If two assemblies are used, the base() call searchs the same assembly twice due to the ILMerged result.
