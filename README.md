@@ -1,8 +1,8 @@
 # Redis React
 
-Redis React is a simple user-friendly UI for browsing data in Redis servers which is available
-as a [React Desktop Template](https://github.com/ServiceStackApps/ReactChatApps) 
-on multiple platforms including Windows, OSX, Linux or deployed as an ASP.NET Web Application on IIS.
+Redis React is a simple user-friendly UI for browsing data in Redis servers which as it's built from
+a [React Desktop Template](https://github.com/ServiceStackApps/ReactChatApps), it's available on 
+multiple platforms including Windows, OSX, Linux or deployed as an ASP.NET Web Application on IIS.
 
 Redis React takes advantage of the navigation and deep-linking benefits of a Web-based UI, the 
 productivity and responsiveness of the [React framework](http://facebook.github.io/react/) 
