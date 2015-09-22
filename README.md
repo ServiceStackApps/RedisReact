@@ -1,9 +1,10 @@
 # Redis React
 
 Redis React is a simple user-friendly UI for browsing data in Redis servers which is available
-as a Desktop Application on multiple platforms thanks to the approach in ServiceStack's new 
-[React Desktop Template](https://github.com/ServiceStackApps/ReactChatApps) which
-leverages the navigation and deep-linking benefits of a Web-based UI, the 
+as a [React Desktop Template](https://github.com/ServiceStackApps/ReactChatApps) 
+on multiple platforms including Windows, OSX, Linux or deployed as an ASP.NET Web Application on IIS.
+
+Redis React takes advantage of the navigation and deep-linking benefits of a Web-based UI, the 
 productivity and responsiveness of the [React framework](http://facebook.github.io/react/) 
 and the rich native experiences and OS Integration possible from a Native Desktop Application.
 
@@ -50,10 +51,10 @@ To run on OSX, download the Cocoa OSX App:
 
 #### [RedisReact.AppMac.mono.app.zip](https://github.com/ServiceStackApps/RedisReact/raw/master/dist/RedisReact.AppMac.mono.app.zip) (16.5 MB) or without mono [RedisReact.AppMac.app.zip](https://github.com/ServiceStackApps/RedisReact/raw/master/dist/RedisReact.AppMac.app.zip) (4.1 MB)
 
-> The Cocoa OSX App was built with [Xamarin.Mac](https://developer.xamarin.com/guides/mac/getting_started/hello,_mac/)
+The Cocoa OSX App was built with [Xamarin.Mac](https://developer.xamarin.com/guides/mac/getting_started/hello,_mac/)
 and includes an embedded version of Mono which doesn't require an existing install of Mono. 
 
-Embedded Mono version conflicts with an existing Mono v4.0.3 installation, can upgrade Mono or use non-embedded version.
+> Embedded Mono version conflicts with an existing Mono v4.0.3 installation, can upgrade Mono or use non-embedded version.
 
 ### Linux
 
