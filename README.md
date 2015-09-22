@@ -71,23 +71,10 @@ the Console Application starts a self-hosting HTTP server which it opens in the 
 See the instructions for [Installing Mono on Linux](http://www.mono-project.com/docs/getting-started/install/linux/).
 If installing via apt-get, it needs the **mono-complete** package to run.
 
-## Connecting to Redis
+## [Change Connection to Redis Server](http://redisreact.servicestack.net/#/connections)
 
 By default Redis React will try to connect to a local instance of redis-server on `127.0.0.1:6379`, 
-to change the default connection you can modify `appsettings.txt` in your User directory, i.e:
-
-```
-C:\Users\MyUser\.redisreact\   # Windows
-/Users/MyUser/.redisreact\     # OSX or Linux
-```
-
-If preferred you can also put a copy of
-[appsettings.txt](https://github.com/ServiceStackApps/RedisReact/blob/master/dist/appsettings.txt)
-in the same directory where the application is run. 
-
-## [Connections](http://redisreact.servicestack.net/#/connections)
-
-You can also change which redis-server to connect to at runtime on the [/connections](http://redisreact.servicestack.net/#/connections) page:
+which can be changed at runtime on the [/connections](http://redisreact.servicestack.net/#/connections) page:
 
 [![](https://raw.githubusercontent.com/ServiceStack/Assets/master/img/livedemos/redis-react/connection.png)](http://redisreact.servicestack.net/#/connections)
 
@@ -95,6 +82,19 @@ You can also change which redis-server to connect to at runtime on the [/connect
 [Northwind Dataset](http://northwind.servicestack.net/) 
 on **DB 0** and test data for other Redis data structures on 
 [DB 1](#search-db-1)
+
+## Change Default AppSettings
+
+You can also change the default connection by modifying the `appsettings.txt` in your User directory at:
+```
+C:\Users\MyUser\.redisreact/appsettings.txt   # Windows
+
+/Users/MyUser/.redisreact/appsettings.txt     # OSX or Linux
+```
+
+> If preferred you can also put a copy of
+[appsettings.txt](https://github.com/ServiceStackApps/RedisReact/blob/master/dist/appsettings.txt)
+in the same directory where the application is run. 
 
 ## [Search](http://redisreact.servicestack.net/#/search)
 
@@ -107,7 +107,7 @@ is explicitly added to the end of the query to allow for autocomplete of results
 By default it returns the first **100** results and also displays summary info about each entry including 
 the **Type** of key, **Size** of the value stored and when the Key **Expires** (if ever).
 
-## [Order](http://redisreact.servicestack.net/#/keys?id=urn%3Aorder%3A10860&type=string)
+## [View JSON Value](http://redisreact.servicestack.net/#/keys?id=urn%3Aorder%3A10860&type=string)
 
 Clicking on a Search Result will show you the value stored at that key, if the value is JSON it will show
 a human-friendly view of the data, e.g:
@@ -134,7 +134,7 @@ the title link of the selected key as a breadcrumb to navigate up the Key's Hier
 
 **[urn](http://redisreact.servicestack.net/#/search?q=urn%3A*)** `:` **[order](http://redisreact.servicestack.net/#/search?q=urn%3Aorder%3A*)** `:` **10860**
 
-## [Search Category](http://redisreact.servicestack.net/#/search?q=urn%3Acategory)
+## [Search Keys](http://redisreact.servicestack.net/#/search?q=urn%3Acategory)
 
 By convention many keys sharing the same Key Hierarchy generally are of the same type making it an 
 easy way to browse through related entries:
@@ -156,7 +156,7 @@ Clicking on any of the results lets you view that item in more detail:
 
 > Use the **Left** and **Right** arrow keys to quickly browse through each category
 
-## [Category Rawmode](http://redisreact.servicestack.net/#/keys?id=urn%3Acategory%3A7&type=string)
+## [View raw JSON Value](http://redisreact.servicestack.net/#/keys?id=urn%3Acategory%3A7&type=string)
 
 Clicking on the preview result will let you toggle to see the underlying JSON value, e.g:
 
@@ -169,7 +169,7 @@ Clicking on the preview result will let you toggle to see the underlying JSON va
 Once view the JSON in **raw mode**, you can select all the JSON text by holding down 
 **Shift** or **Ctrl** key and clicking anywhere on the JSON text.
 
-## [Console](http://redisreact.servicestack.net/#/console)
+## [Web Console](http://redisreact.servicestack.net/#/console)
 
 The built-in Console takes advantage of a Web Based UI to provide some nice enhancements. E.g. each 
 command is displayed on top of the result it returns, where clicking the command populates the text box
