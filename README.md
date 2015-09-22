@@ -48,10 +48,12 @@ To run on OSX, download the Cocoa OSX App:
 
 [![](https://raw.githubusercontent.com/ServiceStack/Assets/master/img/livedemos/redis-react/download-osx.png)](https://github.com/ServiceStackApps/RedisReact/raw/master/dist/RedisReact.AppMac.app.zip)
 
-#### [RedisReact.AppMac.app.zip](https://github.com/ServiceStackApps/RedisReact/raw/master/dist/RedisReact.AppMac.app.zip) (16.8MB)
+#### [RedisReact.AppMac.mono.app.zip](https://github.com/ServiceStackApps/RedisReact/raw/master/dist/RedisReact.AppMac.mono.app.zip) (16.5 MB) or without mono [RedisReact.AppMac.app.zip](https://github.com/ServiceStackApps/RedisReact/raw/master/dist/RedisReact.AppMac.app.zip) (4.1 MB)
 
 > The Cocoa OSX App was built with [Xamarin.Mac](https://developer.xamarin.com/guides/mac/getting_started/hello,_mac/)
-and includes an embedded version of Mono which doesn't require an existing install of Mono 
+and includes an embedded version of Mono which doesn't require an existing install of Mono. 
+
+Embedded Mono version conflicts with an existing Mono v4.0.3 installation, can upgrade Mono or use non-embedded version.
 
 ### Linux
 
