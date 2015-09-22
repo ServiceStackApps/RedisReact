@@ -1,6 +1,6 @@
 # Redis React
 
-Redis React is a simple user-friendly UI for browsing data in Redis servers which is availble
+Redis React is a simple user-friendly UI for browsing data in Redis servers which is available
 as a Desktop Application on multiple platforms thanks to the approach in ServiceStack's new 
 [React Desktop Template](https://github.com/ServiceStackApps/ReactChatApps) which
 leverages the navigation and deep-linking benefits of a Web-based UI, the 
@@ -101,7 +101,7 @@ is explicitly added to the end of the query to allow for autocomplete of results
 
 [![](https://raw.githubusercontent.com/ServiceStack/Assets/master/img/livedemos/redis-react/search.png)](http://redisreact.servicestack.net/#/search)
 
-By default it retuns the first **100** results and also displays summary info about each entry including 
+By default it returns the first **100** results and also displays summary info about each entry including 
 the **Type** of key, **Size** of the value stored and when the Key **Expires** (if ever).
 
 ## [Order](http://redisreact.servicestack.net/#/keys?id=urn%3Aorder%3A10860&type=string)
@@ -133,7 +133,7 @@ the title link of the selected key as a breadcrumb to navigate up the Key's Hier
 
 ## [Search Category](http://redisreact.servicestack.net/#/search?q=urn%3Acategory)
 
-By convention many keys sharing the same Key Hierarchy generally are of the same type makeing it an 
+By convention many keys sharing the same Key Hierarchy generally are of the same type making it an 
 easy way to browse through related entries:
 
 [![](https://raw.githubusercontent.com/ServiceStack/Assets/master/img/livedemos/redis-react/search-category.png)](http://redisreact.servicestack.net/#/search?q=urn%3Acategory)
@@ -180,7 +180,7 @@ JSON data which can be clicked to toggle on/off individually:
 
 This feature takes advantages of the POCO conventions built into the 
 [C# ServiceStack.Redis Client](https://github.com/ServiceStack/ServiceStack.Redis) where it will 
-automatically display any releated entities for the current value, as seen with the related 
+automatically display any related entities for the current value, as seen with the related 
 **Customer** the **Order** was for and the **Employee** who created it:
 
 [![](https://raw.githubusercontent.com/ServiceStack/Assets/master/img/livedemos/redis-react/order-refs.png)](http://redisreact.servicestack.net/#/keys?id=urn%3Aorder%3A10860&type=string)
@@ -229,7 +229,7 @@ React Web Application under the hood. It only uses the cross-platform
 [ServiceStack Libraries](https://servicestack.net/download) for the entire Server implementation, whilst 
 [CefSharp](https://github.com/cefsharp/CefSharp) is used in 
 [Winforms project](https://github.com/ServiceStackApps/RedisReact/tree/master/src/RedisReact/RedisReact.AppWinForms)
-to give Windows access to a modern Web Broswer in Chromium.
+to give Windows access to a modern Web Browser in Chromium.
 
 The entire server implementation is contained in the single
 [RedisServices.cs](https://github.com/ServiceStackApps/RedisReact/blob/master/src/RedisReact/RedisReact.ServiceInterface/RedisServices.cs)
@@ -279,3 +279,5 @@ OSX using [Xamarin.Mac](https://xamarin.com/mac). One nice feature it has is bei
 Mono runtime in the application bundle so the resulting OSX App can run without needing Mono installed! 
 
 ![](https://raw.githubusercontent.com/ServiceStack/Assets/master/img/livedemos/redis-react/xamarin-link-mono.png)
+
+
