@@ -1,12 +1,13 @@
 using System;
 using System.Drawing;
+using ServiceStack.Text;
 using MonoMac.Foundation;
 using MonoMac.AppKit;
 using MonoMac.ObjCRuntime;
 
 namespace RedisReact.AppMac
 {
-	public static class MainClass
+	public static class Program
 	{
 		public static string HostUrl = "http://127.0.0.1:3337/";
 		public static string ListenOn = "http://*:3337/";
@@ -16,8 +17,15 @@ namespace RedisReact.AppMac
 
 		static void Main (string[] args)
 		{
-			App = new AppHost();
-			App.Init().Start(ListenOn);
+			try 
+			{
+				App = new AppHost();
+				App.Init().Start(ListenOn);
+			} 
+			catch (Exception) 
+			{
+				"Using existing AppHost found on {0}".Print(HostUrl);
+			}
 
 			NSApplication.Init();
 			NSApplication.Main(args);
