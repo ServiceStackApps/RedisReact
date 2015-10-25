@@ -182,6 +182,23 @@ body.search-active, body.search-active .navbar {
     outline: 0;
     margin: 0 0 0 20px;
 }
+.clear-search {
+    display: none;
+    position: absolute;
+    right: 13px;
+    margin: 13px 0 0 0;
+}
+.search-active .clear-search {
+    display: block;
+}
+.search-active .clear-search span {
+    color: #999;
+    cursor: pointer;
+    font-size: 22px;
+}
+.search-active .clear-search span:hover {
+    color: #666;        
+}
 
 .wrap {
     background: #fff;

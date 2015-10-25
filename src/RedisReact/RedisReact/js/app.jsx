@@ -26,11 +26,22 @@
             this.replaceWith("search", null, { q: e.target.value });
         }
     },
+    clearSearch: function(e){
+        this.refs.txtSearch.getDOMNode().focus();
+        this.replaceWith("search", null, { q: null });
+    },
     render: function () {
         var Connection = <b>not connected</b>;
         var conn = this.state.connection;
         if (conn != null) {
             Connection = <b>{conn.host}:{conn.port} db={conn.db}</b>;
+        }
+
+        var ClearSearch = null;
+        if (this.state.query) {
+            ClearSearch = (<div className="clear-search">
+                <span className="octicon octicon-x" onClick={this.clearSearch} title="clear search"></span>
+            </div>);
         }
 
         return (
@@ -49,8 +60,9 @@
                         </div>
                         <form id="formSearch" className="navbar-form navbar-left" role="search">
                             <div>
+                                {ClearSearch}
                                 <span className="octicon octicon-search"></span>
-                                <input id="txtSearch" type="text" className="input-lg" 
+                                <input ref="txtSearch" id="txtSearch" type="text" className="input-lg" 
                                        placeholder="Search Keys" 
                                        spellCheck="false" autoComplete="off"
                                        onFocus={this.onSearchFocus} 
