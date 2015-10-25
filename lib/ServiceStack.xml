@@ -4772,7 +4772,7 @@
         </member>
         <member name="T:ServiceStack.VirtualPath.InMemoryVirtualPathProvider">
             <summary>
-            In Memory repository for files. Useful for testing.
+            In Memory Virtual Path Provider.
             </summary>
         </member>
         <member name="M:ServiceStack.VirtualFileExtensions.Refresh(ServiceStack.IO.IVirtualFile)">
