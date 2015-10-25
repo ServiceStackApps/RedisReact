@@ -41,6 +41,22 @@
         this.transitionTo("console");
         Actions.setConsole('SET ' + this.state.result.id + ' ' + this.state.result.value);
     },
+    del: function () {
+        this.transitionTo("console");
+        Actions.setConsole('DEL ' + this.state.result.id);
+    },
+    delAll: function () {
+        this.transitionTo("console");
+        var cmd = 'DEL ' + this.state.result.id;
+
+        var relatedKeys = this.state.result.relatedKeys || {};
+        Object.keys(relatedKeys || {}).forEach(function (id) {
+            if (!relatedKeys[id]) return;
+            cmd += ' ' + id;
+        });
+
+        Actions.setConsole(cmd);
+    },
     toggleRawMode: function (pos, e) {
         if (hasTextSelected())
             return;
@@ -119,6 +135,12 @@
                         <span className="octicon octicon-pencil"></span><b>edit</b>
                     </div>);
         }
+        var DeleteAll = null;
+        if (Object.keys(relatedKeys).length > 0) {
+            DeleteAll = (<div className="action" onClick={this.delAll}>
+                    <span className="octicon octicon-x"></span><b>all</b>
+                </div>);
+        }
 
         return (
           <div id="keyviewer-page">
@@ -128,6 +150,11 @@
                     <b>console</b>
                 </div>
                 {Edit}
+                <div className="action" onClick={this.del}>
+                    <span className="octicon octicon-x"></span>
+                    <b>delete</b>
+                </div>
+                {DeleteAll}
             </div>
               <div className="content">
                 <div id="similarkeys" title="use left/right arrow keys">
