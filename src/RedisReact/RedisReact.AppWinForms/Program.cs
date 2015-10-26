@@ -10,7 +10,7 @@ namespace RedisReact.AppWinForms
 {
     static class Program
     {
-        public static string HostUrl = "http://127.0.0.1:1337/";
+        public static string HostUrl = "http://127.0.0.1:2337/";
         public static AppHost AppHost;
         public static FormMain Form;
 
@@ -26,7 +26,7 @@ namespace RedisReact.AppWinForms
             Application.SetCompatibleTextRenderingDefault(false);
 
             AppHost = new AppHost();
-            AppHost.Init().Start("http://*:1337/");
+            AppHost.Init().Start("http://*:2337/");
             "ServiceStack SelfHost listening at {0} ".Fmt(HostUrl).Print();
             Form = new FormMain();
             Application.Run(Form);
