@@ -1,5 +1,6 @@
 ﻿/* console */
-document.documentElement.className += ' console'​​​​;
+document.documentElement.className += ' console';
+
 window.nativeHost = {
     quit: function() {
         $.get('/nativehost/quit');
