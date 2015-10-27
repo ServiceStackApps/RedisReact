@@ -167,6 +167,7 @@
                         <span className="octicon octicon-screen-normal" onClick={this.toggleExpand}></span>
                     </div>
                     <textarea ref="txtExpandedPrompt" id="txtExpandedPrompt"
+                        spellCheck="false" autoComplete="off"
                         onChange={this.onChange}
                         onKeyDown={this.onKeyDown}
                         value={this.state.command}
