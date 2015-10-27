@@ -71,6 +71,36 @@ the Console Application starts a self-hosting HTTP server which it opens in the 
 See the instructions for [Installing Mono on Linux](http://www.mono-project.com/docs/getting-started/install/linux/).
 If installing via apt-get, it needs the **mono-complete** package to run.
 
+## Update - 27 October 2015
+
+### Delete Actions
+
+![](https://raw.githubusercontent.com/ServiceStack/Assets/master/img/livedemos/redis-react/updates/delete-actions.png)
+
+Delete links added on each key. Use the **delete** link to delete a single key or the **all** link to delete all
+related keys currently being displayed.
+
+### Expanded Prompt
+
+![](https://raw.githubusercontent.com/ServiceStack/Assets/master/img/livedemos/redis-react/updates/expanded-prompt.png)
+
+Keys can now be edited in a larger text area which uses the full height of the screen real-estate available - 
+this is now the default view for editing a key. Click the collapse icon when finished to return to the 
+console for execution.
+
+![](https://raw.githubusercontent.com/ServiceStack/Assets/master/img/livedemos/redis-react/updates/expand-prompt.png)
+
+All Redis Console commands are now be edited in the expanded text area by clicking on the Expand icon 
+on the right of the console.
+
+### Clear Search
+
+![](https://raw.githubusercontent.com/ServiceStack/Assets/master/img/livedemos/redis-react/updates/clear-search.png)
+
+Use the **X** icon in the search box to quickly clear the current search.
+
+# Features
+
 ## [Change Connection to Redis Server](http://redisreact.servicestack.net/#/connections)
 
 By default Redis React will try to connect to a local instance of redis-server on `127.0.0.1:6379`, 
