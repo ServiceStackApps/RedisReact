@@ -9,7 +9,7 @@ namespace RedisReact.AppMac
 {
 	public static class Program
 	{
-		public static string HostUrl = "http://127.0.0.1:3337/";
+		public static string HostUrl = "http://localhost:3337/";
 		public static string ListenOn = "http://*:3337/";
 
 		public static AppHost App;
