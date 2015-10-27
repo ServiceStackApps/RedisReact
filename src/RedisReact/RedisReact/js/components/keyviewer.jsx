@@ -38,7 +38,7 @@
         Actions.setConsole('GET ' + this.state.result.id);
     },
     edit: function () {
-        this.transitionTo("console");
+        this.transitionTo("console", null, {expand:true});
         Actions.setConsole('SET ' + this.state.result.id + ' ' + this.state.result.value);
     },
     del: function () {
@@ -50,7 +50,7 @@
         var cmd = 'DEL ' + this.state.result.id;
 
         var relatedKeys = this.state.result.relatedKeys || {};
-        Object.keys(relatedKeys || {}).forEach(function (id) {
+        Object.keys(relatedKeys).forEach(function (id) {
             if (!relatedKeys[id]) return;
             cmd += ' ' + id;
         });

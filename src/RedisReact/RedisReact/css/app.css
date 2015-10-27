@@ -361,6 +361,57 @@ body.console-active, body.console-active .navbar {
 #prompt #label .octicon {
     font-size: 32px;
 }
+.expand-console {
+    position: absolute;
+    right: -30px;
+    margin: 13px 0 0 0;
+}
+.expand-console span {
+    color: #999;
+    cursor: pointer;
+    font-size: 22px;
+}
+.expand-console span:hover {
+    color: #666;        
+}
+
+.collapse-console {
+    position: absolute;
+    right: 13px;
+    bottom: 10px;
+    margin: 13px 0 0 0;
+}
+.collapse-console span {
+    color: #999;
+    cursor: pointer;
+    font-size: 22px;
+}
+.collapse-console span:hover {
+    color: #666;        
+}
+
+#expandedPrompt {
+    bottom: 10px;
+    top: 60px;
+    border-radius: 2px;
+    position: absolute;
+    width: 50%;
+    left: 25%;
+    margin-left: 40px;
+    background: #fff;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),         0 3px 1px -2px rgba(0,0,0,0.2),         0 1px 5px 0 rgba(0,0,0,0.12);
+}
+#expandedPrompt #txtExpandedPrompt {
+    width: 100%;
+    height: 100%;
+
+    background: none;
+    border: none;
+    outline: 0;
+    padding: 10px 16px;
+    resize: none;
+}
+
 #log {
     text-align: left;
     margin: 0 0 10px 0;

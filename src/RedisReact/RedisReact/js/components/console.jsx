@@ -1,10 +1,13 @@
 ﻿var Console = React.createClass({
     mixins: [
+        Router.Navigation,
+        Router.State,
         Reflux.listenTo(SettingsStore, "onSettingsUpdated"),
         Reflux.listenTo(ConsoleStore, "onConsoleChanged")
     ],
     getInitialState: function(){
         return {
+            expand: false,
             command: ConsoleStore.command,
             history: ConsoleStore.history,
             historyIndex: ConsoleStore.historyIndex,
@@ -13,20 +16,24 @@
             rawModes: {}
         };
     },
+    componentWillMount: function () {
+        var q = this.getQuery();
+        this.setState({ expand: q.expand == "true" });
+    },
     componentDidMount: function () {
-        this.refs.txtPrompt.getDOMNode().focus();
+        this.getTextInput().focus();
     },
     onSettingsUpdated: function (settings) {
         this.setState({ appRawMode: settings.appRawMode, rawModes: {} });
     },
     onConsoleChanged: function (store) {
-        var txtPrompt = this.refs.txtPrompt.getDOMNode();
+        var txtPrompt = this.getTextInput();
         this.setState(store, function () {
             txtPrompt.focus();
         });
     },
     setCommand: function (cmd, e) {
-        var txtPrompt = this.refs.txtPrompt.getDOMNode();
+        var txtPrompt = this.getTextInput();
         this.setState({ command: cmd }, function () {
             txtPrompt.focus();
         });
@@ -34,6 +41,18 @@
     clearLogs: function(){
         Actions.clearLogs();
         this.refs.txtPrompt.getDOMNode().focus();
+    },
+    getTextInput: function(){
+        var txt = !this.state.expand
+            ? this.refs.txtPrompt
+            : this.refs.txtExpandedPrompt;
+        return txt.getDOMNode();
+    },
+    toggleExpand: function(e){
+        var $this = this;
+        this.setState({ expand: !this.state.expand }, function () {
+            $this.getTextInput().focus();
+        });
     },
     toggleRawMode: function (id, e) {
         if (hasTextSelected())
@@ -140,6 +159,38 @@
                 </div>);
         }
 
+        var Prompt, ExpandedPrompt = null;
+        if (this.state.expand) {
+            ExpandedPrompt = (
+                <div id="expandedPrompt">
+                    <div className="collapse-console" title="collapse">
+                        <span className="octicon octicon-screen-normal" onClick={this.toggleExpand}></span>
+                    </div>
+                    <textarea ref="txtExpandedPrompt" id="txtExpandedPrompt"
+                        onChange={this.onChange}
+                        onKeyDown={this.onKeyDown}
+                        value={this.state.command}
+                        ></textarea>
+                </div>);
+        } else {
+            Prompt = (
+                <div id="prompt">
+                    <div className="expand-console" title="expand">
+                        <span className="octicon octicon-screen-full" onClick={this.toggleExpand}></span>
+                    </div>
+                    <div id="label">
+                        <span className="octicon octicon-chevron-right"></span>
+                    </div>
+                    <input ref="txtPrompt" id="txtPrompt" type="text" className="input-lg"
+                        placeholder="Redis Commands e.g: GET key"
+                        spellCheck="false" autoComplete="off"
+                        onChange={this.onChange}
+                        onKeyDown={this.onKeyDown}
+                        value={this.state.command}
+                       />
+                </div>);
+        }
+
         return (
           <div id="console-page">
             <div id="console" className="content">
@@ -167,20 +218,10 @@
                     {Clear}
                 </div>
                 <form id="formConsole" onSubmit={this.onSubmit}>
-                    <div id="prompt">
-                        <div id="label">
-                            <span className="octicon octicon-chevron-right"></span>
-                        </div>
-                        <input ref="txtPrompt" id="txtPrompt" type="text" className="input-lg"
-                                placeholder="Redis Commands e.g: GET key"
-                                spellCheck="false" autoComplete="off"
-                                onChange={this.onChange}
-                                onKeyDown={this.onKeyDown}
-                                value={this.state.command}
-                               />
-                    </div>
+                    {Prompt}
                 </form>
             </div>
+            {ExpandedPrompt}
           </div>
         );
     }
