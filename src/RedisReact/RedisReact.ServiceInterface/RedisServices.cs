@@ -94,6 +94,9 @@ return cjson.encode(keyAttrs)";
                 request.Port.GetValueOrDefault(6379),
                 request.Db.GetValueOrDefault(0));
 
+            if (!string.IsNullOrEmpty(request.Password))
+                connString += "&password=" + request.Password.UrlEncode();
+
             var testConnection = new RedisClient(connString);
             testConnection.Ping();
 

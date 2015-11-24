@@ -60,6 +60,11 @@
                                onChange={this.onChange} onFocus={this.selectText}
                                value={conn ? conn.db : ""}
                                />
+                        <label>auth</label>
+                        <input id="txtPassword" name="password" type="password" className="form-control" placeholder="password" spellCheck="false"
+                               onChange={this.onChange} onFocus={this.selectText}
+                               value={conn ? conn.password : ""}
+                               />
                     </div>
                     <p className="actions">
                         <img className="loader" src="/img/ajax-loader.gif" />
