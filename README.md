@@ -71,6 +71,17 @@ the Console Application starts a self-hosting HTTP server which it opens in the 
 See the instructions for [Installing Mono on Linux](http://www.mono-project.com/docs/getting-started/install/linux/).
 If installing via apt-get, it needs the **mono-complete** package to run.
 
+## Update - 29 November 2015
+
+### Connections with Authentication
+
+![](https://raw.githubusercontent.com/ServiceStack/Assets/master/img/livedemos/redis-react/updates/add-authentication.png)
+
+Added support for password authentication when establishing connections with redis.
+
+The **console** link now populates the console with the most appropriate command for each key type, e.g. clicking **console**
+ok a Sorted Set Key (ZSET) populates the Web Console with `ZRANGE key 0 -1 WITHSCORES`
+
 ## Update - 27 October 2015
 
 ### Delete Actions
