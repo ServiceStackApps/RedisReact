@@ -35,7 +35,17 @@
     },
     console: function () {
         this.transitionTo("console");
-        Actions.setConsole('GET ' + this.state.result.id);
+        var type = this.state.result.type;
+        var cmd = 'GET ' + this.state.result.id;
+        if (type == 'list')
+            cmd = 'LRANGE ' + this.state.result.id + ' 0 -1';
+        else if (type == 'set')
+            cmd = 'SMEMBERS ' + this.state.result.id;
+        else if (type == 'zset')
+            cmd = 'ZRANGE ' + this.state.result.id + ' 0 -1 WITHSCORES';
+        else if (type == 'hash')
+            cmd = 'HGETALL ' + this.state.result.id;
+        Actions.setConsole(cmd);
     },
     edit: function () {
         this.transitionTo("console", null, {expand:true});
