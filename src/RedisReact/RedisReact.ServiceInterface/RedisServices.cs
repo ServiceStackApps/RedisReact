@@ -100,7 +100,7 @@ return cjson.encode(keyAttrs)";
             var testConnection = new RedisClient(connString);
             testConnection.Ping();
 
-            ((IRedisFailover)RedisManager).FailoverTo(connString);
+            ((IRedisFailover)TryResolve<IRedisClientsManager>()).FailoverTo(connString);
 
             return Get(new GetConnection());
         }
