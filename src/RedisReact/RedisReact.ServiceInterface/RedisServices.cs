@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading;
 using ServiceStack;
 using RedisReact.ServiceModel;
 using ServiceStack.Configuration;
@@ -8,16 +10,23 @@ namespace RedisReact.ServiceInterface
 {
     public class RedisServices : Service
     {
+        public class SearchCursorResult
+        {
+            public int Cursor { get; set; }
+            public List<SearchResult> Results { get; set; }
+        }
+
         public IAppSettings AppSettings { get; set; }
 
         public object Any(SearchRedis request)
         {
+            var position = request.Position.GetValueOrDefault(0); // 0 marks a new scan request
             var limit = request.Take.GetValueOrDefault(AppSettings.Get("query-limit", 100));
 
             const string LuaScript = @"
 local limit = tonumber(ARGV[2])
 local pattern = ARGV[1]
-local cursor = 0
+local cursor = tonumber(ARGV[3])
 local len = 0
 local keys = {}
 
@@ -31,8 +40,9 @@ repeat
     end
 until cursor == 0 or len == limit
 
+local cursorAttrs = {['cursor'] = cursor, ['results'] = {}}
 if len == 0 then
-    return '[]'
+    return cursorAttrs
 end
 
 local keyAttrs = {}
@@ -56,17 +66,19 @@ for i,key in ipairs(keys) do
 
     table.insert(keyAttrs, attrs)    
 end
+cursorAttrs['results'] = keyAttrs
 
-return cjson.encode(keyAttrs)";
+return cjson.encode(cursorAttrs)";
 
             var json = Redis.ExecCachedLua(LuaScript, sha1 =>
-                Redis.ExecLuaShaAsString(sha1, request.Query, limit.ToString()));
+                Redis.ExecLuaShaAsString(sha1, request.Query, limit.ToString(), position.ToString()));
 
-            var searchResults = json.FromJson<List<SearchResult>>();
+            var searchResults = json.FromJson<SearchCursorResult>();
 
             return new SearchRedisResponse
             {
-                Results = searchResults
+                Position = searchResults.Cursor,
+                Results = searchResults.Results
             };
         }
 

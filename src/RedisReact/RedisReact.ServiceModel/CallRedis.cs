@@ -43,6 +43,14 @@ namespace RedisReact.ServiceModel
     {
         public string Query { get; set; }
         public int? Take { get; set; }
+        public int? Position { get; set; }
+    }
+
+    public class SearchCursorResult
+    {
+        public int Cursor { get; set; }
+
+        public List<SearchResult> Results { get; set; }
     }
 
     public class SearchResult
@@ -55,6 +63,8 @@ namespace RedisReact.ServiceModel
 
     public class SearchRedisResponse
     {
+        public int Position { get; set; }
+
         public List<SearchResult> Results { get; set; }
 
         public ResponseStatus ResponseStatus { get; set; }
