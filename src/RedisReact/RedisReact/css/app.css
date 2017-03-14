@@ -42,27 +42,30 @@ h1 {
 #connections-page {
     text-align: center;
 }
-#formConnection {
+.form-inline {
     padding: 40px 0 0 0;
     margin: 0 auto;
 }
-#formConnection h2 {
+.form-inline h2 {
     margin: 0 0 40px 0;
 }
-#formConnection  input {
+.form-inline input {
     margin: 0 10px;
 }
-#formConnection #txtHost {
+.form-inline #txtHost {
     width: 200px;
 }
-#formConnection #txtPort {
+.form-inline #txtPort {
     width: 70px;
 }
-#formConnection #txtDb {
+.form-inline #txtDb {
     width: 40px;
 }
-#formConnection .actions {
+.form-inline .actions {
     margin: 20px 0;
+}
+.form-inline #btnDelete {
+    margin: 0 10px;
 }
 .loader {
     visibility: hidden;
@@ -155,6 +158,10 @@ body.search-active, body.search-active .navbar {
     text-align: center;
     margin: 70px 0 0 0;
 }
+#connections-page .content {
+    text-align: left;
+}
+
 #formSearch {
     background: #f5f5f5;
     border-radius: 2px;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using ServiceStack;
 using ServiceStack.Configuration;
 using ServiceStack.Redis;
@@ -49,10 +50,35 @@ namespace RedisReact.ServiceInterface
                 try
                 {
                     Directory.CreateDirectory(redisreactDir);
-                    var appSettingsPath = Path.Combine(redisreactDir, "appsettings.txt");
-                    File.WriteAllText(appSettingsPath, "redis-server 127.0.0.1?db=0\r\nquery-limit 100");
+                    var settings = new AppSettings();
+                    SetRedisServer(settings, "127.0.0.1?db=0");
+                    settings.Set("query-limit", "100");
+                    WriteAppSettingsToDisk(settings, Path.Combine(redisreactDir, "appsettings.txt"));
                 }
                 catch { }
+            }
+        }
+
+        public static string SetRedisServer(IAppSettings settings, string connectionString)
+        {
+            const string key = "redis-server";
+            string existing = null;
+            if (settings.Exists(key)) {
+                existing = settings.GetString(key);
+            }
+            settings.Set(key, connectionString);
+            return existing;
+        }
+
+        public static void WriteAppSettingsToDisk(IAppSettings settings, string path = null)
+        {
+            try {
+                if (path == null) {
+                    path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".redisreact", "appsettings.txt");
+                }
+                File.WriteAllLines(path, settings.GetAll().Select(pair => "{0} {1}".Fmt(pair.Key, pair.Value)));
+            } catch {
+                // ignore
             }
         }
     }

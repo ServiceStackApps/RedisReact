@@ -1,8 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 using ServiceStack;
 using RedisReact.ServiceModel;
 using ServiceStack.Configuration;
 using ServiceStack.Redis;
+using ServiceStack.Text.Json;
 
 namespace RedisReact.ServiceInterface
 {
@@ -77,26 +81,65 @@ return cjson.encode(keyAttrs)";
             return response;
         }
 
-        public object Get(GetConnection request)
+        public object Get(GetConnections request)
         {
-            return new GetConnectionResponse
-            {
-                Host = Redis.Host,
-                Port = Redis.Port,
-                Db = (int)Redis.Db,
+            var connections = new List<Connection> {
+                new Connection {
+                    Host = Redis.Host,
+                    Port = Redis.Port,
+                    Db = (int)Redis.Db,
+                    IsActive = true,
+                    IsMaster = Redis.GetServerRole() == RedisServerRole.Master
+                }
+            };
+            string master = null;
+            if (Redis.Info.ContainsKey("slaveof")) {
+                master = Redis.Info["slaveof"];
+            }
+
+            var settings = SharedUtils.GetAppSettings();
+            foreach (var key in settings.GetAllKeys().Where(k => k.StartsWith("redis-connection"))) {
+                try {
+                    var connection = settings.Get<ConnectionRequest>(key, null);
+                    if (connection == null || Redis.IsEquvalentTo(connection))
+                        continue;
+
+                    var response = new Connection {
+                        Host = connection.Host,
+                        Port = connection.Port.GetValueOrDefault(),
+                        Db = connection.Db.GetValueOrDefault()
+                    };
+                    if (master != null && "{0} {1}".Fmt(connection.Host, connection.Port) == master) {
+                        response.IsMaster = true;
+                    }
+                    connections.Add(response);
+                } catch {
+                    // ignore
+                }
+            }
+
+            return new GetConnectionsResponse {
+                Connections = connections
             };
         }
 
-        public object Post(ChangeConnection request)
+        public object Post(ConnectionRequest request)
         {
-            var connString = "{0}:{1}?db={2}".Fmt(
-                request.Host ?? "127.0.0.1",
-                request.Port.GetValueOrDefault(6379),
-                request.Db.GetValueOrDefault(0));
+            var connection = request.WithDefaults();
+            var settings = SharedUtils.GetAppSettings();
+            var key = connection.GetKey();
 
-            if (!string.IsNullOrEmpty(request.Password))
-                connString += "&password=" + request.Password.UrlEncode();
+            // copy password over from existing if it exists (and the inbound connection doesn't have one)
+            if (string.IsNullOrEmpty(request.Password) && settings.Exists(key)) {
+                var existing = settings.Get<ConnectionRequest>(key, null);
+                if (existing != null) {
+                    connection.Password = existing.Password;
+                }
+            }
 
+            settings.Set(key, connection);
+
+            var connString = connection.ToConnectionString();
             try {
                 var testConnection = new RedisClient(connString);
                 testConnection.Ping();
@@ -106,9 +149,25 @@ return cjson.encode(keyAttrs)";
                 testConnection.Ping();
             }
 
-            ((IRedisFailover)TryResolve<IRedisClientsManager>()).FailoverTo(connString);
+            var current = SharedUtils.SetRedisServer(settings, connString);
+            ((IRedisFailover)TryResolve<IRedisClientsManager>()).FailoverTo(new [] { connString, current }, new [] { connString });
+            SharedUtils.WriteAppSettingsToDisk(settings);
 
-            return Get(new GetConnection());
+            return Get(new GetConnections());
+        }
+
+        public object Delete(DeleteConnection request)
+        {
+            var connection = new ConnectionRequest { Host = request.Host, Port = request.Port }.WithDefaults();
+            if (Redis.IsEquvalentTo(connection)) throw new InvalidOperationException("Cannot delete the active connection");
+
+            var settings = SharedUtils.GetAppSettings();
+            var key = connection.GetKey();
+            if (settings.Exists(key)) {
+                settings.Set(key, (ConnectionRequest)null);
+                SharedUtils.WriteAppSettingsToDisk(settings);
+            }
+            return Get(new GetConnections());
         }
 
         public object Any(GetRedisClientStats request)

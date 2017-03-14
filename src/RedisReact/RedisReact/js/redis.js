@@ -51,9 +51,9 @@
         args.push(cmd.substring(lastPos));
         return args;
     },
-    getConnection: function () {
+    getConnections: function () {
         return $.ajax({
-            url: "/connection",
+            url: "/connections",
             dataType: "json"
         });
     },

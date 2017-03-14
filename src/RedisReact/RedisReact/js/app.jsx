@@ -34,7 +34,7 @@
         var Connection = <b>not connected</b>;
         var conn = this.state.connection;
         if (conn != null) {
-            Connection = <b>{conn.host}:{conn.port} db={conn.db}</b>;
+            Connection = <b>{conn.host}:{conn.port} db={conn.db} {!conn.isMaster ? 'slave' : 'master'}</b>;
         }
 
         var ClearSearch = null;
@@ -117,4 +117,4 @@ Router.run(routes, function (Handler, state) {
 
 
 Actions.viewInfo();
-Actions.loadConnection();
+Actions.loadConnections();

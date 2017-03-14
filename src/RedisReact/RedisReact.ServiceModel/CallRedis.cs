@@ -4,25 +4,42 @@ using ServiceStack.Redis;
 
 namespace RedisReact.ServiceModel
 {
-    [Route("/connection", "GET")]
-    public class GetConnection : IReturn<GetConnectionResponse> { }
+    [Route("/connections", "GET")]
+    public class GetConnections : IReturn<GetConnectionsResponse> { }
 
-    public class GetConnectionResponse
+    public class GetConnectionsResponse
+    {
+        public List<Connection> Connections { get; set; }
+
+        public ResponseStatus ResponseStatus { get; set; }
+    }
+
+    public class Connection
     {
         public string Host { get; set; }
         public int Port { get; set; }
         public int Db { get; set; }
 
-        public ResponseStatus ResponseStatus { get; set; }
+        public bool IsActive { get; set; }
+        public bool? IsMaster { get; set; }
     }
 
-    [Route("/connection", "POST")]
-    public class ChangeConnection : IReturn<GetConnectionResponse>
+    [Route("/connections", "POST")]
+    public class ConnectionRequest : IReturn<GetConnectionsResponse>
     {
         public string Host { get; set; }
         public int? Port { get; set; }
         public int? Db { get; set; }
+
         public string Password { get; set; }
+        public bool? IsActive { get; set; }
+    }
+
+    [Route("/connections/{host}", "DELETE")]
+    public class DeleteConnection : IReturn<GetConnectionsResponse>
+    {
+        public string Host { get; set; }
+        public int? Port { get; set; }
     }
 
     [Route("/call-redis")]
