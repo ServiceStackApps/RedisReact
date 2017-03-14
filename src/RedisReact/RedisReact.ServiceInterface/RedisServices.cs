@@ -97,8 +97,14 @@ return cjson.encode(keyAttrs)";
             if (!string.IsNullOrEmpty(request.Password))
                 connString += "&password=" + request.Password.UrlEncode();
 
-            var testConnection = new RedisClient(connString);
-            testConnection.Ping();
+            try {
+                var testConnection = new RedisClient(connString);
+                testConnection.Ping();
+            } catch {
+                connString += "&ssl=true";
+                var testConnection = new RedisClient(connString);
+                testConnection.Ping();
+            }
 
             ((IRedisFailover)TryResolve<IRedisClientsManager>()).FailoverTo(connString);
 
