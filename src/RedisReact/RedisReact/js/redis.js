@@ -57,6 +57,24 @@
             dataType: "json"
         });
     },
+    setConnection: function(conn) {
+        return $.ajax({
+            method: "POST",
+            url: "/connections",
+            dataType: "json",
+            data: conn
+        });
+    },
+    deleteConnection: function (conn) {
+        return $.ajax({
+            method: "DELETE",
+            url: "/connections/" + conn.host + "?port=" + conn.port,
+            dataType: "json"
+        })
+        .then(function(r) {
+            return r;
+        });
+    },
     search: function (query) {
         var $this = this;
         return $.ajax({

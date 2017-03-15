@@ -64,7 +64,10 @@ h1 {
 .form-inline .actions {
     margin: 20px 0;
 }
-.form-inline #btnDelete {
+td .btn-default {
+    margin: 0 10px 0 0;
+}
+.form-inline #btnCancel {
     margin: 0 10px;
 }
 .loader {
