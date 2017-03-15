@@ -124,6 +124,13 @@
                 return to;
             });
     },
+    getExpiry: function(key) {
+        return this.call(['PTTL', key])
+            .then(function (r) {
+                var s = r.result.text;
+                return s;
+            });
+    },
     getString: function (key) {
         return this.call(['GET', key])
             .then(function (r) {

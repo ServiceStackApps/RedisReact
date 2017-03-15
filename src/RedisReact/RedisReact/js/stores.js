@@ -132,32 +132,31 @@ var KeyStore = Reflux.createStore({
         }
 
         var $this = this;
-        if (type == 'string') {
-            Redis.getString(id)
-                .done(function(r) {
-                    $this.loadRelatedKeyInfo($this.cache[id] = { id: id, type: type, value: r });
-                });
-        } else if (type == 'list') {
-            Redis.getAllItemsFromList(id)
-                .done(function(r) {
-                    $this.loadRelatedKeyInfo($this.cache[id] = { id: id, type: type, value: r });
-                });
-        } else if (type == 'set') {
-            Redis.getAllItemsFromSet(id)
-                .done(function(r) {
-                    $this.loadRelatedKeyInfo($this.cache[id] = { id: id, type: type, value: r });
-                });
-        } else if (type == 'zset') {
-            Redis.getAllItemsFromSortedSet(id)
-                .done(function(r) {
-                    $this.loadRelatedKeyInfo($this.cache[id] = { id: id, type: type, value: r });
-                });
-        } else if (type == 'hash') {
-            Redis.getAllItemsFromHash(id)
-                .done(function(r) {
-                    $this.loadRelatedKeyInfo($this.cache[id] = { id: id, type: type, value: r });
-                });
-        }
+        Redis.getExpiry(id)
+            .done(function(ttl) {
+                var fn = null;
+                switch (type) {
+                    case 'list':
+                        fn = Redis.getAllItemsFromList;
+                        break;
+                    case 'set':
+                        fn = Redis.getAllItemsFromSet;
+                        break;
+                    case 'zset':
+                        fn = Redis.getAllItemsFromSortedSet;
+                        break;
+                    case 'hash':
+                        fn = Redis.getAllItemsFromHash;
+                        break;
+                    default:
+                        fn = Redis.getString;
+                }
+                fn(id)
+                    .done(function(r) {
+                        $this.loadRelatedKeyInfo($this.cache[id] = { id: id, type: type, value: r, ttl: ttl });
+                    });
+                
+            });
     },
     loadRelatedKeyInfo: function(result) {
         var $this = this;

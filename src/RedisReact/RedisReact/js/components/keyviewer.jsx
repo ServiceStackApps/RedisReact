@@ -35,25 +35,53 @@
     },
     console: function () {
         this.transitionTo("console");
-        var type = this.state.result.type;
-        var cmd = 'GET ' + this.state.result.id;
-        if (type == 'list')
-            cmd = 'LRANGE ' + this.state.result.id + ' 0 -1';
-        else if (type == 'set')
-            cmd = 'SMEMBERS ' + this.state.result.id;
-        else if (type == 'zset')
-            cmd = 'ZRANGE ' + this.state.result.id + ' 0 -1 WITHSCORES';
-        else if (type == 'hash')
-            cmd = 'HGETALL ' + this.state.result.id;
-        Actions.setConsole(cmd);
+        switch (this.state.result.type) {
+            case 'list':
+                Actions.setConsole(`LRANGE ${this.state.result.id} 0 -1`);
+                break;
+            case 'set':
+                Actions.setConsole(`SMEMBERS ${this.state.result.id}`);
+                break;
+            case 'zset':
+                Actions.setConsole(`ZRANGE ${this.state.result.id} 0 -1 WITHSCORES`);
+                break;
+            case 'hash':
+                Actions.setConsole(`HGETALL ${this.state.result.id}`);
+                break;
+            default:
+                Actions.setConsole(`GET ${this.state.result.id}`);
+                break;
+        }
     },
     edit: function () {
-        this.transitionTo("console", null, {expand:true});
+        this.transitionTo("console");
         Actions.setConsole('SET ' + this.state.result.id + ' ' + this.state.result.value);
+    },
+    setExpiry: function () {
+        this.transitionTo("console");
+        var result = this.state.result;
+        Actions.setConsole(`PEXPIRE ${result.id} ${result.ttl != null ? result.ttl : ""}`);
     },
     del: function () {
         this.transitionTo("console");
         Actions.setConsole('DEL ' + this.state.result.id);
+    },
+    add: function () {
+        this.transitionTo("console");
+        switch (this.state.result.type) {
+            case 'list':
+                Actions.setConsole(`LPUSH ${this.state.result.id} ?`);
+                break;
+            case 'set':
+                Actions.setConsole(`SADD ${this.state.result.id} ?`);
+                break;
+            case 'zset':
+                Actions.setConsole(`ZADD ${this.state.result.id} ${this.state.result.length} ?`);
+                break;
+            case 'hash':
+                Actions.setConsole(`HKEY ${this.state.result.id} [field] ?`);
+                break;
+        }
     },
     delAll: function () {
         this.transitionTo("console");
@@ -145,11 +173,17 @@
                         <span className="octicon octicon-pencil"></span><b>edit</b>
                     </div>);
         }
+        var Add = null;
+        if (result && (result.type == 'list' || result.type == 'set' || result.type == 'zset' || result.type == 'hash')) {
+            Add = (<div className="action" onClick={this.add}>
+                    <span className="octicon octicon-plus"></span><b>add</b>
+            </div>);
+        }
         var DeleteAll = null;
         if (Object.keys(relatedKeys).length > 0) {
             DeleteAll = (<div className="action" onClick={this.delAll}>
                     <span className="octicon octicon-x"></span><b>all</b>
-                </div>);
+            </div>);
         }
 
         return (
@@ -159,7 +193,12 @@
                     <span className="octicon octicon-terminal"></span>
                     <b>console</b>
                 </div>
+                <div className="action" onClick={this.setExpiry}>
+                    <span className="octicon octicon-watch"></span>
+                    <b>set expiry</b>
+                </div>
                 {Edit}
+                {Add}
                 <div className="action" onClick={this.del}>
                     <span className="octicon octicon-x"></span>
                     <b>delete</b>

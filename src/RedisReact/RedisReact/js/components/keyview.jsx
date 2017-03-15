@@ -1,4 +1,12 @@
 ﻿var KeyView = React.createClass({
+    mixins: [
+        Router.Navigation,
+        Router.State
+    ],
+    removeExpiry: function () {
+        this.transitionTo("console");
+        Actions.setConsole(`PERSIST ${this.props.result.id}`);
+    },
     renderValue: function (s) {
         if (typeof s == 'undefined')
             s = '';
@@ -21,9 +29,31 @@
             return <div>{s}</div>;
         }
     },
-    renderString: function(value){
+    edit: function (f, value) {
+        this.transitionTo("console");
+        var result = this.props.result;
+        switch (result.type) {
+            case 'list':
+                Actions.setConsole(`LSET ${result.id} ${f} ${value}`);
+                break;
+            case 'set':
+                Actions.setConsole(`SREM ${result.id} ${f} ${value}`);
+                break;
+            case 'zset':
+                Actions.setConsole(`ZREM ${result.id} ${f} ${value}`);
+                break;
+            case 'hash':
+                Actions.setConsole(`HSET ${result.id} ${f} ${value}`);
+                break;
+            default:
+                Actions.setConsole(`SET ${result.id} ${result.value}`);
+                break;
+        }
+    },
+    renderString: function (value) {
+        var $this = this;
         return (
-            <div className="key-preview key-string wrap">
+            <div className="key-preview key-string wrap" onDoubleClick={$this.edit}>
                 <table className="table table-striped wrap">
                     <tbody><tr><td>{this.renderValue(value)}</td></tr></tbody>
                 </table>
@@ -36,9 +66,10 @@
         return (
             <table className="table table-striped wrap">
             <tbody>
-                {items.map(function(x){
+                {items.map(function (x) {
+                    let index = i++;
                     return (
-                        <tr key={i++}><td>{$this.renderValue(x)}</td></tr>
+                        <tr key={index} onDoubleClick={() => $this.edit(index, x)}><td>{$this.renderValue(x)}</td></tr>
                     );
                 })}
             </tbody>
@@ -52,7 +83,7 @@
             <tbody>
                 {Object.keys(values).map(function(k){
                     return (
-                        <tr key={k}><td>{$this.renderValue(k)}</td><td>{$this.renderValue(values[k])}</td></tr>
+                        <tr key={k} onDoubleClick={() => $this.edit(k, values[k]) }><td>{$this.renderValue(k)}</td><td>{$this.renderValue(values[k])}</td></tr>
                     );
                 })}
             </tbody>
@@ -60,7 +91,6 @@
         );
     },
     render: function () {
-        var $this = this;
         var View = <div className="keyview-none">Key does not exist</div>;
 
         var result = this.props.result;
@@ -89,7 +119,7 @@
                 if (SEPARATORS.indexOf(c) != -1) {
                     var pattern = key.substring(0,i+1) + '*';
                     Links.push(<Link key={pattern} to="search" query={{q: pattern}}>{key.substring(lastPos, i)}</Link>);
-                    Links.push(<em key={i}>{key.substring(i, i+1)}</em>);
+                    Links.push(<em key={i}>{key.substring(i, i + 1)}</em>);
                     lastPos = i + 1;
                 }
             }
@@ -98,13 +128,22 @@
 
             Title = <b className="keycrumbs">{Links}</b>;
         }
-
+        var Expiry = null;
+        if (result.ttl && result.ttl > 0) {
+            Expiry = (
+                <div className="action" onClick={this.removeExpiry}>
+                    <span className="octicon octicon-x"></span>
+                    <b>{Math.round(result.ttl / 1000) + ' s'}</b>
+                </div>
+            );
+        }
         return (
             <div className="keyview">
                 <h3>
                   <span className="octicon octicon-key"></span>
                   <i>{result.type}</i>
                   {Title}
+                  {Expiry}
                 </h3>
                 <div onClick={this.props.toggleRawMode} title="use 't' shortcut key">
                     {View}
