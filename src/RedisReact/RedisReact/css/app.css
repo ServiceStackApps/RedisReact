@@ -249,6 +249,9 @@ body.search-active, body.search-active .navbar {
     padding: 0 10px 0 5px;
     font-style: normal;
 }
+#keyviewer-page h3 + div {
+    padding: 0 0 10px;
+}
 .keyview a:hover {
     text-decoration: none;
 }
@@ -267,6 +270,25 @@ body.search-active, body.search-active .navbar {
     top: 60px;
     right: 23%;
 }
+#keyviewer-page .actions .action,#keyviewer-page .content .action {
+    cursor: pointer;
+    display: inline-block;
+    color: #999;
+}
+#keyviewer-page .actions .action:hover,#keyviewer-page .content .action:hover {
+    color: #337ab7;
+}
+#keyviewer-page .actions b,#keyviewer-page .content .action b {
+    margin: 0 10px 0 4px;
+    line-height: 30px;
+}
+
+#keyviewer-page .actions {
+    position: absolute;
+    text-align: right;
+    top: 60px;
+    right: 23%;
+}
 #keyviewer-page .actions .action {
     cursor: pointer;
     display: inline-block;
@@ -275,10 +297,7 @@ body.search-active, body.search-active .navbar {
 #keyviewer-page .actions .action:hover {
     color: #337ab7;
 }
-#keyviewer-page .actions b {
-    margin: 0 10px 0 4px;
-    line-height: 30px;
-}
+
 
 #similarkeys {
     position: absolute;

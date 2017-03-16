@@ -37,16 +37,34 @@
                 Actions.setConsole(`LSET ${result.id} ${f} ${value}`);
                 break;
             case 'set':
-                Actions.setConsole(`SREM ${result.id} ${f} ${value}`);
+                Actions.setConsole(`SREM ${result.id} ${value}`);
                 break;
             case 'zset':
-                Actions.setConsole(`ZREM ${result.id} ${f} ${value}`);
+                Actions.setConsole(`ZREM ${result.id} ${value}`);
                 break;
             case 'hash':
                 Actions.setConsole(`HSET ${result.id} ${f} ${value}`);
                 break;
             default:
                 Actions.setConsole(`SET ${result.id} ${result.value}`);
+                break;
+        }
+    },
+    delValue: function(f, value) {
+        this.transitionTo("console");
+        var result = this.props.result;
+        switch (result.type) {
+            case 'list':
+                Actions.setConsole(`LREM ${result.id} 1 ${value}`);
+                break;
+            case 'set':
+                Actions.setConsole(`SREM ${result.id} ${value}`);
+                break;
+            case 'zset':
+                Actions.setConsole(`ZREM ${result.id} ${value}`);
+                break;
+            case 'hash':
+                Actions.setConsole(`HDEL ${result.id} ${f}`);
                 break;
         }
     },
@@ -69,7 +87,7 @@
                 {items.map(function (x) {
                     let index = i++;
                     return (
-                        <tr key={index} onDoubleClick={() => $this.edit(index, x)}><td>{$this.renderValue(x)}</td></tr>
+                        <tr key={index} onDoubleClick={() => $this.edit(index, x)}><td>{$this.renderValue(x)}</td><td className="action" onClick={() => $this.delValue(index, x)}><span className="octicon octicon-x"></span></td></tr>
                     );
                 })}
             </tbody>
@@ -83,7 +101,7 @@
             <tbody>
                 {Object.keys(values).map(function(k){
                     return (
-                        <tr key={k} onDoubleClick={() => $this.edit(k, values[k]) }><td>{$this.renderValue(k)}</td><td>{$this.renderValue(values[k])}</td></tr>
+                        <tr key={k} onDoubleClick={() => $this.edit(k, values[k]) }><td>{$this.renderValue(k)}</td><td>{$this.renderValue(values[k])}</td><td className="action" onClick={() => $this.delValue(k, values[k])}><span className="octicon octicon-x"></span></td></tr>
                     );
                 })}
             </tbody>
@@ -132,8 +150,8 @@
         if (result.ttl && result.ttl > 0) {
             Expiry = (
                 <div className="action" onClick={this.removeExpiry}>
-                    <span className="octicon octicon-x"></span>
-                    <b>{Math.round(result.ttl / 1000) + ' s'}</b>
+                    <span className="octicon octicon-watch"></span>
+                    <b>{Math.round(result.ttl / 1000) + 's'}</b>
                 </div>
             );
         }
@@ -143,8 +161,8 @@
                   <span className="octicon octicon-key"></span>
                   <i>{result.type}</i>
                   {Title}
-                  {Expiry}
                 </h3>
+                {Expiry}
                 <div onClick={this.props.toggleRawMode} title="use 't' shortcut key">
                     {View}
                 </div>
