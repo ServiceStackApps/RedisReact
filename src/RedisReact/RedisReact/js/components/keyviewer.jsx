@@ -34,29 +34,51 @@
         this.transitionTo("keys", null, args);
     },
     console: function () {
-        this.transitionTo("console");
-        var type = this.state.result.type;
-        var cmd = 'GET ' + this.state.result.id;
-        if (type == 'list')
-            cmd = 'LRANGE ' + this.state.result.id + ' 0 -1';
-        else if (type == 'set')
-            cmd = 'SMEMBERS ' + this.state.result.id;
-        else if (type == 'zset')
-            cmd = 'ZRANGE ' + this.state.result.id + ' 0 -1 WITHSCORES';
-        else if (type == 'hash')
-            cmd = 'HGETALL ' + this.state.result.id;
-        Actions.setConsole(cmd);
+        switch (this.state.result.type) {
+            case 'list':
+                Actions.setConsole(`LRANGE ${this.state.result.id} 0 -1`);
+                break;
+            case 'set':
+                Actions.setConsole(`SMEMBERS ${this.state.result.id}`);
+                break;
+            case 'zset':
+                Actions.setConsole(`ZRANGE ${this.state.result.id} 0 -1 WITHSCORES`);
+                break;
+            case 'hash':
+                Actions.setConsole(`HGETALL ${this.state.result.id}`);
+                break;
+            default:
+                Actions.setConsole(`GET ${this.state.result.id}`);
+                break;
+        }
     },
     edit: function () {
-        this.transitionTo("console", null, {expand:true});
         Actions.setConsole('SET ' + this.state.result.id + ' ' + this.state.result.value);
     },
+    setExpiry: function () {
+        var result = this.state.result;
+        Actions.setConsole(`PEXPIRE ${result.id} ${result.ttl != null ? result.ttl : ""}`);
+    },
     del: function () {
-        this.transitionTo("console");
         Actions.setConsole('DEL ' + this.state.result.id);
     },
+    add: function () {
+        switch (this.state.result.type) {
+            case 'list':
+                Actions.setConsole(`LPUSH ${this.state.result.id} ?`);
+                break;
+            case 'set':
+                Actions.setConsole(`SADD ${this.state.result.id} ?`);
+                break;
+            case 'zset':
+                Actions.setConsole(`ZADD ${this.state.result.id} ${this.state.result.length} ?`);
+                break;
+            case 'hash':
+                Actions.setConsole(`HKEY ${this.state.result.id} [field] ?`);
+                break;
+        }
+    },
     delAll: function () {
-        this.transitionTo("console");
         var cmd = 'DEL ' + this.state.result.id;
 
         var relatedKeys = this.state.result.relatedKeys || {};

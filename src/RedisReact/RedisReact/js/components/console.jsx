@@ -7,6 +7,7 @@
     ],
     getInitialState: function(){
         return {
+            show: false,
             expand: false,
             command: ConsoleStore.command,
             history: ConsoleStore.history,
@@ -19,9 +20,6 @@
     componentWillMount: function () {
         var q = this.getQuery();
         this.setState({ expand: q.expand == "true" });
-    },
-    componentDidMount: function () {
-        this.getTextInput().focus();
     },
     onSettingsUpdated: function (settings) {
         this.setState({ appRawMode: settings.appRawMode, rawModes: {} });
@@ -53,6 +51,9 @@
         this.setState({ expand: !this.state.expand }, function () {
             $this.getTextInput().focus();
         });
+    },
+    toggleHistory: function (e) {
+        this.setState({ show: !this.state.show });
     },
     toggleRawMode: function (id, e) {
         if (hasTextSelected())
@@ -149,14 +150,22 @@
     render: function () {
         var $this = this;
         var logs = this.state.logs;
-        var Clear = null;
+        var ToggleLogs = null;
 
         if (logs.length > 0) {
-            Clear = (
-                <div id="btnClearHistory" onClick={this.clearLogs}>
-                    <span className="octicon octicon-x"></span>
-                    <b>clear</b>
-                </div>);
+            if (this.state.show) {
+                ToggleLogs = (
+                    <div id="btnToggleHistory" onClick={this.toggleHistory}>
+                        <span className="octicon octicon-screen-normal"></span>
+                        <b>hide history</b>
+                    </div>);
+            } else {
+                ToggleLogs = (
+                    <div id="btnToggleHistory" onClick={this.toggleHistory}>
+                        <span className="octicon octicon-screen-full"></span>
+                        <b>show history</b>
+                    </div>);
+            }
         }
 
         var Prompt, ExpandedPrompt = null;
@@ -192,31 +201,45 @@
                 </div>);
         }
 
+        var Logs = [];
+        if (this.state.show) {
+            Logs = logs.map(function(log) {
+                var cls = "entry";
+                if (log.type)
+                    cls += " " + log.type;
+
+                var rawMode = $this.state.appRawMode ? !$this.state.rawModes[log.id] : $this.state.rawModes[log.id];
+                return (
+                    <div key={log.id} className={cls}>
+                        <div className="cmd" onClick={$this.setCommand.bind($this, log.cmd)}>
+                            {log.cmd}
+                        </div>
+                        <div className="result" onClick={$this.toggleRawMode.bind($this, log.id)}>
+                            {$this.renderResponse(log.result, rawMode)}
+                            <div className="clear"></div>
+                        </div>
+                    </div>
+                );
+            });
+            if (logs.length > 0) {
+                Logs.push(
+                    <div className="actions">
+                        <div id="btnClearHistory" onClick={this.clearLogs}>
+                            <span className="octicon octicon-x"></span>
+                            <b>clear history</b>
+                        </div>
+                    </div>);
+            }
+        }
+
         return (
           <div id="console-page">
             <div id="console" className="content">
                 <div id="log">
-                    {logs.map(function(log){
-                        var cls = "entry";
-                        if (log.type)
-                            cls += " " + log.type;
-
-                        var rawMode = $this.state.appRawMode ? !$this.state.rawModes[log.id] : $this.state.rawModes[log.id];
-                        return (
-                            <div key={log.id} className={cls}>
-                                <div className="cmd" onClick={$this.setCommand.bind($this, log.cmd)}>
-                                    {log.cmd}
-                                </div>
-                                <div className="result" onClick={$this.toggleRawMode.bind($this,log.id)}>
-                                    {$this.renderResponse(log.result, rawMode)}
-                                    <div className="clear"></div>
-                                </div>
-                            </div>
-                        );
-                    })}
+                    {Logs}
                 </div>
                 <div className="actions">
-                    {Clear}
+                    {ToggleLogs}
                 </div>
                 <form id="formConsole" onSubmit={this.onSubmit}>
                     {Prompt}
