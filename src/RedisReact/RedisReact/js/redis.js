@@ -57,14 +57,25 @@
             dataType: "json"
         });
     },
-    search: function (query) {
+    search: function (query, position) {
         var $this = this;
+        position = position || 0;
         return $.ajax({
             url: "/search-redis",
             dataType: "json",
-            data: { query: query }
+            data: { query: query, position: position }
         })
         .then(function (r) {
+            var existing = $this.searchCache[query];
+            if (position !== 0 && existing != null && existing.starting !== position && existing.results != null) {
+                // append if this was not starting at the start
+                var combined = existing.results;
+                for (var i = 0; i < r.results.length; ++i) {
+                    combined.push(r.results[i]);
+                };
+                r.results = combined;
+            }
+            r.starting = position;
             return $this.searchCache[query] = r;
         });
     },

@@ -63,7 +63,7 @@ var SearchStore = Reflux.createStore({
         this.query = null;
         this.results = [];
     },
-    search: function (searchText) {
+    search: function (searchText, position) {
         var $this = this;
         this.text = searchText;
         this.query = this.text || "*";
@@ -81,13 +81,13 @@ var SearchStore = Reflux.createStore({
         if (!hasPattern)
             this.query += "*";
 
-        Redis.search(this.query)
+        Redis.search(this.query, position)
             .done(function (r) {
                 if ($this.text != searchText) 
                     return;
                 
                 $this.results = r.results || [];
-                $this.trigger({text: $this.text, query: $this.query, results: $this.results});
+                $this.trigger({text: $this.text, query: $this.query, results: $this.results, position: r.position });
             });
     }
 });
