@@ -83,6 +83,7 @@
         var i = 0;
         return (
             <table className="table table-striped wrap">
+            <thread><tr><td></td><td></td><td></td></tr></thread>
             <tbody>
                 {items.map(function (x) {
                     let index = i++;
@@ -98,6 +99,7 @@
         var $this = this;
         return (
             <table className="table table-striped wrap">
+            <thread><tr><td></td><td></td><td></td></tr></thread>
             <tbody>
                 {Object.keys(values).map(function(k){
                     return (
