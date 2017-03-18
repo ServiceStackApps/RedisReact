@@ -6,7 +6,7 @@
         Reflux.listenTo(SearchStore, "onSearchResults")
     ],
     getInitialState: function () {
-        return { query:SearchStore.query, results: SearchStore.results, viewGrid: false, gridResults:[] };
+        return { position: -1, query:SearchStore.query, results: SearchStore.results, viewGrid: false, gridResults:[] };
     },
     componentWillMount: function () {
         var q = this.getQuery().q;
@@ -16,8 +16,56 @@
         var q = this.getQuery().q;
         Actions.search(q);
     },
+    componentDidMount() {
+        this.attachScrollListener();
+    },
+    componentDidUpdate() {
+        this.attachScrollListener();
+    },
+    componentWillUnmount() {
+        this.detachScrollListener();
+    },
+    attachScrollListener() {
+        if(this.state.position == 0) {
+            return;
+        }
+
+        let scrollEl = window;
+        scrollEl.addEventListener('scroll', this.scrollListener, this.props.useCapture);
+        scrollEl.addEventListener('resize', this.scrollListener, this.props.useCapture);
+    },
+    detachScrollListener() {
+        let scrollEl = window;
+        scrollEl.removeEventListener('scroll', this.scrollListener, this.props.useCapture);
+        scrollEl.removeEventListener('resize', this.scrollListener, this.props.useCapture);
+    },
+    calculateTopPosition(el) {
+        if(!el) {
+            return 0;
+        }
+        return el.offsetTop + this.calculateTopPosition(el.offsetParent);
+    },
+    scrollListener() {
+        const el = this.scrollComponent.getDOMNode();
+        const scrollEl = window;
+
+        var scrollTop = (scrollEl.pageYOffset !== undefined) ? scrollEl.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
+        let offset = this.calculateTopPosition(el) + el.offsetHeight - scrollTop - window.innerHeight;
+
+        if(offset < 250) {
+            this.detachScrollListener();
+            // Call loadMore after detachScrollListener to allow for non-async loadMore functions
+            this.onLoadMore();
+        }
+    },
     onSearchResults: function (search) {
-        this.setState({ query: search.query, results: search.results, viewGrid: false, gridResults: [] });
+        this.setState({ position: search.position, query: search.query, results: search.results, viewGrid: false, gridResults: [] });
+    },
+    onLoadMore: function() {
+        var q = this.getQuery().q;
+        if (this.state.position != 0) {
+            Actions.search(q, this.state.position);
+        }
     },
     onKeyClick: function (e) {
         var tr = $(e.target).parent("tr");
@@ -76,21 +124,21 @@
                       {ViewGrid}
                       <thead>
                           <tr>
-                              {headers.map(function(k){
-                                return <th key={k}>{k}</th>;
+                              {headers.map(function(k) {
+                                  return <th key={k}>{k}</th>;
                               })}
                           </tr>
                       </thead>
                       <tbody>
-                          {gridResults.map(function(o){
-                            return (
-                                <tr key={o.__id} onClick={$this.onKeyClick} data-id={o.__id} data-type="string">
-                                  {headers.map(function(k){
-                                    var v = o[k];
-                                    return <td key={vIndex++}>{valueFmt(v)}</td>;
+                          {gridResults.map(function(o) {
+                              return (
+                                  <tr key={o.__id} onClick={$this.onKeyClick} data-id={o.__id} data-type="string">
+                                      {headers.map(function(k) {
+                                      var v = o[k];
+                                      return <td key={vIndex++}>{valueFmt(v)}</td>;
                                   })}
-                                </tr>
-                            );
+                                  </tr>
+                              );
                           })}
                       </tbody>
                     </table>);
@@ -107,12 +155,14 @@
                           </tr>
                       </thead>
                       <tbody>
-                          {this.state.results.map(function(r){
+                          {this.state.results.map(function(r) {
                               return (
                                   <tr key={r.id} onClick={$this.onKeyClick} data-id={r.id} data-type={r.type}>
                                       <td>{r.id}</td>
                                       <td>{r.type}</td>
-                                      <td>{r.size + (r.type == 'string' ? ' byte' : ' element') + (r.size > 1 ? 's' : '') }</td>
+                                      <td>{r.size +
+                                          (r.type == 'string' ? ' byte' : ' element') +
+                                          (r.size > 1 ? 's' : '') }</td>
                                       <td>{r.ttl == -1 ? 'never' : Math.round(r.ttl / 1000) + 's'}</td>
                                   </tr>
                               );
@@ -127,7 +177,7 @@
 
         return (
           <div id="search-page">
-              <div className="content">
+              <div className="content" ref={(input) => { $this.scrollComponent = input; }}>
                   {SearchResults}
               </div>
           </div>
