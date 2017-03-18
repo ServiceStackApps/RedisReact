@@ -4,7 +4,6 @@
         Router.State
     ],
     removeExpiry: function () {
-        this.transitionTo("console");
         Actions.setConsole(`PERSIST ${this.props.result.id}`);
     },
     renderValue: function (s) {
@@ -30,7 +29,6 @@
         }
     },
     edit: function (f, value) {
-        this.transitionTo("console");
         var result = this.props.result;
         switch (result.type) {
             case 'list':
@@ -51,7 +49,6 @@
         }
     },
     delValue: function(f, value) {
-        this.transitionTo("console");
         var result = this.props.result;
         switch (result.type) {
             case 'list':
