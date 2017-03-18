@@ -69,7 +69,9 @@
     },
     onKeyClick: function (e) {
         var tr = $(e.target).parent("tr");
-        this.transitionTo("keys", null, { id: tr.data("id"), type: tr.data("type") });
+        var key = tr.data("id");
+        SearchStore.search(key);
+        this.transitionTo("keys", null, { id: key, type: tr.data("type") });
     },
     toggleGridView: function (e) {
         var viewGrid = !this.state.viewGrid;
