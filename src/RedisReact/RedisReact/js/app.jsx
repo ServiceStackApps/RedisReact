@@ -4,7 +4,8 @@
         Router.Navigation,
         Router.State,
         Reflux.listenTo(SearchStore, "onSearchUpdated"),
-        Reflux.listenTo(ConnectionStore, "onConnection")
+        Reflux.listenTo(ConnectionStore, "onConnection"),
+        Reflux.listenTo(ConsoleStore, "onConsole")
     ],
     getInitialState: function() {
         return { connection: null, query: this.getQuery().q };
@@ -78,19 +79,19 @@
                     </div>
                 </nav>
                 <div>
-                    <div id="sidebar">
-                        <ul id="menu">
-                            <li className="list-group-item">
-                                <Link to="console" title="Console">
-                                    <span className="mega-octicon octicon-terminal"></span>
-                                </Link>
-                            </li>
-                        </ul>
-                    </div>
+                    {
+                    //<div id="sidebar">
+                    //    <ul id="menu">
+                    //        <li className="list-group-item">
+                    //        </li>
+                    //    </ul>
+                    //</div>
+                    }
                     <div id="body">
                         {/* this is the important part */}
                         <RouteHandler />
                     </div>
+                    <Console />
                 </div>
                 <div id="poweredby"><a href="https://servicestack.net" target="_blank">servicestack.net</a></div>
             </div>
@@ -103,7 +104,6 @@ var routes = (
     <Route name="connections" handler={Connections} />
     <Route name="search" handler={Search} />
     <Route name="keys" handler={KeyViewer} />
-    <Route name="console" handler={Console} />
     <DefaultRoute handler={Dashboard} />
   </Route>
 );
