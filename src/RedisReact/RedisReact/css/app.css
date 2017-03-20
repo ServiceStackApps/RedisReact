@@ -270,9 +270,14 @@ body.search-active, body.search-active .navbar {
     top: 60px;
     right: 23%;
 }
+#keyviewer-page .actions .action {
+    display: inline-block;
+}
+#keyviewer-page .content .action {
+    text-align: right;
+}
 #keyviewer-page .actions .action,#keyviewer-page .content .action {
     cursor: pointer;
-    display: inline-block;
     color: #999;
 }
 #keyviewer-page .actions .action:hover,#keyviewer-page .content .action:hover {
@@ -469,7 +474,13 @@ body.console-active, body.console-active .navbar {
     color: #aaa;
     text-shadow: 1px -1px 1px #fff;
 }
-#console .actions #btnClearHistory {
+#console-page {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+#console .actions{
     display: inline-block;
     color: #999;
     line-height: 30px;

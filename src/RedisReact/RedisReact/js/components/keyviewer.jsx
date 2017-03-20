@@ -34,7 +34,6 @@
         this.transitionTo("keys", null, args);
     },
     console: function () {
-        this.transitionTo("console");
         switch (this.state.result.type) {
             case 'list':
                 Actions.setConsole(`LRANGE ${this.state.result.id} 0 -1`);
@@ -54,20 +53,16 @@
         }
     },
     edit: function () {
-        this.transitionTo("console");
         Actions.setConsole('SET ' + this.state.result.id + ' ' + this.state.result.value);
     },
     setExpiry: function () {
-        this.transitionTo("console");
         var result = this.state.result;
         Actions.setConsole(`PEXPIRE ${result.id} ${result.ttl != null ? result.ttl : ""}`);
     },
     del: function () {
-        this.transitionTo("console");
         Actions.setConsole('DEL ' + this.state.result.id);
     },
     add: function () {
-        this.transitionTo("console");
         switch (this.state.result.type) {
             case 'list':
                 Actions.setConsole(`LPUSH ${this.state.result.id} ?`);
@@ -79,12 +74,11 @@
                 Actions.setConsole(`ZADD ${this.state.result.id} ${this.state.result.length} ?`);
                 break;
             case 'hash':
-                Actions.setConsole(`HKEY ${this.state.result.id} [field] ?`);
+                Actions.setConsole(`HSET ${this.state.result.id} [field] ?`);
                 break;
         }
     },
     delAll: function () {
-        this.transitionTo("console");
         var cmd = 'DEL ' + this.state.result.id;
 
         var relatedKeys = this.state.result.relatedKeys || {};
