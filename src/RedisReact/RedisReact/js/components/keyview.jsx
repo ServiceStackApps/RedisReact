@@ -80,7 +80,6 @@
         var i = 0;
         return (
             <table className="table table-striped wrap">
-            <thread><tr><td></td><td></td><td></td></tr></thread>
             <tbody>
                 {items.map(function (x) {
                     let index = i++;
@@ -92,11 +91,15 @@
             </table>
         );
     },
-    renderMap: function (values) {
+    renderMap: function (values, type) {
         var $this = this;
+        var Head = null;
+        if (type == 'hash') {
+            Head = <thead><tr><td>Field</td><td>Value</td><td></td></tr></thead>;
+        }
         return (
             <table className="table table-striped wrap">
-            <thread><tr><td></td><td></td><td></td></tr></thread>
+            {Head}
             <tbody>
                 {Object.keys(values).map(function(k){
                     return (
@@ -121,9 +124,9 @@
         else if (result.type == 'set')
             View = this.renderList(result.value);
         else if (result.type == 'zset')
-            View = this.renderMap(result.value);
+            View = this.renderMap(result.value, result.type);
         else if (result.type == 'hash')
-            View = this.renderMap(result.value);
+            View = this.renderMap(result.value, result.type);
 
         var Title = <b><Link to="keys" query={{id:result.id, type:result.type}}>{result.id}</Link></b>;
         if (this.props.isPrimary) {

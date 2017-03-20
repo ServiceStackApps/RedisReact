@@ -74,7 +74,7 @@
                 Actions.setConsole(`ZADD ${this.state.result.id} ${this.state.result.length} ?`);
                 break;
             case 'hash':
-                Actions.setConsole(`HKEY ${this.state.result.id} [field] ?`);
+                Actions.setConsole(`HSET ${this.state.result.id} [field] ?`);
                 break;
         }
     },
