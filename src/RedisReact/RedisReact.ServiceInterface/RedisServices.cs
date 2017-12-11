@@ -122,12 +122,9 @@ return cjson.encode(cursorAttrs)";
             return new GetRedisClientStatsResponse { Result = RedisStats.ToDictionary() };
         }
 
-        private static string defaultHtml = null;
-
         public object Any(FallbackForClientRoutes request)
         {
-            return defaultHtml ?? 
-                (defaultHtml = HostContext.ResolveVirtualFile("/default.html", Request).ReadAllText());
+            return new HttpResult(VirtualFileSources.GetFile("default.html"));
         }
     }
 

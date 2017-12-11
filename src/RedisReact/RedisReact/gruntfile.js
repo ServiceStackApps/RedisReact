@@ -317,7 +317,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('04-deploy-webapp', [
         'nugetrestore:restore-webapp',
-        'msbuild:release-webapp',
+        //'msbuild:release-webapp',
         '01-bundle-all',
         'msdeploy:pack',
         'msdeploy:push'

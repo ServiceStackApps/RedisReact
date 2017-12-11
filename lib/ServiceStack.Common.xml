@@ -4,6 +4,194 @@
         <name>ServiceStack.Common</name>
     </assembly>
     <members>
+        <!-- Badly formed XML comment ignored for member "M:ServiceStack.AssertUtils.AreNotNull(System.Collections.Generic.IDictionary{System.String,System.Object})" -->
+        <member name="M:ServiceStack.CommandsUtils.ExecuteAsyncCommandExec(System.Collections.Generic.IEnumerable{ServiceStack.Commands.ICommandExec})">
+            <summary>
+            Provide the an option for the callee to block until all commands are executed
+            </summary>
+            <param name="commands"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ServiceStack.EnumerableExtensions.Safe``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Return T[0] when enumerable is null, safe to use in enumerations like foreach
+            </summary>
+        </member>
+        <member name="M:ServiceStack.EnumExtensions.ToDescription(System.Enum)">
+            <summary>
+            Gets the textual description of the enum if it has one. e.g.
+            
+            <code>
+            enum UserColors
+            {
+                [Description("Bright Red")]
+                BrightRed
+            }
+            UserColors.BrightRed.ToDescription();
+            </code>
+            </summary>
+            <param name="enum"></param>
+            <returns></returns>
+        </member>
+        <member name="P:ServiceStack.ExecUtils.BaseDelayMs">
+            <summary>
+            Default base sleep time (milliseconds).
+            </summary>
+        </member>
+        <member name="P:ServiceStack.ExecUtils.MaxBackOffMs">
+            <summary>
+            Default maximum back-off time before retrying a request
+            </summary>
+        </member>
+        <member name="P:ServiceStack.ExecUtils.MaxRetries">
+            <summary>
+            Maximum retry limit. Avoids integer overflow issues.
+            </summary>
+        </member>
+        <member name="M:ServiceStack.ExecUtils.SleepBackOffMultiplier(System.Int32)">
+            <summary>
+            How long to sleep before next retry using Exponential BackOff delay with Full Jitter.
+            </summary>
+            <param name="retriesAttempted"></param>
+        </member>
+        <member name="M:ServiceStack.ExecUtils.CalculateFullJitterBackOffDelay(System.Int32)">
+            <summary>
+            Exponential BackOff Delay with Full Jitter
+            </summary>
+            <param name="retriesAttempted"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ServiceStack.ExecUtils.CalculateFullJitterBackOffDelay(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Exponential BackOff Delay with Full Jitter from:
+            https://github.com/aws/aws-sdk-java/blob/master/aws-java-sdk-core/src/main/java/com/amazonaws/retry/PredefinedBackoffStrategies.java
+            </summary>
+            <param name="retriesAttempted"></param>
+            <param name="baseDelay"></param>
+            <param name="maxBackOffMs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ServiceStack.ExecUtils.CalculateExponentialDelay(System.Int32)">
+            <summary>
+            Calculate exponential retry back-off.
+            </summary>
+            <param name="retriesAttempted"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ServiceStack.ExecUtils.CalculateExponentialDelay(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Calculate exponential retry back-off.
+            </summary>
+            <param name="retriesAttempted"></param>
+            <param name="baseDelay"></param>
+            <param name="maxBackOffMs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ServiceStack.FuncUtils.TryExec(System.Action)">
+            <summary>
+            Invokes the action provided and returns true if no excpetion was thrown.
+            Otherwise logs the exception and returns false if an exception was thrown.
+            </summary>
+            <param name="action">The action.</param>
+            <returns></returns>
+        </member>
+        <member name="T:ServiceStack.IPAddressExtensions">
+            <summary>
+            Useful IPAddressExtensions from: 
+            http://blogs.msdn.com/knom/archive/2008/12/31/ip-address-calculations-with-c-subnetmasks-networks.aspx
+            
+            </summary>
+        </member>
+        <member name="M:ServiceStack.IPAddressExtensions.GetAllNetworkInterfaceIpv4Addresses">
+            <summary>
+            Gets the ipv4 addresses from all Network Interfaces that have Subnet masks.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ServiceStack.IPAddressExtensions.GetAllNetworkInterfaceIpv6Addresses">
+            <summary>
+            Gets the ipv6 addresses from all Network Interfaces.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:ServiceStack.Logging.ConsoleLogFactory">
+            <summary>
+            Creates a Console Logger, that logs all messages to: System.Console
+            
+            Made public so its testable
+            </summary>
+        </member>
+        <member name="T:ServiceStack.Logging.ConsoleLogger">
+            <summary>
+            Default logger is to Console.WriteLine
+            
+            Made public so its testable
+            </summary>
+        </member>
+        <member name="M:ServiceStack.Logging.ConsoleLogger.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ServiceStack.Logging.DebugLogger"/> class.
+            </summary>
+        </member>
+        <member name="M:ServiceStack.Logging.ConsoleLogger.#ctor(System.Type)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ServiceStack.Logging.DebugLogger"/> class.
+            </summary>
+        </member>
+        <member name="M:ServiceStack.Logging.ConsoleLogger.Log(System.Object,System.Exception)">
+            <summary>
+            Logs the specified message.
+            </summary>
+        </member>
+        <member name="M:ServiceStack.Logging.ConsoleLogger.LogFormat(System.Object,System.Object[])">
+            <summary>
+            Logs the format.
+            </summary>
+        </member>
+        <member name="M:ServiceStack.Logging.ConsoleLogger.Log(System.Object)">
+            <summary>
+            Logs the specified message.
+            </summary>
+        </member>
+        <member name="T:ServiceStack.Logging.DebugLogFactory">
+            <summary>
+            Creates a Debug Logger, that logs all messages to: System.Diagnostics.Debug
+            
+            Made public so its testable
+            </summary>
+        </member>
+        <member name="T:ServiceStack.Logging.DebugLogger">
+            <summary>
+            Default logger is to System.Diagnostics.Debug.WriteLine
+            
+            Made public so its testable
+            </summary>
+        </member>
+        <member name="M:ServiceStack.Logging.DebugLogger.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ServiceStack.Logging.DebugLogger"/> class.
+            </summary>
+        </member>
+        <member name="M:ServiceStack.Logging.DebugLogger.#ctor(System.Type)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ServiceStack.Logging.DebugLogger"/> class.
+            </summary>
+        </member>
+        <member name="M:ServiceStack.Logging.DebugLogger.Log(System.Object,System.Exception)">
+            <summary>
+            Logs the specified message.
+            </summary>
+        </member>
+        <member name="M:ServiceStack.Logging.DebugLogger.LogFormat(System.Object,System.Object[])">
+            <summary>
+            Logs the format.
+            </summary>
+        </member>
+        <member name="M:ServiceStack.Logging.DebugLogger.Log(System.Object)">
+            <summary>
+            Logs the specified message.
+            </summary>
+        </member>
         <member name="T:ServiceStack.MiniProfiler.Data.ExecuteType">
             <summary>
             Categories of sql statements.
@@ -166,173 +354,30 @@
             proxy
             </summary>
         </member>
-        <member name="M:ServiceStack.EnumerableExtensions.Safe``1(System.Collections.Generic.IEnumerable{``0})">
+        <member name="M:ServiceStack.PerfUtils.MeasureFor(System.Action,System.Int32)">
             <summary>
-            Return T[0] when enumerable is null, safe to use in enumerations like foreach
+            Runs an action for a minimum of runForMs
             </summary>
+            <param name="fn">What to run</param>
+            <param name="runForMs">Minimum ms to run for</param>
+            <returns>time elapsed in micro seconds</returns>
         </member>
-        <member name="M:ServiceStack.EnumExtensions.ToDescription(System.Enum)">
+        <member name="M:ServiceStack.PerfUtils.Measure(System.Action,System.Int32,System.Int32,System.Action,System.Action,System.Action)">
             <summary>
-            Gets the textual description of the enum if it has one. e.g.
-            
-            <code>
-            enum UserColors
-            {
-                [Description("Bright Red")]
-                BrightRed
-            }
-            UserColors.BrightRed.ToDescription();
-            </code>
+            Returns average microseconds an action takes when run for the specified runForMs
             </summary>
-            <param name="enum"></param>
+            <param name="fn">What to run</param>
+            <param name="times">How many times to run for each iteration</param>
+            <param name="runForMs">Minimum ms to run for</param>
+            <param name="setup"></param>
+            <param name="warmup"></param>
+            <param name="teardown"></param>
             <returns></returns>
         </member>
-        <member name="T:ServiceStack.Logging.ConsoleLogFactory">
+        <member name="M:ServiceStack.StringUtils.SafeInput(System.String)">
             <summary>
-            Creates a Console Logger, that logs all messages to: System.Console
-            
-            Made public so its testable
+            Protect against XSS by cleaning non-standared User Input
             </summary>
-        </member>
-        <member name="T:ServiceStack.Logging.ConsoleLogger">
-            <summary>
-            Default logger is to Console.WriteLine
-            
-            Made public so its testable
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Logging.ConsoleLogger.#ctor(System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:ServiceStack.Logging.DebugLogger"/> class.
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Logging.ConsoleLogger.#ctor(System.Type)">
-            <summary>
-            Initializes a new instance of the <see cref="T:ServiceStack.Logging.DebugLogger"/> class.
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Logging.ConsoleLogger.Log(System.Object,System.Exception)">
-            <summary>
-            Logs the specified message.
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Logging.ConsoleLogger.LogFormat(System.Object,System.Object[])">
-            <summary>
-            Logs the format.
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Logging.ConsoleLogger.Log(System.Object)">
-            <summary>
-            Logs the specified message.
-            </summary>
-        </member>
-        <member name="T:ServiceStack.Logging.DebugLogFactory">
-            <summary>
-            Creates a Debug Logger, that logs all messages to: System.Diagnostics.Debug
-            
-            Made public so its testable
-            </summary>
-        </member>
-        <member name="T:ServiceStack.Logging.DebugLogger">
-            <summary>
-            Default logger is to System.Diagnostics.Debug.WriteLine
-            
-            Made public so its testable
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Logging.DebugLogger.#ctor(System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:ServiceStack.Logging.DebugLogger"/> class.
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Logging.DebugLogger.#ctor(System.Type)">
-            <summary>
-            Initializes a new instance of the <see cref="T:ServiceStack.Logging.DebugLogger"/> class.
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Logging.DebugLogger.Log(System.Object,System.Exception)">
-            <summary>
-            Logs the specified message.
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Logging.DebugLogger.LogFormat(System.Object,System.Object[])">
-            <summary>
-            Logs the format.
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Logging.DebugLogger.Log(System.Object)">
-            <summary>
-            Logs the specified message.
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Reflection.PropertyAccessor`1.TypedGetPropertyFn``1">
-            <summary>
-            Func to get the Strongly-typed field
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Reflection.PropertyAccessor`1.ValueTypedGetPropertyFn``1">
-            <summary>
-            Required to cast the return ValueType to an object for caching
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Reflection.PropertyAccessor`1.TypedSetPropertyFn``1">
-            <summary>
-            Func to set the Strongly-typed field
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Reflection.PropertyAccessor`1.ValueTypesSetPropertyFn``1">
-            <summary>
-            Required to cast the ValueType to an object for caching
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Reflection.PropertyAccessor`1.UnTypedSetPropertyFn``1">
-            <summary>
-            Required to cast the ValueType to an object for caching
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Reflection.StaticAccessors`1.TypedGetPropertyFn``1(System.Reflection.PropertyInfo)">
-            <summary>
-            Func to get the Strongly-typed field
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Reflection.StaticAccessors`1.ValueUnTypedGetPropertyFn``1(System.Reflection.PropertyInfo)">
-            <summary>
-            Required to cast the return ValueType to an object for caching
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Reflection.StaticAccessors`1.TypedSetPropertyFn``1(System.Reflection.PropertyInfo)">
-            <summary>
-            Func to set the Strongly-typed field
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Reflection.StaticAccessors`1.ValueUnTypedSetPropertyFn``1(System.Reflection.PropertyInfo)">
-            <summary>
-            Required to cast the ValueType to an object for caching
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Reflection.StaticAccessors`1.UnTypedSetPropertyFn``1(System.Reflection.PropertyInfo)">
-            <summary>
-            Required to cast the ValueType to an object for caching
-            </summary>
-        </member>
-        <member name="T:ServiceStack.IPAddressExtensions">
-            <summary>
-            Useful IPAddressExtensions from: 
-            http://blogs.msdn.com/knom/archive/2008/12/31/ip-address-calculations-with-c-subnetmasks-networks.aspx
-            
-            </summary>
-        </member>
-        <member name="M:ServiceStack.IPAddressExtensions.GetAllNetworkInterfaceIpv4Addresses">
-            <summary>
-            Gets the ipv4 addresses from all Network Interfaces that have Subnet masks.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:ServiceStack.IPAddressExtensions.GetAllNetworkInterfaceIpv6Addresses">
-            <summary>
-            Gets the ipv6 addresses from all Network Interfaces.
-            </summary>
-            <returns></returns>
         </member>
         <member name="T:ServiceStack.Support.AdapterBase">
             <summary>
@@ -361,6 +406,129 @@
             to provide a detailed analysis of your logs.
             </summary>
         </member>
+        <member name="P:ServiceStack.Templates.PageResult.LayoutPage">
+            <summary>
+            Use specified Layout 
+            </summary>
+        </member>
+        <member name="P:ServiceStack.Templates.PageResult.Layout">
+            <summary>
+            Use Layout with specified name
+            </summary>
+        </member>
+        <member name="P:ServiceStack.Templates.PageResult.NoLayout">
+            <summary>
+            Render without any Layout
+            </summary>
+        </member>
+        <member name="P:ServiceStack.Templates.PageResult.Model">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ServiceStack.Templates.PageResult.Args">
+            <summary>
+            Add additional Args available to all pages 
+            </summary>
+        </member>
+        <member name="P:ServiceStack.Templates.PageResult.TemplateFilters">
+            <summary>
+            Add additional template filters available to all pages
+            </summary>
+        </member>
+        <member name="P:ServiceStack.Templates.PageResult.Options">
+            <summary>
+            Return additional HTTP Headers in HTTP Requests
+            </summary>
+        </member>
+        <member name="P:ServiceStack.Templates.PageResult.ContentType">
+            <summary>
+            Specify the Content-Type of the Response 
+            </summary>
+        </member>
+        <member name="P:ServiceStack.Templates.PageResult.PageTransformers">
+            <summary>
+            Transform the Page output using a chain of stream transformers
+            </summary>
+        </member>
+        <member name="P:ServiceStack.Templates.PageResult.OutputTransformers">
+            <summary>
+            Transform the entire output using a chain of stream transformers
+            </summary>
+        </member>
+        <member name="P:ServiceStack.Templates.PageResult.FilterTransformers">
+            <summary>
+            Available transformers that can transform context filter stream outputs
+            </summary>
+        </member>
+        <member name="P:ServiceStack.Templates.PageResult.ExcludeFiltersNamed">
+            <summary>
+            Don't allow access to specified filters
+            </summary>
+        </member>
+        <member name="P:ServiceStack.Templates.PageResult.LastFilterError">
+            <summary>
+            The last error thrown by a filter
+            </summary>
+        </member>
+        <member name="P:ServiceStack.Templates.PageResult.LastFilterStackTrace">
+            <summary>
+            The StackTrace where the Last Error Occured 
+            </summary>
+        </member>
+        <member name="P:ServiceStack.Templates.PageResult.AssignExceptionsTo">
+            <summary>
+            What argument errors should be binded to
+            </summary>
+        </member>
+        <member name="P:ServiceStack.Templates.PageResult.SkipFilterExecution">
+            <summary>
+            Whether to skip execution of all page filters and just write template string fragments
+            </summary>
+        </member>
+        <member name="P:ServiceStack.Templates.PageResult.SkipExecutingFiltersIfError">
+            <summary>
+            Overrides Context to specify whether to Ignore or Continue executing filters on error 
+            </summary>
+        </member>
+        <member name="P:ServiceStack.Templates.PageResult.RethrowExceptions">
+            <summary>
+            Whether to always rethrow Exceptions
+            </summary>
+        </member>
+        <member name="P:ServiceStack.Templates.PageResult.HaltExecution">
+            <summary>
+            Immediately halt execution of the page
+            </summary>
+        </member>
+        <member name="P:ServiceStack.Templates.TemplateConfig.FatalExceptions">
+            <summary>
+            Rethrow fatal exceptions thrown on incorrect API usage    
+            </summary>
+        </member>
+        <member name="P:ServiceStack.Templates.TemplateContext.FilterTransformers">
+            <summary>
+            Available transformers that can transform context filter stream outputs
+            </summary>
+        </member>
+        <member name="P:ServiceStack.Templates.TemplateContext.CheckForModifiedPagesAfter">
+            How long in between checking for modified pages
+        </member>
+        <member name="P:ServiceStack.Templates.TemplateContext.RenderExpressionExceptions">
+            <summary>
+            Render render filter exceptions in-line where filter is located
+            </summary>
+        </member>
+        <member name="P:ServiceStack.Templates.TemplateContext.AssignExceptionsTo">
+            <summary>
+            What argument to assign Fitler Exceptions to
+            </summary>
+        </member>
+        <member name="P:ServiceStack.Templates.TemplateContext.SkipExecutingFiltersIfError">
+            <summary>
+            Whether to 
+            </summary>
+        </member>
         <member name="T:ServiceStack.UrnId">
             <summary>
             Creates a Unified Resource Name (URN) with the following formats:
@@ -369,42 +537,6 @@
             	- urn:{TypeName}:{IdFieldName}:{IdFieldValue}		e.g. urn:UserSession:UserId:1			
             
             </summary>
-        </member>
-        <!-- Badly formed XML comment ignored for member "M:ServiceStack.AssertUtils.AreNotNull(System.Collections.Generic.IDictionary{System.String,System.Object})" -->
-        <member name="M:ServiceStack.CommandsUtils.ExecuteAsyncCommandExec(System.Collections.Generic.IEnumerable{ServiceStack.Commands.ICommandExec})">
-            <summary>
-            Provide the an option for the callee to block until all commands are executed
-            </summary>
-            <param name="commands"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ServiceStack.FuncUtils.TryExec(System.Action)">
-            <summary>
-            Invokes the action provided and returns true if no excpetion was thrown.
-            Otherwise logs the exception and returns false if an exception was thrown.
-            </summary>
-            <param name="action">The action.</param>
-            <returns></returns>
-        </member>
-        <member name="M:ServiceStack.PerfUtils.MeasureFor(System.Action,System.Int32)">
-            <summary>
-            Runs an action for a minimum of runForMs
-            </summary>
-            <param name="fn">What to run</param>
-            <param name="runForMs">Minimum ms to run for</param>
-            <returns>time elapsed in micro seconds</returns>
-        </member>
-        <member name="M:ServiceStack.PerfUtils.Measure(System.Action,System.Int32,System.Int32,System.Action,System.Action,System.Action)">
-            <summary>
-            Returns average microseconds an action takes when run for the specified runForMs
-            </summary>
-            <param name="fn">What to run</param>
-            <param name="times">How many times to run for each iteration</param>
-            <param name="runForMs">Minimum ms to run for</param>
-            <param name="setup"></param>
-            <param name="warmup"></param>
-            <param name="teardown"></param>
-            <returns></returns>
         </member>
     </members>
 </doc>

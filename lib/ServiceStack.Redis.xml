@@ -54,33 +54,186 @@
             http://code.google.com/p/protobuf-net/source/browse/trunk/protobuf-net/BufferPool.cs
             </summary>
         </member>
+        <member name="T:ServiceStack.Redis.Generic.QueuedRedisTypedCommand`1">
+            <summary>
+            A complete redis command, with method to send command, receive response, and run callback on success or failure
+            </summary>
+        </member>
+        <member name="T:ServiceStack.Redis.Generic.RedisClientHash`2">
+            <summary>
+            Wrap the common redis set operations under a ICollection[string] interface.
+            </summary>
+        </member>
+        <member name="T:ServiceStack.Redis.Generic.RedisClientSet`1">
+            <summary>
+            Wrap the common redis set operations under a ICollection[string] interface.
+            </summary>
+        </member>
+        <member name="T:ServiceStack.Redis.Generic.RedisClientSortedSet`1">
+            <summary>
+            Wrap the common redis set operations under a ICollection[string] interface.
+            </summary>
+        </member>
+        <member name="T:ServiceStack.Redis.Generic.RedisTypedClient`1">
+            <summary>
+            Allows you to get Redis value operations to operate against POCO types.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:ServiceStack.Redis.Generic.RedisTypedClient`1.#ctor(ServiceStack.Redis.RedisClient)">
+            <summary>
+            Use this to share the same redis connection with another
+            </summary>
+            <param name="client">The client.</param>
+        </member>
+        <member name="T:ServiceStack.Redis.Generic.RedisTypedCommandQueue`1">
+            <summary>
+            Queue of commands for redis typed client
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="T:ServiceStack.Redis.Generic.RedisTypedTransaction`1">
+            <summary>
+            Adds support for Redis Transactions (i.e. MULTI/EXEC/DISCARD operations).
+            </summary>
+        </member>
+        <member name="M:ServiceStack.Redis.Generic.RedisTypedTransaction`1.QueueExpectQueued">
+            <summary>
+            Put "QUEUED" messages at back of queue
+            </summary>
+            <param name="queued"></param>
+        </member>
+        <member name="M:ServiceStack.Redis.Generic.RedisTypedTransaction`1.Exec">
+            <summary>
+            Issue exec command (not queued)
+            </summary>
+        </member>
+        <member name="M:ServiceStack.Redis.Generic.RedisTypedTransaction`1.handleMultiDataResultCount(System.Int32)">
+            <summary>
+            callback for after result count is read in
+            </summary>
+            <param name="count"></param>
+        </member>
+        <member name="T:ServiceStack.Redis.RedisTypedPipeline`1">
+            <summary>
+            Pipeline for redis typed client
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
         <member name="T:ServiceStack.Redis.IRedisResolver">
             <summary>
             Resolver strategy for resolving hosts and creating clients
             </summary>
         </member>
-        <member name="T:ServiceStack.Redis.RedisManagerPool">
+        <member name="T:ServiceStack.Redis.Pipeline.QueuedRedisCommand">
             <summary>
-            Provides thread-safe pooling of redis client connections.
+            A complete redis command, with method to send command, receive response, and run callback on success or failure
             </summary>
         </member>
-        <member name="M:ServiceStack.Redis.RedisManagerPool.GetClient">
+        <member name="M:ServiceStack.Redis.RedisAllPurposePipeline.#ctor(ServiceStack.Redis.RedisClient)">
+            <summary>
+            General purpose pipeline
+            </summary>
+            <param name="redisClient"></param>
+        </member>
+        <member name="M:ServiceStack.Redis.RedisAllPurposePipeline.Flush">
+            <summary>
+            Flush send buffer, and read responses
+            </summary>
+        </member>
+        <member name="T:ServiceStack.Redis.RedisCommand">
+            <summary>
+            Redis command that does not get queued
+            </summary>
+        </member>
+        <member name="T:ServiceStack.Redis.RedisCommandQueue">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:ServiceStack.Redis.RedisQueueCompletableOperation">
+            <summary>
+            Redis operation (transaction/pipeline) that allows queued commands to be completed
+            </summary>
+        </member>
+        <member name="T:ServiceStack.Redis.PooledRedisClientManager">
+            <summary>
+            Provides thread-safe pooling of redis client connections.
+            Allows load-balancing of master-write and read-slave hosts, ideal for
+            1 master and multiple replicated read slaves.
+            </summary>
+        </member>
+        <member name="P:ServiceStack.Redis.PooledRedisClientManager.NamespacePrefix">
+            <summary>
+            Gets or sets object key prefix.
+            </summary>
+        </member>
+        <member name="M:ServiceStack.Redis.PooledRedisClientManager.#ctor(System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String},ServiceStack.Redis.RedisClientManagerConfig)">
+            <summary>
+            Hosts can be an IP Address or Hostname in the format: host[:port]
+            e.g. 127.0.0.1:6379
+            default is: localhost:6379
+            </summary>
+            <param name="readWriteHosts">The write hosts.</param>
+            <param name="readOnlyHosts">The read hosts.</param>
+            <param name="config">The config.</param>
+        </member>
+        <member name="M:ServiceStack.Redis.PooledRedisClientManager.GetClient">
             <summary>
             Returns a Read/Write client (The default) using the hosts defined in ReadWriteHosts
             </summary>
             <returns></returns>
         </member>
-        <member name="M:ServiceStack.Redis.RedisManagerPool.GetInActiveClient(ServiceStack.Redis.RedisClient@)">
+        <member name="M:ServiceStack.Redis.PooledRedisClientManager.GetInActiveWriteClient(ServiceStack.Redis.RedisClient@)">
             <summary>
             Called within a lock
             </summary>
             <returns></returns>
         </member>
-        <member name="M:ServiceStack.Redis.RedisManagerPool.DisposeWriteClient(ServiceStack.Redis.RedisNativeClient)">
+        <member name="M:ServiceStack.Redis.PooledRedisClientManager.GetReadOnlyClient">
+            <summary>
+            Returns a ReadOnly client using the hosts defined in ReadOnlyHosts.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ServiceStack.Redis.PooledRedisClientManager.GetInActiveReadClient(ServiceStack.Redis.RedisClient@)">
+            <summary>
+            Called within a lock
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ServiceStack.Redis.PooledRedisClientManager.DisposeReadOnlyClient(ServiceStack.Redis.RedisNativeClient)">
+            <summary>
+            Disposes the read only client.
+            </summary>
+            <param name="client">The client.</param>
+        </member>
+        <member name="M:ServiceStack.Redis.PooledRedisClientManager.DisposeWriteClient(ServiceStack.Redis.RedisNativeClient)">
             <summary>
             Disposes the write client.
             </summary>
             <param name="client">The client.</param>
+        </member>
+        <member name="T:ServiceStack.Redis.PooledRedisClientManager.DisposablePooledClient`1">
+            <summary>
+            Manage a client acquired from the PooledRedisClientManager
+            Dispose method will release the client back to the pool.
+            </summary>
+        </member>
+        <member name="M:ServiceStack.Redis.PooledRedisClientManager.DisposablePooledClient`1.#ctor(ServiceStack.Redis.PooledRedisClientManager)">
+            <summary>
+            wrap the acquired client
+            </summary>
+            <param name="clientManager"></param>
+        </member>
+        <member name="P:ServiceStack.Redis.PooledRedisClientManager.DisposablePooledClient`1.Client">
+            <summary>
+            access the wrapped client
+            </summary>
+        </member>
+        <member name="M:ServiceStack.Redis.PooledRedisClientManager.DisposablePooledClient`1.Dispose">
+            <summary>
+            release the wrapped client back to the pool
+            </summary>
         </member>
         <member name="T:ServiceStack.Redis.RedisClient">
             <summary>
@@ -124,71 +277,15 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="T:ServiceStack.Redis.Generic.QueuedRedisTypedCommand`1">
-            <summary>
-            A complete redis command, with method to send command, receive response, and run callback on success or failure
-            </summary>
-        </member>
-        <member name="T:ServiceStack.Redis.Generic.RedisTypedClient`1">
-            <summary>
-            Allows you to get Redis value operations to operate against POCO types.
-            </summary>
-            <typeparam name="T"></typeparam>
-        </member>
-        <member name="M:ServiceStack.Redis.Generic.RedisTypedClient`1.#ctor(ServiceStack.Redis.RedisClient)">
-            <summary>
-            Use this to share the same redis connection with another
-            </summary>
-            <param name="client">The client.</param>
-        </member>
-        <member name="T:ServiceStack.Redis.Generic.RedisTypedCommandQueue`1">
-            <summary>
-            Queue of commands for redis typed client
-            </summary>
-            <typeparam name="T"></typeparam>
-        </member>
-        <member name="T:ServiceStack.Redis.Generic.RedisClientHash`2">
+        <member name="T:ServiceStack.Redis.RedisClientHash">
             <summary>
             Wrap the common redis set operations under a ICollection[string] interface.
             </summary>
         </member>
-        <member name="T:ServiceStack.Redis.Generic.RedisTypedTransaction`1">
+        <member name="T:ServiceStack.Redis.RedisClientList">
             <summary>
-            Adds support for Redis Transactions (i.e. MULTI/EXEC/DISCARD operations).
+            Wrap the common redis list operations under a IList[string] interface.
             </summary>
-        </member>
-        <member name="M:ServiceStack.Redis.Generic.RedisTypedTransaction`1.QueueExpectQueued">
-            <summary>
-            Put "QUEUED" messages at back of queue
-            </summary>
-            <param name="queued"></param>
-        </member>
-        <member name="M:ServiceStack.Redis.Generic.RedisTypedTransaction`1.Exec">
-            <summary>
-            Issue exec command (not queued)
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Redis.Generic.RedisTypedTransaction`1.handleMultiDataResultCount(System.Int32)">
-            <summary>
-            callback for after result count is read in
-            </summary>
-            <param name="count"></param>
-        </member>
-        <member name="T:ServiceStack.Redis.Generic.RedisClientSortedSet`1">
-            <summary>
-            Wrap the common redis set operations under a ICollection[string] interface.
-            </summary>
-        </member>
-        <member name="T:ServiceStack.Redis.Generic.RedisClientSet`1">
-            <summary>
-            Wrap the common redis set operations under a ICollection[string] interface.
-            </summary>
-        </member>
-        <member name="T:ServiceStack.Redis.RedisTypedPipeline`1">
-            <summary>
-            Pipeline for redis typed client
-            </summary>
-            <typeparam name="T"></typeparam>
         </member>
         <member name="T:ServiceStack.Redis.RedisClientManagerCacheClient">
             <summary>
@@ -205,6 +302,11 @@
             Ignore dispose on RedisClientsManager, which should be registered as a singleton
             </summary>
         </member>
+        <member name="T:ServiceStack.Redis.RedisClientSet">
+            <summary>
+            Wrap the common redis set operations under a ICollection[string] interface.
+            </summary>
+        </member>
         <member name="T:ServiceStack.Redis.RedisClientsManagerExtensions">
             <summary>
             Useful wrapper IRedisClientsManager to cut down the boiler plate of most IRedisClient access
@@ -218,14 +320,9 @@
             Callbacks can be assigned later, then call Start() for PubSubServer to start listening for messages
             </summary>
         </member>
-        <member name="T:ServiceStack.Redis.Pipeline.QueuedRedisCommand">
+        <member name="T:ServiceStack.Redis.RedisClientSortedSet">
             <summary>
-            A complete redis command, with method to send command, receive response, and run callback on success or failure
-            </summary>
-        </member>
-        <member name="T:ServiceStack.Redis.RedisCommand">
-            <summary>
-            Redis command that does not get queued
+            Wrap the common redis set operations under a ICollection[string] interface.
             </summary>
         </member>
         <member name="F:ServiceStack.Redis.RedisConfig.ClientFactory">
@@ -307,6 +404,100 @@
         <member name="M:ServiceStack.Redis.RedisConfig.Reset">
             <summary>
             Resets Redis Config and Redis Stats back to default values
+            </summary>
+        </member>
+        <member name="T:ServiceStack.Redis.RedisException">
+            <summary>
+            Redis-specific exception. Thrown if unable to connect to Redis server due to socket exception, for example.
+            </summary>
+        </member>
+        <member name="T:ServiceStack.Redis.RedisPoolConfig">
+            <summary>
+             Configuration class for the RedisManagerPool
+            </summary>
+        </member>
+        <member name="F:ServiceStack.Redis.RedisPoolConfig.DefaultMaxPoolSize">
+            <summary>
+            Default pool size used by every new instance of <see cref="T:ServiceStack.Redis.RedisPoolConfig"/>. (default: 40)
+            </summary>
+        </member>
+        <member name="P:ServiceStack.Redis.RedisPoolConfig.MaxPoolSize">
+            <summary>
+            Maximum ammount of <see cref="T:ServiceStack.Caching.ICacheClient"/>s created by the <see cref="T:ServiceStack.Redis.RedisManagerPool"/>.
+            </summary>
+        </member>
+        <member name="T:ServiceStack.Redis.RedisManagerPool">
+            <summary>
+            Provides thread-safe pooling of redis client connections. All connections are treaded as read and write hosts.
+            </summary>
+        </member>
+        <member name="M:ServiceStack.Redis.RedisManagerPool.GetClient">
+            <summary>
+            Returns a Read/Write client (The default) using the hosts defined in ReadWriteHosts
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ServiceStack.Redis.RedisManagerPool.GetInActiveClient(ServiceStack.Redis.RedisClient@)">
+            <summary>
+            Called within a lock
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ServiceStack.Redis.RedisManagerPool.DisposeWriteClient(ServiceStack.Redis.RedisNativeClient)">
+            <summary>
+            Disposes the write client.
+            </summary>
+            <param name="client">The client.</param>
+        </member>
+        <member name="T:ServiceStack.Redis.RedisNativeClient">
+             <summary>
+             This class contains all the common operations for the RedisClient.
+             The client contains a 1:1 mapping of c# methods to redis operations of the same name.
+            
+             Not threadsafe, use a pooled manager!
+             All redis calls on a single instances write to the same Socket.
+             If used in multiple threads (or async Tasks) at the same time you will find
+             that commands are not executed properly by redis and Servicestack wont be able to (json) serialize 
+             the data that comes back.
+             </summary>
+        </member>
+        <member name="F:ServiceStack.Redis.RedisNativeClient.active">
+            <summary>
+            Used to manage connection pooling
+            </summary>
+        </member>
+        <member name="P:ServiceStack.Redis.RedisNativeClient.NamespacePrefix">
+            <summary>
+            Gets or sets object key prefix.
+            </summary>
+        </member>
+        <member name="M:ServiceStack.Redis.RedisNativeClient.Exec">
+            <summary>
+            Requires custom result parsing
+            </summary>
+            <returns>Number of results</returns>
+        </member>
+        <member name="M:ServiceStack.Redis.RedisNativeClient.WriteCommandToSendBuffer(System.Byte[][])">
+            <summary>
+            Command to set multuple binary safe arguments
+            </summary>
+            <param name="cmdWithBinaryArgs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ServiceStack.Redis.RedisNativeClient.SendUnmanagedExpectSuccess(System.Byte[][])">
+            <summary>
+            Send command outside of managed Write Buffer
+            </summary>
+            <param name="cmdWithBinaryArgs"></param>
+        </member>
+        <member name="M:ServiceStack.Redis.RedisNativeClient.ResetSendBuffer">
+            <summary>
+            reset buffer index in send buffer
+            </summary>
+        </member>
+        <member name="P:ServiceStack.Redis.RedisPubSubServer.OnMessage">
+            <summary>
+            Callback fired on each message received, handle with (channel, msg) => ... 
             </summary>
         </member>
         <member name="P:ServiceStack.Redis.RedisSentinel.RedisManagerFactory">
@@ -569,387 +760,6 @@
             Periodically writes the allocated instances to the log for diagnostic purposes.
             </summary>
         </member>
-        <member name="T:ServiceStack.Redis.Support.Locking.IDistributedLock">
-            <summary>
-            Distributed lock interface
-            </summary>
-        </member>
-        <member name="T:ServiceStack.Redis.Support.Locking.DisposableDistributedLock">
-            <summary>
-            distributed lock class that follows the Resource Allocation Is Initialization pattern
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Redis.Support.Locking.DisposableDistributedLock.#ctor(ServiceStack.Redis.IRedisClient,System.String,System.Int32,System.Int32)">
-            <summary>
-            Lock
-            </summary>
-            <param name="client"></param>
-            <param name="globalLockKey"></param>
-            <param name="acquisitionTimeout">in seconds</param>
-            <param name="lockTimeout">in seconds</param>
-        </member>
-        <member name="M:ServiceStack.Redis.Support.Locking.DisposableDistributedLock.Dispose">
-            <summary>
-            unlock
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Redis.Support.Locking.DistributedLock.Lock(System.String,System.Int32,System.Int32,System.Int64@,ServiceStack.Redis.IRedisClient)">
-            <summary>
-            acquire distributed, non-reentrant lock on key
-            </summary>
-            <param name="key">global key for this lock</param>
-            <param name="acquisitionTimeout">timeout for acquiring lock</param>
-            <param name="lockTimeout">timeout for lock, in seconds (stored as value against lock key) </param>
-            <param name="client"></param>
-            <param name="lockExpire"></param>
-        </member>
-        <member name="M:ServiceStack.Redis.Support.Locking.DistributedLock.Unlock(System.String,System.Int64,ServiceStack.Redis.IRedisClient)">
-            <summary>
-            unlock key
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Redis.Support.Locking.DistributedLock.CalculateLockExpire(System.TimeSpan,System.Int32)">
-            <summary>
-            
-            </summary>
-            <param name="ts"></param>
-            <param name="timeout"></param>
-            <returns></returns>
-        </member>
-        <member name="T:ServiceStack.Redis.Support.Locking.ILockingStrategy">
-            <summary>
-            Locking strategy interface
-            </summary>
-        </member>
-        <member name="T:ServiceStack.Redis.Support.Locking.ReadLock">
-            <summary>
-            This class manages a read lock for a local readers/writer lock, 
-            using the Resource Acquisition Is Initialization pattern
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Redis.Support.Locking.ReadLock.#ctor(System.Threading.ReaderWriterLockSlim)">
-            <summary>
-            RAII initialization 
-            </summary>
-            <param name="lockObject"></param>
-        </member>
-        <member name="M:ServiceStack.Redis.Support.Locking.ReadLock.Dispose">
-            <summary>
-            RAII disposal
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Redis.Support.Locking.WriteLock.#ctor(System.Threading.ReaderWriterLockSlim)">
-            <summary>
-            This class manages a write lock for a local readers/writer lock, 
-            using the Resource Acquisition Is Initialization pattern
-            </summary>
-            <param name="lockObject"></param>
-        </member>
-        <member name="M:ServiceStack.Redis.Support.Locking.WriteLock.Dispose">
-            <summary>
-            RAII disposal
-            </summary>
-        </member>
-        <member name="T:ServiceStack.Redis.Support.OptimizedObjectSerializer">
-            <summary>
-            Optimized  <see cref="T:ServiceStack.Redis.Support.ISerializer"/> implementation. Primitive types are manually serialized, the rest are serialized using binary serializer />.
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Redis.Support.OptimizedObjectSerializer.Serialize(System.Object)">
-            <summary>
-            
-            </summary>
-            <param name="value"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ServiceStack.Redis.Support.OptimizedObjectSerializer.Deserialize(System.Byte[])">
-            <summary>
-            
-            </summary>
-            <param name="someBytes"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ServiceStack.Redis.Support.OptimizedObjectSerializer.SerializeToWrapper(System.Object)">
-            <summary>
-            serialize value and wrap with <see cref="T:ServiceStack.Redis.Support.SerializedObjectWrapper"/>
-            </summary>
-            <param name="value"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ServiceStack.Redis.Support.OptimizedObjectSerializer.Unwrap(ServiceStack.Redis.Support.SerializedObjectWrapper)">
-            <summary>
-            Unwrap object wrapped in <see cref="T:ServiceStack.Redis.Support.SerializedObjectWrapper"/>
-            </summary>
-            <param name="item"></param>
-            <returns></returns>
-        </member>
-        <member name="P:ServiceStack.Redis.Support.Queue.ISequentialData`1.DequeueItems">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Redis.Support.Queue.ISequentialData`1.PopAndUnlock">
-            <summary>
-            pop numProcessed items from queue and unlock queue for work item id that dequeued
-            items are associated with
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:ServiceStack.Redis.Support.Queue.ISequentialData`1.DoneProcessedWorkItem">
-            <summary>
-            A dequeued work item has been processed. When all of the dequeued items have been processed,
-            all items will be popped from the queue,and the queue unlocked for the work item id that
-            the dequeued items are associated with
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Redis.Support.Queue.ISequentialData`1.UpdateNextUnprocessed(`0)">
-            <summary>
-            Update first unprocessed item with new work item.
-            </summary>
-            <param name="newWorkItem"></param>
-        </member>
-        <member name="T:ServiceStack.Redis.Support.Queue.Implementation.RedisSequentialWorkQueue`1">
-            <summary>
-            distributed work item queue. Each message must have an associated
-            work item  id. For a given id, all work items are guaranteed to be processed
-            in the order in which they are received.
-            
-            
-            </summary>
-            <summary>
-            distributed work item queue. Each message must have an associated
-            work item  id. For a given id, all work items are guaranteed to be processed
-            in the order in which they are received.
-            
-            
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Redis.Support.Queue.Implementation.RedisSequentialWorkQueue`1.DequeueManager.UpdateNextUnprocessed(`0)">
-            <summary>
-            
-            </summary>
-            <param name="newWorkItem"></param>
-        </member>
-        <member name="M:ServiceStack.Redis.Support.Queue.Implementation.RedisSequentialWorkQueue`1.DequeueManager.PopAndUnlock(System.Int32,ServiceStack.Redis.IRedisClient)">
-            <summary>
-            
-            </summary>
-            <param name="numProcessed"></param>
-            <param name="client"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ServiceStack.Redis.Support.Queue.Implementation.RedisSequentialWorkQueue`1.DequeueManager.PopAndUnlock(System.Int32)">
-            <summary>
-            
-            </summary>
-            <param name="numProcessed"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ServiceStack.Redis.Support.Queue.Implementation.RedisSequentialWorkQueue`1.Enqueue(System.String,`0)">
-            <summary>
-            Queue incoming messages
-            </summary>
-            <param name="workItem"></param>
-            <param name="workItemId"></param>
-        </member>
-        <member name="M:ServiceStack.Redis.Support.Queue.Implementation.RedisSequentialWorkQueue`1.PrepareNextWorkItem">
-            <summary>
-            Must call this periodically to move work items from priority queue to pending queue
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Redis.Support.Queue.Implementation.RedisSequentialWorkQueue`1.Update(System.String,System.Int32,`0)">
-            <summary>
-            Replace existing work item in workItemId queue
-            </summary>
-            <param name="workItemId"></param>
-            <param name="index"></param>
-            <param name="newWorkItem"></param>
-        </member>
-        <member name="M:ServiceStack.Redis.Support.Queue.Implementation.RedisSequentialWorkQueue`1.Pop(System.String,System.Int32)">
-            <summary>
-            Pop items from list
-            </summary>
-            <param name="workItemId"></param>
-            <param name="itemCount"></param>
-        </member>
-        <member name="M:ServiceStack.Redis.Support.Queue.Implementation.RedisSequentialWorkQueue`1.HarvestZombies">
-            <summary>
-            Force release of locks held by crashed servers
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Redis.Support.Queue.Implementation.RedisSequentialWorkQueue`1.TryForceReleaseLock(ServiceStack.Redis.Support.Queue.Implementation.SerializingRedisClient,System.String)">
-            <summary>
-            release lock held by crashed server
-            </summary>
-            <param name="client"></param>
-            <param name="workItemId"></param>
-            <returns>true if lock is released, either by this method or by another client; false otherwise</returns>
-        </member>
-        <member name="M:ServiceStack.Redis.Support.Queue.Implementation.RedisSequentialWorkQueue`1.Unlock(System.String)">
-            <summary>
-            Unlock work item id, so other servers can process items for this id
-            </summary>
-            <param name="workItemId"></param>
-        </member>
-        <member name="M:ServiceStack.Redis.Support.Queue.Implementation.SequentialData`1.PopAndUnlock">
-            <summary>
-            pop remaining items that were returned by dequeue, and unlock queue
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:ServiceStack.Redis.Support.Queue.Implementation.SequentialData`1.DoneProcessedWorkItem">
-            <summary>
-            indicate that an item has been processed by the caller
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Redis.Support.Queue.Implementation.SequentialData`1.UpdateNextUnprocessed(`0)">
-            <summary>
-            Update first unprocessed work item
-            </summary>
-            <param name="newWorkItem"></param>
-        </member>
-        <member name="T:ServiceStack.Redis.Support.Queue.Implementation.RedisChronologicalWorkQueue`1">
-            <summary>
-            distributed work item queue. Messages are processed in chronological order
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Redis.Support.Queue.Implementation.RedisChronologicalWorkQueue`1.Enqueue(System.String,`0,System.Double)">
-            <summary>
-            Enqueue incoming messages
-            </summary>
-            <param name="workItem"></param>
-            <param name="workItemId"></param>
-            <param name="time"></param>
-        </member>
-        <member name="M:ServiceStack.Redis.Support.Queue.Implementation.RedisChronologicalWorkQueue`1.Dequeue(System.Double,System.Double,System.Int32)">
-            <summary>
-            Dequeue next batch of work items
-            </summary>
-            <param name="minTime"></param>
-            <param name="maxTime"></param>
-            <param name="maxBatchSize"></param>
-            <returns></returns>
-        </member>
-        <member name="T:ServiceStack.Redis.Support.Queue.Implementation.RedisSimpleWorkQueue`1">
-            <summary>
-            simple distributed work item queue 
-            
-            
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Redis.Support.Queue.Implementation.RedisSimpleWorkQueue`1.Enqueue(`0)">
-            <summary>
-            Queue incoming messages
-            </summary>
-            <param name="msg"></param>
-        </member>
-        <member name="M:ServiceStack.Redis.Support.Queue.Implementation.RedisSimpleWorkQueue`1.Dequeue(System.Int32)">
-            <summary>
-            Dequeue next batch of work items for processing. After this method is called,
-            no other work items with same id will be available for
-            dequeuing until PostDequeue is called
-            </summary>
-            <returns>KeyValuePair: key is work item id, and value is list of dequeued items.
-            </returns>
-        </member>
-        <member name="T:ServiceStack.Redis.Support.Queue.Implementation.RedisWorkQueue`1">
-            <summary>
-            distributed work item queue
-            </summary>
-        </member>
-        <member name="P:ServiceStack.Redis.Support.Queue.Implementation.SerializingRedisClient.Serializer">
-            <summary>
-            customize the client serializer
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Redis.Support.Queue.Implementation.SerializingRedisClient.Serialize(System.Object)">
-            <summary>
-             Serialize object to buffer
-            </summary>
-            <param name="value">serializable object</param>
-            <returns></returns>
-        </member>
-        <member name="M:ServiceStack.Redis.Support.Queue.Implementation.SerializingRedisClient.Serialize(System.Object[])">
-            <summary>
-            
-            </summary>
-            <param name="values">array of serializable objects</param>
-            <returns></returns>
-        </member>
-        <member name="M:ServiceStack.Redis.Support.Queue.Implementation.SerializingRedisClient.Deserialize(System.Byte[])">
-            <summary>
-             Deserialize buffer to object
-            </summary>
-            <param name="someBytes">byte array to deserialize</param>
-            <returns></returns>
-        </member>
-        <!-- Badly formed XML comment ignored for member "M:ServiceStack.Redis.Support.Queue.Implementation.SerializingRedisClient.Deserialize(System.Byte[][])" -->
-        <member name="M:ServiceStack.Redis.Support.Queue.ISequentialWorkQueue`1.Enqueue(System.String,`0)">
-            <summary>
-            Enqueue item in priority queue corresponding to workItemId identifier
-            </summary>
-            <param name="workItemId"></param>
-            <param name="workItem"></param>
-        </member>
-        <member name="M:ServiceStack.Redis.Support.Queue.ISequentialWorkQueue`1.PrepareNextWorkItem">
-            <summary>
-            Preprare next work item id for dequeueing
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Redis.Support.Queue.ISequentialWorkQueue`1.Dequeue(System.Int32)">
-            <summary>
-            Dequeue up to maxBatchSize items from queue corresponding to workItemId identifier.
-            Once this method is called, <see cref="M:ServiceStack.Redis.Support.Queue.ISequentialWorkQueue`1.Dequeue(System.Int32)"/> or <see cref="!:Peek"/> will not
-            return any items for workItemId until the dequeue lock returned is unlocked.
-            </summary>
-            <param name="maxBatchSize"></param>
-            <param name="defer"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ServiceStack.Redis.Support.Queue.ISequentialWorkQueue`1.Update(System.String,System.Int32,`0)">
-            <summary>
-            Replace existing work item in workItemId queue
-            </summary>
-            <param name="workItemId"></param>
-            <param name="index"></param>
-            <param name="newWorkItem"></param>
-        </member>
-        <member name="M:ServiceStack.Redis.Support.Queue.ISimpleWorkQueue`1.Enqueue(`0)">
-            <summary>
-            Enqueue item
-            </summary>
-            <param name="workItem"></param>
-        </member>
-        <member name="M:ServiceStack.Redis.Support.Queue.ISimpleWorkQueue`1.Dequeue(System.Int32)">
-            <summary>
-            Dequeue up to maxBatchSize items from queue
-            </summary>
-            <param name="maxBatchSize"></param>
-            <returns></returns>
-        </member>
-        <member name="T:ServiceStack.Redis.Support.SerializedObjectWrapper">
-            <summary>
-            wraps a serialized representation of an object
-            </summary>
-            
-        </member>
-        <member name="M:ServiceStack.Redis.Support.SerializedObjectWrapper.#ctor(System.UInt16,System.ArraySegment{System.Byte})">
-            <summary>
-            Initializes a new instance of <see cref="T:ServiceStack.Redis.Support.SerializedObjectWrapper"/>.
-            </summary>
-            <param name="flags">Custom item data.</param>
-            <param name="data">The serialized item.</param>
-        </member>
-        <member name="P:ServiceStack.Redis.Support.SerializedObjectWrapper.Data">
-            <summary>
-            The data representing the item being stored/retireved.
-            </summary>
-        </member>
-        <member name="P:ServiceStack.Redis.Support.SerializedObjectWrapper.Flags">
-            <summary>
-            Flags set for this instance.
-            </summary>
-        </member>
         <member name="T:ServiceStack.Redis.Support.IOrderedDictionary`2">
             <summary>
             Represents a generic collection of key/value pairs that are ordered independently of the key and value.
@@ -995,6 +805,140 @@
             <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="index"/> is less than 0.<br/>
             -or-<br/>
             <paramref name="index"/> is equal to or greater than <see cref="P:System.Collections.ICollection.Count"/>.</exception>
+        </member>
+        <member name="T:ServiceStack.Redis.Support.Locking.DisposableDistributedLock">
+            <summary>
+            distributed lock class that follows the Resource Allocation Is Initialization pattern
+            </summary>
+        </member>
+        <member name="M:ServiceStack.Redis.Support.Locking.DisposableDistributedLock.#ctor(ServiceStack.Redis.IRedisClient,System.String,System.Int32,System.Int32)">
+            <summary>
+            Lock
+            </summary>
+            <param name="client"></param>
+            <param name="globalLockKey"></param>
+            <param name="acquisitionTimeout">in seconds</param>
+            <param name="lockTimeout">in seconds</param>
+        </member>
+        <member name="M:ServiceStack.Redis.Support.Locking.DisposableDistributedLock.Dispose">
+            <summary>
+            unlock
+            </summary>
+        </member>
+        <member name="M:ServiceStack.Redis.Support.Locking.DistributedLock.Lock(System.String,System.Int32,System.Int32,System.Int64@,ServiceStack.Redis.IRedisClient)">
+            <summary>
+            acquire distributed, non-reentrant lock on key
+            </summary>
+            <param name="key">global key for this lock</param>
+            <param name="acquisitionTimeout">timeout for acquiring lock</param>
+            <param name="lockTimeout">timeout for lock, in seconds (stored as value against lock key) </param>
+            <param name="client"></param>
+            <param name="lockExpire"></param>
+        </member>
+        <member name="M:ServiceStack.Redis.Support.Locking.DistributedLock.Unlock(System.String,System.Int64,ServiceStack.Redis.IRedisClient)">
+            <summary>
+            unlock key
+            </summary>
+        </member>
+        <member name="M:ServiceStack.Redis.Support.Locking.DistributedLock.CalculateLockExpire(System.TimeSpan,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="ts"></param>
+            <param name="timeout"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ServiceStack.Redis.Support.Locking.IDistributedLock">
+            <summary>
+            Distributed lock interface
+            </summary>
+        </member>
+        <member name="T:ServiceStack.Redis.Support.Locking.ILockingStrategy">
+            <summary>
+            Locking strategy interface
+            </summary>
+        </member>
+        <member name="T:ServiceStack.Redis.Support.Locking.ReadLock">
+            <summary>
+            This class manages a read lock for a local readers/writer lock, 
+            using the Resource Acquisition Is Initialization pattern
+            </summary>
+        </member>
+        <member name="M:ServiceStack.Redis.Support.Locking.ReadLock.#ctor(System.Threading.ReaderWriterLockSlim)">
+            <summary>
+            RAII initialization 
+            </summary>
+            <param name="lockObject"></param>
+        </member>
+        <member name="M:ServiceStack.Redis.Support.Locking.ReadLock.Dispose">
+            <summary>
+            RAII disposal
+            </summary>
+        </member>
+        <member name="M:ServiceStack.Redis.Support.Locking.WriteLock.#ctor(System.Threading.ReaderWriterLockSlim)">
+            <summary>
+            This class manages a write lock for a local readers/writer lock, 
+            using the Resource Acquisition Is Initialization pattern
+            </summary>
+            <param name="lockObject"></param>
+        </member>
+        <member name="M:ServiceStack.Redis.Support.Locking.WriteLock.Dispose">
+            <summary>
+            RAII disposal
+            </summary>
+        </member>
+        <member name="T:ServiceStack.Redis.Support.ObjectSerializer">
+            <summary>
+            serialize/deserialize arbitrary objects
+            (objects must be serializable)
+            </summary>
+        </member>
+        <member name="M:ServiceStack.Redis.Support.ObjectSerializer.Serialize(System.Object)">
+            <summary>
+             Serialize object to buffer
+            </summary>
+            <param name="value">serializable object</param>
+            <returns></returns>
+        </member>
+        <member name="M:ServiceStack.Redis.Support.ObjectSerializer.Deserialize(System.Byte[])">
+            <summary>
+                Deserialize buffer to object
+            </summary>
+            <param name="someBytes">byte array to deserialize</param>
+            <returns></returns>
+        </member>
+        <member name="T:ServiceStack.Redis.Support.OptimizedObjectSerializer">
+            <summary>
+            Optimized  <see cref="T:ServiceStack.Redis.Support.ISerializer"/> implementation. Primitive types are manually serialized, the rest are serialized using binary serializer />.
+            </summary>
+        </member>
+        <member name="M:ServiceStack.Redis.Support.OptimizedObjectSerializer.Serialize(System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ServiceStack.Redis.Support.OptimizedObjectSerializer.Deserialize(System.Byte[])">
+            <summary>
+            
+            </summary>
+            <param name="someBytes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ServiceStack.Redis.Support.OptimizedObjectSerializer.SerializeToWrapper(System.Object)">
+            <summary>
+            serialize value and wrap with <see cref="T:ServiceStack.Redis.Support.SerializedObjectWrapper"/>
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ServiceStack.Redis.Support.OptimizedObjectSerializer.Unwrap(ServiceStack.Redis.Support.SerializedObjectWrapper)">
+            <summary>
+            Unwrap object wrapped in <see cref="T:ServiceStack.Redis.Support.SerializedObjectWrapper"/>
+            </summary>
+            <param name="item"></param>
+            <returns></returns>
         </member>
         <member name="T:ServiceStack.Redis.Support.OrderedDictionary`2">
             <summary>
@@ -1323,24 +1267,248 @@
             <param name="item">The <see cref="T:KeyValuePair{TKey,TValue}">KeyValuePair&lt;TKey,TValue&gt;</see> structure representing the key and value to remove from the <see cref="T:ServiceStack.Redis.Support.OrderedDictionary`2">OrderedDictionary&lt;TKey,TValue&gt;</see>.</param>
             <returns><see langword="true"/> if the key and value represented by <paramref name="keyValuePair"/> is successfully found and removed; otherwise, <see langword="false"/>. This method returns <see langword="false"/> if <paramref name="keyValuePair"/> is not found in the <see cref="T:ServiceStack.Redis.Support.OrderedDictionary`2">OrderedDictionary&lt;TKey,TValue&gt;</see>.</returns>
         </member>
-        <member name="T:ServiceStack.Redis.Support.ObjectSerializer">
+        <member name="T:ServiceStack.Redis.Support.Queue.Implementation.RedisChronologicalWorkQueue`1">
             <summary>
-            serialize/deserialize arbitrary objects
-            (objects must be serializable)
+            distributed work item queue. Messages are processed in chronological order
             </summary>
         </member>
-        <member name="M:ServiceStack.Redis.Support.ObjectSerializer.Serialize(System.Object)">
+        <member name="M:ServiceStack.Redis.Support.Queue.Implementation.RedisChronologicalWorkQueue`1.Enqueue(System.String,`0,System.Double)">
+            <summary>
+            Enqueue incoming messages
+            </summary>
+            <param name="workItem"></param>
+            <param name="workItemId"></param>
+            <param name="time"></param>
+        </member>
+        <member name="M:ServiceStack.Redis.Support.Queue.Implementation.RedisChronologicalWorkQueue`1.Dequeue(System.Double,System.Double,System.Int32)">
+            <summary>
+            Dequeue next batch of work items
+            </summary>
+            <param name="minTime"></param>
+            <param name="maxTime"></param>
+            <param name="maxBatchSize"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ServiceStack.Redis.Support.Queue.Implementation.RedisSequentialWorkQueue`1">
+            <summary>
+            distributed work item queue. Each message must have an associated
+            work item  id. For a given id, all work items are guaranteed to be processed
+            in the order in which they are received.
+            
+            
+            </summary>
+            <summary>
+            distributed work item queue. Each message must have an associated
+            work item  id. For a given id, all work items are guaranteed to be processed
+            in the order in which they are received.
+            
+            
+            </summary>
+        </member>
+        <member name="M:ServiceStack.Redis.Support.Queue.Implementation.RedisSequentialWorkQueue`1.Enqueue(System.String,`0)">
+            <summary>
+            Queue incoming messages
+            </summary>
+            <param name="workItem"></param>
+            <param name="workItemId"></param>
+        </member>
+        <member name="M:ServiceStack.Redis.Support.Queue.Implementation.RedisSequentialWorkQueue`1.PrepareNextWorkItem">
+            <summary>
+            Must call this periodically to move work items from priority queue to pending queue
+            </summary>
+        </member>
+        <member name="M:ServiceStack.Redis.Support.Queue.Implementation.RedisSequentialWorkQueue`1.Update(System.String,System.Int32,`0)">
+            <summary>
+            Replace existing work item in workItemId queue
+            </summary>
+            <param name="workItemId"></param>
+            <param name="index"></param>
+            <param name="newWorkItem"></param>
+        </member>
+        <member name="M:ServiceStack.Redis.Support.Queue.Implementation.RedisSequentialWorkQueue`1.Pop(System.String,System.Int32)">
+            <summary>
+            Pop items from list
+            </summary>
+            <param name="workItemId"></param>
+            <param name="itemCount"></param>
+        </member>
+        <member name="M:ServiceStack.Redis.Support.Queue.Implementation.RedisSequentialWorkQueue`1.HarvestZombies">
+            <summary>
+            Force release of locks held by crashed servers
+            </summary>
+        </member>
+        <member name="M:ServiceStack.Redis.Support.Queue.Implementation.RedisSequentialWorkQueue`1.TryForceReleaseLock(ServiceStack.Redis.Support.Queue.Implementation.SerializingRedisClient,System.String)">
+            <summary>
+            release lock held by crashed server
+            </summary>
+            <param name="client"></param>
+            <param name="workItemId"></param>
+            <returns>true if lock is released, either by this method or by another client; false otherwise</returns>
+        </member>
+        <member name="M:ServiceStack.Redis.Support.Queue.Implementation.RedisSequentialWorkQueue`1.Unlock(System.String)">
+            <summary>
+            Unlock work item id, so other servers can process items for this id
+            </summary>
+            <param name="workItemId"></param>
+        </member>
+        <member name="M:ServiceStack.Redis.Support.Queue.Implementation.RedisSequentialWorkQueue`1.DequeueManager.UpdateNextUnprocessed(`0)">
+            <summary>
+            
+            </summary>
+            <param name="newWorkItem"></param>
+        </member>
+        <member name="M:ServiceStack.Redis.Support.Queue.Implementation.RedisSequentialWorkQueue`1.DequeueManager.PopAndUnlock(System.Int32,ServiceStack.Redis.IRedisClient)">
+            <summary>
+            
+            </summary>
+            <param name="numProcessed"></param>
+            <param name="client"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ServiceStack.Redis.Support.Queue.Implementation.RedisSequentialWorkQueue`1.DequeueManager.PopAndUnlock(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="numProcessed"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ServiceStack.Redis.Support.Queue.Implementation.RedisSimpleWorkQueue`1">
+            <summary>
+            simple distributed work item queue 
+            
+            
+            </summary>
+        </member>
+        <member name="M:ServiceStack.Redis.Support.Queue.Implementation.RedisSimpleWorkQueue`1.Enqueue(`0)">
+            <summary>
+            Queue incoming messages
+            </summary>
+            <param name="msg"></param>
+        </member>
+        <member name="M:ServiceStack.Redis.Support.Queue.Implementation.RedisSimpleWorkQueue`1.Dequeue(System.Int32)">
+            <summary>
+            Dequeue next batch of work items for processing. After this method is called,
+            no other work items with same id will be available for
+            dequeuing until PostDequeue is called
+            </summary>
+            <returns>KeyValuePair: key is work item id, and value is list of dequeued items.
+            </returns>
+        </member>
+        <member name="T:ServiceStack.Redis.Support.Queue.Implementation.RedisWorkQueue`1">
+            <summary>
+            distributed work item queue
+            </summary>
+        </member>
+        <member name="M:ServiceStack.Redis.Support.Queue.Implementation.SequentialData`1.PopAndUnlock">
+            <summary>
+            pop remaining items that were returned by dequeue, and unlock queue
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ServiceStack.Redis.Support.Queue.Implementation.SequentialData`1.DoneProcessedWorkItem">
+            <summary>
+            indicate that an item has been processed by the caller
+            </summary>
+        </member>
+        <member name="M:ServiceStack.Redis.Support.Queue.Implementation.SequentialData`1.UpdateNextUnprocessed(`0)">
+            <summary>
+            Update first unprocessed work item
+            </summary>
+            <param name="newWorkItem"></param>
+        </member>
+        <member name="P:ServiceStack.Redis.Support.Queue.Implementation.SerializingRedisClient.Serializer">
+            <summary>
+            customize the client serializer
+            </summary>
+        </member>
+        <member name="M:ServiceStack.Redis.Support.Queue.Implementation.SerializingRedisClient.Serialize(System.Object)">
             <summary>
              Serialize object to buffer
             </summary>
             <param name="value">serializable object</param>
             <returns></returns>
         </member>
-        <member name="M:ServiceStack.Redis.Support.ObjectSerializer.Deserialize(System.Byte[])">
+        <member name="M:ServiceStack.Redis.Support.Queue.Implementation.SerializingRedisClient.Serialize(System.Object[])">
             <summary>
-                Deserialize buffer to object
+            
+            </summary>
+            <param name="values">array of serializable objects</param>
+            <returns></returns>
+        </member>
+        <member name="M:ServiceStack.Redis.Support.Queue.Implementation.SerializingRedisClient.Deserialize(System.Byte[])">
+            <summary>
+             Deserialize buffer to object
             </summary>
             <param name="someBytes">byte array to deserialize</param>
+            <returns></returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:ServiceStack.Redis.Support.Queue.Implementation.SerializingRedisClient.Deserialize(System.Byte[][])" -->
+        <member name="P:ServiceStack.Redis.Support.Queue.ISequentialData`1.DequeueItems">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ServiceStack.Redis.Support.Queue.ISequentialData`1.PopAndUnlock">
+            <summary>
+            pop numProcessed items from queue and unlock queue for work item id that dequeued
+            items are associated with
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ServiceStack.Redis.Support.Queue.ISequentialData`1.DoneProcessedWorkItem">
+            <summary>
+            A dequeued work item has been processed. When all of the dequeued items have been processed,
+            all items will be popped from the queue,and the queue unlocked for the work item id that
+            the dequeued items are associated with
+            </summary>
+        </member>
+        <member name="M:ServiceStack.Redis.Support.Queue.ISequentialData`1.UpdateNextUnprocessed(`0)">
+            <summary>
+            Update first unprocessed item with new work item.
+            </summary>
+            <param name="newWorkItem"></param>
+        </member>
+        <member name="M:ServiceStack.Redis.Support.Queue.ISequentialWorkQueue`1.Enqueue(System.String,`0)">
+            <summary>
+            Enqueue item in priority queue corresponding to workItemId identifier
+            </summary>
+            <param name="workItemId"></param>
+            <param name="workItem"></param>
+        </member>
+        <member name="M:ServiceStack.Redis.Support.Queue.ISequentialWorkQueue`1.PrepareNextWorkItem">
+            <summary>
+            Preprare next work item id for dequeueing
+            </summary>
+        </member>
+        <member name="M:ServiceStack.Redis.Support.Queue.ISequentialWorkQueue`1.Dequeue(System.Int32)">
+            <summary>
+            Dequeue up to maxBatchSize items from queue corresponding to workItemId identifier.
+            Once this method is called, <see cref="M:ServiceStack.Redis.Support.Queue.ISequentialWorkQueue`1.Dequeue(System.Int32)"/> or <see cref="!:Peek"/> will not
+            return any items for workItemId until the dequeue lock returned is unlocked.
+            </summary>
+            <param name="maxBatchSize"></param>
+            <param name="defer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ServiceStack.Redis.Support.Queue.ISequentialWorkQueue`1.Update(System.String,System.Int32,`0)">
+            <summary>
+            Replace existing work item in workItemId queue
+            </summary>
+            <param name="workItemId"></param>
+            <param name="index"></param>
+            <param name="newWorkItem"></param>
+        </member>
+        <member name="M:ServiceStack.Redis.Support.Queue.ISimpleWorkQueue`1.Enqueue(`0)">
+            <summary>
+            Enqueue item
+            </summary>
+            <param name="workItem"></param>
+        </member>
+        <member name="M:ServiceStack.Redis.Support.Queue.ISimpleWorkQueue`1.Dequeue(System.Int32)">
+            <summary>
+            Dequeue up to maxBatchSize items from queue
+            </summary>
+            <param name="maxBatchSize"></param>
             <returns></returns>
         </member>
         <member name="T:ServiceStack.Redis.Support.RedisNamespace">
@@ -1407,39 +1575,27 @@
             <param name="dirtyString"></param>
             <returns></returns>
         </member>
-        <member name="M:ServiceStack.Redis.RedisAllPurposePipeline.#ctor(ServiceStack.Redis.RedisClient)">
-            <summary>
-            General purpose pipeline
-            </summary>
-            <param name="redisClient"></param>
+        <member name="T:ServiceStack.Redis.Support.SerializedObjectWrapper">
+             <summary>
+             wraps a serialized representation of an object
+             </summary>
+            
         </member>
-        <member name="M:ServiceStack.Redis.RedisAllPurposePipeline.Flush">
+        <member name="M:ServiceStack.Redis.Support.SerializedObjectWrapper.#ctor(System.UInt16,System.ArraySegment{System.Byte})">
             <summary>
-            Flush send buffer, and read responses
+            Initializes a new instance of <see cref="T:ServiceStack.Redis.Support.SerializedObjectWrapper"/>.
             </summary>
+            <param name="flags">Custom item data.</param>
+            <param name="data">The serialized item.</param>
         </member>
-        <member name="T:ServiceStack.Redis.RedisQueueCompletableOperation">
+        <member name="P:ServiceStack.Redis.Support.SerializedObjectWrapper.Data">
             <summary>
-            Redis operation (transaction/pipeline) that allows queued commands to be completed
-            </summary>
-        </member>
-        <member name="T:ServiceStack.Redis.RedisClientHash">
-            <summary>
-            Wrap the common redis set operations under a ICollection[string] interface.
+            The data representing the item being stored/retireved.
             </summary>
         </member>
-        <member name="T:ServiceStack.Redis.RedisClientSortedSet">
+        <member name="P:ServiceStack.Redis.Support.SerializedObjectWrapper.Flags">
             <summary>
-            Wrap the common redis set operations under a ICollection[string] interface.
-            </summary>
-        </member>
-        <member name="T:ServiceStack.Redis.RedisCommandQueue">
-            <summary>
-            </summary>
-        </member>
-        <member name="T:ServiceStack.Redis.RedisException">
-            <summary>
-            Redis-specific exception. Thrown if unable to connect to Redis server due to socket exception, for example.
+            Flags set for this instance.
             </summary>
         </member>
         <member name="T:ServiceStack.Redis.RedisTransaction">
@@ -1463,138 +1619,6 @@
             callback for after result count is read in
             </summary>
             <param name="count"></param>
-        </member>
-        <member name="T:ServiceStack.Redis.RedisClientSet">
-            <summary>
-            Wrap the common redis set operations under a ICollection[string] interface.
-            </summary>
-        </member>
-        <member name="T:ServiceStack.Redis.RedisNativeClient">
-            <summary>
-            This class contains all the common operations for the RedisClient.
-            The client contains a 1:1 mapping of c# methods to redis operations of the same name.
-            
-            Not threadsafe use a pooled manager
-            </summary>
-        </member>
-        <member name="F:ServiceStack.Redis.RedisNativeClient.active">
-            <summary>
-            Used to manage connection pooling
-            </summary>
-        </member>
-        <member name="P:ServiceStack.Redis.RedisNativeClient.NamespacePrefix">
-            <summary>
-            Gets or sets object key prefix.
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Redis.RedisNativeClient.Exec">
-            <summary>
-            Requires custom result parsing
-            </summary>
-            <returns>Number of results</returns>
-        </member>
-        <member name="M:ServiceStack.Redis.RedisNativeClient.WriteCommandToSendBuffer(System.Byte[][])">
-            <summary>
-            Command to set multuple binary safe arguments
-            </summary>
-            <param name="cmdWithBinaryArgs"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ServiceStack.Redis.RedisNativeClient.SendUnmanagedExpectSuccess(System.Byte[][])">
-            <summary>
-            Send command outside of managed Write Buffer
-            </summary>
-            <param name="cmdWithBinaryArgs"></param>
-        </member>
-        <member name="M:ServiceStack.Redis.RedisNativeClient.ResetSendBuffer">
-            <summary>
-            reset buffer index in send buffer
-            </summary>
-        </member>
-        <member name="T:ServiceStack.Redis.RedisClientList">
-            <summary>
-            Wrap the common redis list operations under a IList[string] interface.
-            </summary>
-        </member>
-        <member name="T:ServiceStack.Redis.PooledRedisClientManager">
-            <summary>
-            Provides thread-safe pooling of redis client connections.
-            Allows load-balancing of master-write and read-slave hosts, ideal for
-            1 master and multiple replicated read slaves.
-            </summary>
-        </member>
-        <member name="P:ServiceStack.Redis.PooledRedisClientManager.NamespacePrefix">
-            <summary>
-            Gets or sets object key prefix.
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Redis.PooledRedisClientManager.#ctor(System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String},ServiceStack.Redis.RedisClientManagerConfig)">
-            <summary>
-            Hosts can be an IP Address or Hostname in the format: host[:port]
-            e.g. 127.0.0.1:6379
-            default is: localhost:6379
-            </summary>
-            <param name="readWriteHosts">The write hosts.</param>
-            <param name="readOnlyHosts">The read hosts.</param>
-            <param name="config">The config.</param>
-        </member>
-        <member name="M:ServiceStack.Redis.PooledRedisClientManager.GetClient">
-            <summary>
-            Returns a Read/Write client (The default) using the hosts defined in ReadWriteHosts
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:ServiceStack.Redis.PooledRedisClientManager.GetInActiveWriteClient(ServiceStack.Redis.RedisClient@)">
-            <summary>
-            Called within a lock
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:ServiceStack.Redis.PooledRedisClientManager.GetReadOnlyClient">
-            <summary>
-            Returns a ReadOnly client using the hosts defined in ReadOnlyHosts.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:ServiceStack.Redis.PooledRedisClientManager.GetInActiveReadClient(ServiceStack.Redis.RedisClient@)">
-            <summary>
-            Called within a lock
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:ServiceStack.Redis.PooledRedisClientManager.DisposeReadOnlyClient(ServiceStack.Redis.RedisNativeClient)">
-            <summary>
-            Disposes the read only client.
-            </summary>
-            <param name="client">The client.</param>
-        </member>
-        <member name="M:ServiceStack.Redis.PooledRedisClientManager.DisposeWriteClient(ServiceStack.Redis.RedisNativeClient)">
-            <summary>
-            Disposes the write client.
-            </summary>
-            <param name="client">The client.</param>
-        </member>
-        <member name="T:ServiceStack.Redis.PooledRedisClientManager.DisposablePooledClient`1">
-            <summary>
-            Manage a client acquired from the PooledRedisClientManager
-            Dispose method will release the client back to the pool.
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Redis.PooledRedisClientManager.DisposablePooledClient`1.#ctor(ServiceStack.Redis.PooledRedisClientManager)">
-            <summary>
-            wrap the acquired client
-            </summary>
-            <param name="clientManager"></param>
-        </member>
-        <member name="P:ServiceStack.Redis.PooledRedisClientManager.DisposablePooledClient`1.Client">
-            <summary>
-            access the wrapped client
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Redis.PooledRedisClientManager.DisposablePooledClient`1.Dispose">
-            <summary>
-            release the wrapped client back to the pool
-            </summary>
         </member>
     </members>
 </doc>
