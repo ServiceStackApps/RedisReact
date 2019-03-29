@@ -41,7 +41,7 @@ To run on Windows, download the self-extracting Winforms App:
 
 #### [RedisReact-winforms.exe](https://github.com/ServiceStackApps/RedisReact/raw/master/dist/RedisReact-winforms.exe) (23.9MB)
 
-> Windows requires .NET 4.5 installed which is pre-installed on recent version of Windows
+> Windows requires .NET 4.5 installed which is pre-installed on recent version of Windows. Also VC 2012 Redistributable needs to be installed.
 
 ### OSX
 
