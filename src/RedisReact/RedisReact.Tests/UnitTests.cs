@@ -22,7 +22,7 @@ namespace RedisReact.Tests
             .Init();
         }
 
-        [TestFixtureTearDown]
+        [OneTimeTearDown]
         public void TestFixtureTearDown()
         {
             appHost.Dispose();
