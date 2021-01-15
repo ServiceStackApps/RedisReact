@@ -33,7 +33,7 @@ namespace RedisReact.ServiceInterface
 
         public static void Configure(IAppHost appHost)
         {
-            JsConfig.EmitCamelCaseNames = true;
+            appHost.Config.UseCamelCase = true;
 
             RedisConfig.AssumeServerVersion = 2821;
 
