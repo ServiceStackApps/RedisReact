@@ -1,6 +1,13 @@
-# Redis React
+# Redis React Deprecated
 
-Redis React is a simple user-friendly UI for browsing data in Redis servers which as it's built from
+This App is no longer maintained. We've developed a more recent Redis Desktop App available at: 
+https://sharpscript.net/sharp-apps/redis#redis-vue
+
+[![](https://sharpscript.net/assets/img/screenshots/redis.png)](https://sharpscript.net/sharp-apps/redis#redis-vue)
+
+---
+
+Redis React was a simple user-friendly UI for browsing data in Redis servers which as it's built from
 a [React Desktop Template](https://github.com/ServiceStackApps/ReactChatApps), it's available on 
 multiple platforms including Windows, OSX, Linux or deployed as a Self-Hosting Console or ASP.NET Web Application.
 
