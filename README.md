@@ -1,7 +1,10 @@
 # Redis React Deprecated
 
-This App is no longer maintained. We've developed a more recent Redis Desktop App available at: 
-https://sharpscript.net/sharp-apps/redis#redis-vue
+This App is no longer maintained. The more recent [Redis Vue Desktop App](https://sharpscript.net/sharp-apps/redis#redis-vue)
+can be installed and opened with:
+
+    $ dotnet tool install -g app
+    $ app open redis
 
 [![](https://sharpscript.net/assets/img/screenshots/redis.png)](https://sharpscript.net/sharp-apps/redis#redis-vue)
 
