@@ -34,7 +34,7 @@ namespace RedisReact.AppWinForms
                 Height = Screen.PrimaryScreen.WorkingArea.Height;
             };
 
-            ChromiumBrowser.RegisterJsObject("nativeHost", new NativeHost(this));
+            ChromiumBrowser.JavascriptObjectRepository.Register("nativeHost", new NativeHost(this), false);
         }
     }
 }

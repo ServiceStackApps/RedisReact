@@ -2,6 +2,7 @@
 using System.IO;
 using System.Windows.Forms;
 using CefSharp;
+using CefSharp.WinForms;
 using RedisReact.ServiceInterface;
 using ServiceStack;
 using ServiceStack.Text;

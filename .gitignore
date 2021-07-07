@@ -118,3 +118,4 @@ ssl/
 results/
 teststub.*
 *.sqlite
+node_modules/

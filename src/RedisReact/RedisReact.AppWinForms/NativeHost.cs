@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 using CefSharp.WinForms.Internals;
 using CefSharp;
@@ -16,10 +17,13 @@ namespace RedisReact.AppWinForms
 
         public void Quit()
         {
-            formMain.InvokeOnUiThreadIfRequired(() =>
+            if (formMain.InvokeRequired)
             {
-                formMain.Close();
-            });
+                formMain.Invoke(new Action(() =>
+                {
+                    formMain.Close();
+                }));
+            }
         }
 
         public void ShowAbout()
@@ -29,22 +33,28 @@ namespace RedisReact.AppWinForms
 
         public void ToggleFormBorder()
         {
-            formMain.InvokeOnUiThreadIfRequired(() =>
+            if (formMain.InvokeRequired)
             {
-                formMain.FormBorderStyle = formMain.FormBorderStyle == FormBorderStyle.None
-                    ? FormBorderStyle.Sizable
-                    : FormBorderStyle.None;
-            });
+                formMain.Invoke(new Action(() =>
+                {
+                    formMain.FormBorderStyle = formMain.FormBorderStyle == FormBorderStyle.None
+                        ? FormBorderStyle.Sizable
+                        : FormBorderStyle.None;
+                }));
+            }
         }
 
         public void Ready()
         {
-            formMain.InvokeOnUiThreadIfRequired(() =>
+            if (formMain.InvokeRequired)
             {
+                formMain.Invoke(new Action(() =>
+                {
 #if DEBUG
-                formMain.ChromiumBrowser.KeyboardHandler = new KeyboardHandler();
+                    formMain.ChromiumBrowser.KeyboardHandler = new KeyboardHandler();
 #endif
-            });
+                }));
+            }
         }
     }
 
@@ -62,6 +72,18 @@ namespace RedisReact.AppWinForms
         }
 
         public bool OnKeyEvent(IWebBrowser browserControl, KeyType type, int windowsKeyCode, CefEventFlags modifiers, bool isSystemKey)
+        {
+            return false;
+        }
+
+        public bool OnPreKeyEvent(IWebBrowser chromiumWebBrowser, IBrowser browser, KeyType type, int windowsKeyCode,
+            int nativeKeyCode, CefEventFlags modifiers, bool isSystemKey, ref bool isKeyboardShortcut)
+        {
+            return false;
+        }
+
+        public bool OnKeyEvent(IWebBrowser chromiumWebBrowser, IBrowser browser, KeyType type, int windowsKeyCode, int nativeKeyCode,
+            CefEventFlags modifiers, bool isSystemKey)
         {
             return false;
         }
